@@ -30,6 +30,12 @@ dependencies {
     compile 'com.parse:parse-android:1.13.1'
     compile 'com.codemybrainsout.onboarding:onboarder:1.0.1'
     compile 'com.github.bhargavms:DotLoader:1.0.1'
+    compile('com.github.afollestad.material-dialogs:core:0.8.5.8@aar') {
+        transitive = true
+    }
+    compile('com.github.afollestad.material-dialogs:commons:0.8.5.8@aar') {
+        transitive = true
+    }
     testCompile 'junit:junit:4.12'
 }
 

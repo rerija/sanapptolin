@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rerijaapps.sanapptolin">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name=".SanAntolinApp"
         android:allowBackup="true"
@@ -20,6 +23,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activities.TutorialActivity" />
+        <activity
+            android:name=".Activities.AppNotActiveActivity_"
+            android:theme="@style/AppThemeNoBar" />
     </application>
 
 </manifest>

@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">SanApptolin</string>
+    <string name="error_internet">No se ha detectado conexión a Internet en su dispositivo. Conecte la red de datos o Wifi e inténtelo de nuevo más tarde.</string>
+    <string name="internet_error_title">Error accediendo a Internet.</string>
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
     <string name="tutorial_finish">Entrar</string>
     <string name="tutorial_title1">¡Empecemos!</string>
     <string name="tutorial_text1">San Antolín MDC en tu mano.</string>
@@ -9,4 +13,5 @@
     <string name="tutorial_text3">Sube tus mejores selfies de cada fiesta.</string>
     <string name="tutorial_title4">Diviértete</string>
     <string name="tutorial_text4">¡Felices fiestas!</string>
+    <string name="app_inactive">Sentimos las molestias pero la App de San Antolín no esta disponible de momento. Intenta volver a entrar en fechas próximas a San Antolín y de seguro tendrás más suerte. Disculpa.</string>
 </resources>

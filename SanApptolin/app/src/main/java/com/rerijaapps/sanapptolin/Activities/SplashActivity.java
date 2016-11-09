@@ -1,15 +1,24 @@
 package com.rerijaapps.sanapptolin.Activities;
 
+import java.util.List;
+
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.rerijaapps.sanapptolin.R;
 import com.rerijaapps.sanapptolin.Storage.Constants;
 import com.rerijaapps.sanapptolin.Storage.PreferencesManager;
+import com.rerijaapps.sanapptolin.utils.InternetHelper;
+import com.rerijaapps.sanapptolin.utils.LogUtils;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
 /**
@@ -34,26 +43,67 @@ public class SplashActivity extends AppCompatActivity
 	}
 
 	/**
-	 * Realiza la operacion del delay.
+	 * Realiza la operacion del delay y comprobacion del estado de la app.
 	 */
 	@Background
 	public void doThreadDelay()
 	{
-		try
+		if ( InternetHelper.chekInternetAndConnection( this ) )
 		{
-			Thread.sleep( SPLASH_DELAY );
-		}
-		catch ( Exception ignored )
-		{
-		}
-		if ( !PreferencesManager.getBoolean( Constants.PREFERENCE_NAME_SHOW_TUTORIAL, true ) )
-		{
-			goToMainActivity();
+			boolean appActive = false;
+			try
+			{
+				Thread.sleep( SPLASH_DELAY );
+				ParseQuery<ParseObject> parseQueryAppState = ParseQuery.getQuery( Constants.CLASS_APP_STATE_NAME );
+				List<ParseObject> parseObjectList = parseQueryAppState.find();
+				if ( null != parseObjectList )
+				{
+					appActive = parseObjectList.get( 0 ).getBoolean( Constants.CLASS_APP_STATE_COLUMN_ACTIVE_NAME );
+				}
+			}
+			catch ( Exception ex )
+			{
+				LogUtils.e( "ERROR_GET_APP_ACTIVE", ex.getMessage() );
+			}
+
+			if ( !appActive )
+			{
+				AppNotActiveActivity_.intent( this ).start();
+				finish();
+			}
+			else
+			{
+				if ( !PreferencesManager.getBoolean( Constants.PREFERENCE_NAME_SHOW_TUTORIAL, true ) )
+				{
+					goToMainActivity();
+				}
+				else
+				{
+					goToTutorialActivity();
+				}
+			}
 		}
 		else
 		{
-			goToTutorialActivity();
+			showInternetErrorAndCloseApp();
 		}
+	}
+
+	/**
+	 * Muestra un error referente a la conexion y cierra la aplicacion.
+	 */
+	@UiThread
+	public void showInternetErrorAndCloseApp()
+	{
+		new MaterialDialog.Builder( this ).title( R.string.internet_error_title ).content( R.string.error_internet ).positiveText( R.string.accept )
+				.onPositive( new MaterialDialog.SingleButtonCallback()
+				{
+					@Override
+					public void onClick( @NonNull MaterialDialog dialog, @NonNull DialogAction which )
+					{
+						finish();
+					}
+				} ).show();
 	}
 
 	/**
@@ -62,7 +112,8 @@ public class SplashActivity extends AppCompatActivity
 	@UiThread
 	public void goToMainActivity()
 	{
-
+		MainActivity_.intent( this ).start();
+		finish();
 	}
 
 	/**

@@ -18,4 +18,15 @@ public class Constants
 	 */
 	public static final String PREFERENCE_NAME_SHOW_TUTORIAL = "com.rerijaapps.sanapptolin.preference_name_show_tutorial";
 
+	/**
+	 * Indican que la app esta en modo programancion.
+	 */
+	public static final boolean DEBUG_MODE = true;
+
+	/**
+	 * PARSE VALUES.
+	 */
+	public static final String CLASS_APP_STATE_NAME = "AppState";
+	public static final String CLASS_APP_STATE_COLUMN_ACTIVE_NAME = "Active";
+
 }
