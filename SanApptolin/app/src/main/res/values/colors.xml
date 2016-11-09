@@ -3,4 +3,9 @@
     <color name="colorPrimary">#0074a6</color>
     <color name="colorPrimaryDark">#00577c</color>
     <color name="colorAccent">#00adf7</color>
+    <array name="tutorial_progress_dot_colors">
+        <item>#03A9F4</item>
+        <item>#E65100</item>
+        <item>#FFBB00</item>
+    </array>
 </resources>

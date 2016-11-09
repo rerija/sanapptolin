@@ -28,6 +28,8 @@ dependencies {
     compile 'com.android.support:support-v4:25.0.0'
     compile 'com.parse.bolts:bolts-android:1.4.0'
     compile 'com.parse:parse-android:1.13.1'
+    compile 'com.codemybrainsout.onboarding:onboarder:1.0.1'
+    compile 'com.github.bhargavms:DotLoader:1.0.1'
     testCompile 'junit:junit:4.12'
 }
 

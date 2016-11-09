@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">SanApptolin</string>
+    <string name="tutorial_finish">Entrar</string>
+    <string name="tutorial_title1">¡Empecemos!</string>
+    <string name="tutorial_text1">San Antolín MDC en tu mano.</string>
+    <string name="tutorial_title2">Programa</string>
+    <string name="tutorial_text2">Programa de fiestas, siempre actualizado.</string>
+    <string name="tutorial_title3">Selfies</string>
+    <string name="tutorial_text3">Sube tus mejores selfies de cada fiesta.</string>
+    <string name="tutorial_title4">Diviértete</string>
+    <string name="tutorial_text4">¡Felices fiestas!</string>
 </resources>
