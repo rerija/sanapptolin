@@ -29,19 +29,6 @@ public class PreferencesManager
 	}
 
 	/**
-	 * Registra el listener para cuando cambien las preferencias.
-	 *
-	 * @param listener - Listener.
-     */
-	public static void registerOnChangeListener( SharedPreferences.OnSharedPreferenceChangeListener listener )
-	{
-		if ( null != prefs )
-		{
-			prefs.registerOnSharedPreferenceChangeListener( listener );
-		}
-	}
-
-	/**
 	 * Devuelve un valor boolean.
 	 * 
 	 * @param key - Nombre de la preference.

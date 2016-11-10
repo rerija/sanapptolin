@@ -51,14 +51,23 @@ public class SplashActivity extends AppCompatActivity
 		if ( InternetHelper.chekInternetAndConnection( this ) )
 		{
 			boolean appActive = false;
+			String appName = null;
+			List<ParseObject> appDays = null;
 			try
 			{
 				Thread.sleep( SPLASH_DELAY );
 				ParseQuery<ParseObject> parseQueryAppState = ParseQuery.getQuery( Constants.CLASS_APP_STATE_NAME );
-				List<ParseObject> parseObjectList = parseQueryAppState.find();
-				if ( null != parseObjectList )
+				List<ParseObject> parseObjectAppStateList = parseQueryAppState.find();
+				if ( null != parseObjectAppStateList )
 				{
-					appActive = parseObjectList.get( 0 ).getBoolean( Constants.CLASS_APP_STATE_COLUMN_ACTIVE_NAME );
+					appActive = parseObjectAppStateList.get( 0 ).getBoolean( Constants.CLASS_APP_STATE_COLUMN_ACTIVE_NAME );
+					appName = parseObjectAppStateList.get( 0 ).getString( Constants.CLASS_APP_STATE_COLUMN_APPNAME_NAME );
+					if ( appActive )
+					{
+						ParseQuery<ParseObject> parseQueryDays = ParseQuery.getQuery( Constants.CLASS_APP_DAYS_NAME )
+								.orderByAscending( Constants.CLASS_APP_DAYS_COLUMN_DAYNAME_NAME );
+						appDays = parseQueryDays.find();
+					}
 				}
 			}
 			catch ( Exception ex )
@@ -66,14 +75,16 @@ public class SplashActivity extends AppCompatActivity
 				LogUtils.e( "ERROR_GET_APP_ACTIVE", ex.getMessage() );
 			}
 
-			if ( !appActive )
+			if ( !appActive || null == appName || null == appDays )
 			{
 				AppNotActiveActivity_.intent( this ).start();
 				finish();
 			}
 			else
 			{
-				if ( !PreferencesManager.getBoolean( Constants.PREFERENCE_NAME_SHOW_TUTORIAL, true ) )
+				Constants.PARSE_APPNAME = appName;
+				Constants.PARSE_DAYS = appDays;
+				if ( PreferencesManager.getBoolean( Constants.PREFERENCE_NAME_SHOW_TUTORIAL, false ) )
 				{
 					goToMainActivity();
 				}

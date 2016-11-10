@@ -6,6 +6,8 @@ import java.util.List;
 import com.codemybrainsout.onboarder.AhoyOnboarderActivity;
 import com.codemybrainsout.onboarder.AhoyOnboarderCard;
 import com.rerijaapps.sanapptolin.R;
+import com.rerijaapps.sanapptolin.Storage.Constants;
+import com.rerijaapps.sanapptolin.Storage.PreferencesManager;
 
 import android.os.Bundle;
 
@@ -54,6 +56,8 @@ public class TutorialActivity extends AhoyOnboarderActivity
 	@Override
 	public void onFinishButtonPressed()
 	{
-
+		PreferencesManager.setBoolean( Constants.PREFERENCE_NAME_SHOW_TUTORIAL, true );
+		MainActivity_.intent( this ).start();
+		finish();
 	}
 }

@@ -1,5 +1,10 @@
 package com.rerijaapps.sanapptolin.Storage;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.parse.ParseObject;
+
 /**
  * Created by jreci on 09/11/2016.
  */
@@ -28,5 +33,16 @@ public class Constants
 	 */
 	public static final String CLASS_APP_STATE_NAME = "AppState";
 	public static final String CLASS_APP_STATE_COLUMN_ACTIVE_NAME = "Active";
+	public static final String CLASS_APP_STATE_COLUMN_APPNAME_NAME = "AppName";
+	public static final String CLASS_APP_DAYS_NAME = "Days";
+	public static final String CLASS_APP_DAYS_COLUMN_DAYNAME_NAME = "DayName";
+	public static final String CLASS_APP_DAYS_COLUMN_COLORDAY_NAME = "ColorDay";
+
+	/**
+	 * Constantes para definir los valores que se mantienen en la app obtenido
+	 * de Parse.
+	 */
+	public static String PARSE_APPNAME = "";
+	public static List<ParseObject> PARSE_DAYS = new ArrayList<>();
 
 }
