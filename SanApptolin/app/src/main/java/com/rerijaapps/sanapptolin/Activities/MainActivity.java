@@ -13,6 +13,7 @@ import com.rerijaapps.sanapptolin.Storage.Constants;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 /**
@@ -41,6 +42,12 @@ public class MainActivity extends AppCompatActivity
 	public WaveView mWaveView;
 
 	/**
+	 * Vista del loader.
+	 */
+	@ViewById( R.id.main_loader )
+	public ProgressBar mLoader;
+
+	/**
 	 * Layout manager para el recycler view.
 	 */
 	private FanLayoutManager mFanLayoutManager;
@@ -53,11 +60,11 @@ public class MainActivity extends AppCompatActivity
 	{
 		mAppName.setText( Constants.PARSE_APPNAME );
 		FanLayoutManagerSettings fanLayoutManagerSettings = FanLayoutManagerSettings.newBuilder( this ).withFanRadius( true ).withAngleItemBounce( 5 )
-				.withViewWidthDp( 200 ).withViewHeightDp( 300 ).build();
+				.withViewWidthDp( 200 ).withViewHeightDp( ( getResources().getDisplayMetrics().heightPixels / getResources().getDisplayMetrics().density ) / 2 ).build();
 		mFanLayoutManager = new FanLayoutManager( this , fanLayoutManagerSettings );
 		mRecyclerView.setLayoutManager( mFanLayoutManager );
 		mRecyclerView.setAdapter( new MainEventsAdapter( this , Constants.PARSE_DAYS ) );
-		mWaveView.setProgress( 50 );
+		mWaveView.setProgress( 55 );
 	}
 
 }
