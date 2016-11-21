@@ -14,8 +14,8 @@ import com.parse.ParseQuery;
 import com.rerijaapps.sanapptolin.R;
 import com.rerijaapps.sanapptolin.Storage.Constants;
 import com.rerijaapps.sanapptolin.Storage.PreferencesManager;
-import com.rerijaapps.sanapptolin.utils.InternetHelper;
-import com.rerijaapps.sanapptolin.utils.LogUtils;
+import com.rerijaapps.sanapptolin.Utils.InternetHelper;
+import com.rerijaapps.sanapptolin.Utils.LogUtils;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -27,11 +27,6 @@ import android.support.v7.app.AppCompatActivity;
 @EActivity ( R.layout.activity_splash )
 public class SplashActivity extends AppCompatActivity
 {
-
-	/**
-	 * Delay para el Splash.
-	 */
-	private final int SPLASH_DELAY = 2500;
 
 	/**
 	 * Inicializa las vistas.
@@ -55,7 +50,6 @@ public class SplashActivity extends AppCompatActivity
 			List<ParseObject> appDays = null;
 			try
 			{
-				Thread.sleep( SPLASH_DELAY );
 				ParseQuery<ParseObject> parseQueryAppState = ParseQuery.getQuery( Constants.CLASS_APP_STATE_NAME );
 				List<ParseObject> parseObjectAppStateList = parseQueryAppState.find();
 				if ( null != parseObjectAppStateList )

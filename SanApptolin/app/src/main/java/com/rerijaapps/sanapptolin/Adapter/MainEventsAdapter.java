@@ -12,12 +12,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 /**
  * Created by jreci on 10/11/2016.
  */
-public class MainEventsAdapter extends RecyclerView.Adapter<MainEventsAdapter.CustomViewHolder>
+public class MainEventsAdapter extends RecyclerView.Adapter<MainEventsAdapter.EventViewHolder>
 {
 
 	/**
@@ -26,47 +27,44 @@ public class MainEventsAdapter extends RecyclerView.Adapter<MainEventsAdapter.Cu
 	private List<ParseObject> mDays;
 
 	/**
-	 * OnClickListener de las vistas.
+	 * OnItemClickListener de las vistas.
 	 */
-	private View.OnClickListener mOnClickListener;
+	private AdapterView.OnItemClickListener mOnItemClickListener;
 
 	/**
 	 * Constructor.
 	 *
 	 * @param days - Dias.
-	 * @param onClickListener - OnClickListener.
+	 * @param onItemClickListener - OnItemClickListener.
 	 */
-	public MainEventsAdapter( List<ParseObject> days, View.OnClickListener onClickListener )
+	public MainEventsAdapter( List<ParseObject> days, AdapterView.OnItemClickListener onItemClickListener )
 	{
 		this.mDays = days;
-		this.mOnClickListener = onClickListener;
+		this.mOnItemClickListener = onItemClickListener;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param viewGroup
+	 * @param parent
 	 * @param i
 	 * @return
 	 */
 	@Override
-	public CustomViewHolder onCreateViewHolder( ViewGroup viewGroup, int i )
+	public EventViewHolder onCreateViewHolder( ViewGroup parent, int i )
 	{
-		View view = LayoutInflater.from( viewGroup.getContext() ).inflate( R.layout.adapter_main_events, null );
-		CustomViewHolder viewHolder = new CustomViewHolder( view );
-		view.setOnClickListener( mOnClickListener );
-		view.setTag( mDays.get( i ) );
-		return viewHolder;
+		View view = LayoutInflater.from( parent.getContext() ).inflate( R.layout.adapter_main_events, parent, false );
+		return new EventViewHolder( view );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param customViewHolder
+	 * @param eventViewHolder
 	 * @param i
 	 */
 	@Override
-	public void onBindViewHolder( CustomViewHolder customViewHolder, int i )
+	public void onBindViewHolder( final EventViewHolder eventViewHolder, int i )
 	{
 		int colorCardView = Color.parseColor( "#FFFFFF" );
 		try
@@ -76,9 +74,18 @@ public class MainEventsAdapter extends RecyclerView.Adapter<MainEventsAdapter.Cu
 		catch ( Exception ignored )
 		{
 		}
-		customViewHolder.getDayText().setText( null != mDays.get( i ).getString( Constants.CLASS_APP_DAYS_COLUMN_DAYNAME_NAME )
+		eventViewHolder.getDayText().setText( null != mDays.get( i ).getString( Constants.CLASS_APP_DAYS_COLUMN_DAYNAME_NAME )
 				? mDays.get( i ).getString( Constants.CLASS_APP_DAYS_COLUMN_DAYNAME_NAME ) : "" );
-		customViewHolder.getCardView().setCardBackgroundColor( colorCardView );
+		eventViewHolder.getCardView().setCardBackgroundColor( colorCardView );
+		eventViewHolder.itemView.setOnClickListener( new View.OnClickListener()
+		{
+			@Override
+			public void onClick( View view )
+			{
+				view.setTag( mDays.get( eventViewHolder.getAdapterPosition() ) );
+				mOnItemClickListener.onItemClick( null, view, eventViewHolder.getAdapterPosition(), 0 );
+			}
+		} );
 	}
 
 	/**
@@ -95,7 +102,7 @@ public class MainEventsAdapter extends RecyclerView.Adapter<MainEventsAdapter.Cu
 	/**
 	 * Clase privada para personalizar el view holder.
 	 */
-	class CustomViewHolder extends RecyclerView.ViewHolder
+	class EventViewHolder extends RecyclerView.ViewHolder
 	{
 
 		/**
@@ -113,7 +120,7 @@ public class MainEventsAdapter extends RecyclerView.Adapter<MainEventsAdapter.Cu
 		 *
 		 * @param view - Vista.
 		 */
-		public CustomViewHolder( View view )
+		public EventViewHolder( View view )
 		{
 			super( view );
 			mCardView = ( CardView ) view;

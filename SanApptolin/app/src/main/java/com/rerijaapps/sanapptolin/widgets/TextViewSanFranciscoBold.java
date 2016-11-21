@@ -1,4 +1,4 @@
-package com.rerijaapps.sanapptolin.widgets;
+package com.rerijaapps.sanapptolin.Widgets;
 
 import android.content.Context;
 import android.graphics.Typeface;

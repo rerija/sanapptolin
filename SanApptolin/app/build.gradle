@@ -38,9 +38,11 @@ dependencies {
     }
     testCompile 'junit:junit:4.12'
     compile 'com.cleveroad:fan-layout-manager:1.0.1'
-    compile 'com.github.IntruderShanky:Squint:2.1.0'
     compile 'com.github.john990:WaveView:v0.9'
     compile 'com.ufreedom.uikit:FloatingTextLibrary:0.2.0'
+    compile 'com.flaviofaria:kenburnsview:1.0.7'
+    compile 'com.github.florent37:arclayout:1.0.0'
+    compile 'com.github.florent37:diagonallayout:1.0.2'
 }
 
 apt {

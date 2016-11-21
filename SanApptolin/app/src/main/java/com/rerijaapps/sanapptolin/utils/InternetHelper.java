@@ -1,4 +1,4 @@
-package com.rerijaapps.sanapptolin.utils;
+package com.rerijaapps.sanapptolin.Utils;
 
 import java.net.InetAddress;
 import java.util.concurrent.CountDownLatch;

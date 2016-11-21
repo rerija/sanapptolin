@@ -5,6 +5,7 @@ import java.util.List;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import com.cleveroad.fanlayoutmanager.FanLayoutManager;
@@ -14,15 +15,18 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rerijaapps.sanapptolin.R;
 import com.rerijaapps.sanapptolin.Adapter.MainEventsAdapter;
+import com.rerijaapps.sanapptolin.Serializable.Event;
 import com.rerijaapps.sanapptolin.Storage.Constants;
 import com.ufreedom.uikit.FloatingText;
 import com.ufreedom.uikit.effect.CurveFloatingPathEffect;
 import com.ufreedom.uikit.effect.CurvePathFloatingAnimator;
 
 import android.graphics.Color;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -30,7 +34,7 @@ import android.widget.TextView;
  * Created by jreci on 09/11/2016.
  */
 @EActivity ( R.layout.activity_main )
-public class MainActivity extends AppCompatActivity implements View.OnClickListener
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener
 {
 
 	/**
@@ -87,23 +91,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				.withViewWidthDp( 200 ).withViewHeightDp( ( getResources().getDisplayMetrics().heightPixels / getResources().getDisplayMetrics().density ) / 2 ).build();
 		mFanLayoutManager = new FanLayoutManager( this , fanLayoutManagerSettings );
 		mRecyclerView.setLayoutManager( mFanLayoutManager );
-		mRecyclerView.setAdapter( new MainEventsAdapter( Constants.PARSE_DAYS , this ) );
+		MainEventsAdapter mainEventsAdapter = new MainEventsAdapter( Constants.PARSE_DAYS , this );
+		mRecyclerView.setAdapter( mainEventsAdapter );
 		mWaveView.setProgress( 55 );
 	}
 
 	/**
 	 * {@inheritDoc}
 	 *
+	 * @param adapterView
 	 * @param view
+	 * @param position
+	 * @param l
 	 */
 	@Override
-	public void onClick( View view )
+	public void onItemClick( AdapterView<?> adapterView, final View view, int position, long l )
 	{
+		mFanLayoutManager.scrollToPosition( position );
 		if ( !isLoadingProgramation && null != view.getTag() )
 		{
 			mLoader.setVisibility( View.VISIBLE );
 			mFloatingLoadingText.startFloating( view );
-			loadingProgramation( ( ParseObject ) view.getTag() );
+			final Runnable postRunnable = new Runnable()
+			{
+				@Override
+				public void run()
+				{
+					loadingProgramation( ( ParseObject ) view.getTag() );
+				}
+			};
+			new Handler().postDelayed( postRunnable, 1000 );
 		}
 	}
 
@@ -126,14 +143,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 				if ( null != parseObjectList && !parseObjectList.isEmpty() )
 				{
 					byte[] imageByteArray = parseObjectList.get( 0 ).getParseFile( Constants.CLASS_IMAGES_COLUMN_IMAGE_NAME ).getData();
-					int a = 0;
+					Event event = new Event();
+					event.setImageDay( imageByteArray );
+					event.setColorDay( day.getString( Constants.CLASS_APP_DAYS_COLUMN_COLORDAY_NAME ) );
+					postLoadingProgramation( event );
 				}
 			}
 			catch ( Exception ignored )
 			{
-
+				postLoadingProgramation( null );
 			}
 		}
 	}
 
+	/**
+	 * Realiza las operaciones necesarias tras cargar el evento.
+	 *
+	 * @param event - Evento.
+	 */
+	@UiThread
+	public void postLoadingProgramation( Event event )
+	{
+		isLoadingProgramation = false;
+		mLoader.setVisibility( View.GONE );
+		if ( null != event )
+		{
+			EventActivity_.intent( MainActivity.this ).mEvent( event ).start();
+		}
+	}
 }
