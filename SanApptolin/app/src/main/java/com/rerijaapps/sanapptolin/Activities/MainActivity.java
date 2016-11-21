@@ -1,18 +1,28 @@
 package com.rerijaapps.sanapptolin.Activities;
 
+import java.util.List;
+
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import com.cleveroad.fanlayoutmanager.FanLayoutManager;
 import com.cleveroad.fanlayoutmanager.FanLayoutManagerSettings;
 import com.john.waveview.WaveView;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.rerijaapps.sanapptolin.R;
 import com.rerijaapps.sanapptolin.Adapter.MainEventsAdapter;
 import com.rerijaapps.sanapptolin.Storage.Constants;
+import com.ufreedom.uikit.FloatingText;
+import com.ufreedom.uikit.effect.CurveFloatingPathEffect;
+import com.ufreedom.uikit.effect.CurvePathFloatingAnimator;
 
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -20,7 +30,7 @@ import android.widget.TextView;
  * Created by jreci on 09/11/2016.
  */
 @EActivity ( R.layout.activity_main )
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements View.OnClickListener
 {
 
 	/**
@@ -44,7 +54,7 @@ public class MainActivity extends AppCompatActivity
 	/**
 	 * Vista del loader.
 	 */
-	@ViewById( R.id.main_loader )
+	@ViewById ( R.id.main_loader )
 	public ProgressBar mLoader;
 
 	/**
@@ -53,18 +63,77 @@ public class MainActivity extends AppCompatActivity
 	private FanLayoutManager mFanLayoutManager;
 
 	/**
+	 * Indica si esta cargando la programacion.
+	 */
+	private boolean isLoadingProgramation;
+
+	/**
+	 * Floating Text para la carga de los elementos del listado.
+	 */
+	private FloatingText mFloatingLoadingText;
+
+	/**
 	 * Inicializa las vistas de la pantalla.
 	 */
 	@AfterViews
 	public void setupViews()
 	{
+		mFloatingLoadingText = new FloatingText.FloatingTextBuilder( MainActivity.this ).textColor( Color.WHITE ).textSize( 50 )
+				.floatingAnimatorEffect( new CurvePathFloatingAnimator() ).floatingPathEffect( new CurveFloatingPathEffect() )
+				.textContent( getString( R.string.loading_programation ) ).build();
+		mFloatingLoadingText.attach2Window();
 		mAppName.setText( Constants.PARSE_APPNAME );
 		FanLayoutManagerSettings fanLayoutManagerSettings = FanLayoutManagerSettings.newBuilder( this ).withFanRadius( true ).withAngleItemBounce( 5 )
 				.withViewWidthDp( 200 ).withViewHeightDp( ( getResources().getDisplayMetrics().heightPixels / getResources().getDisplayMetrics().density ) / 2 ).build();
 		mFanLayoutManager = new FanLayoutManager( this , fanLayoutManagerSettings );
 		mRecyclerView.setLayoutManager( mFanLayoutManager );
-		mRecyclerView.setAdapter( new MainEventsAdapter( this , Constants.PARSE_DAYS ) );
+		mRecyclerView.setAdapter( new MainEventsAdapter( Constants.PARSE_DAYS , this ) );
 		mWaveView.setProgress( 55 );
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @param view
+	 */
+	@Override
+	public void onClick( View view )
+	{
+		if ( !isLoadingProgramation && null != view.getTag() )
+		{
+			mLoader.setVisibility( View.VISIBLE );
+			mFloatingLoadingText.startFloating( view );
+			loadingProgramation( ( ParseObject ) view.getTag() );
+		}
+	}
+
+	/**
+	 * Carga la programacion para el dia seleccionado.
+	 *
+	 * @param day - Dia seleccionado.
+	 */
+	@Background
+	public void loadingProgramation( ParseObject day )
+	{
+		isLoadingProgramation = true;
+		if ( null != day )
+		{
+			try
+			{
+				ParseQuery<ParseObject> imageDay = ParseQuery.getQuery( Constants.CLASS_IMAGES_NAME );
+				imageDay.whereEqualTo( Constants.CLASS_IMAGES_COLUMN_IMAGEDAY_NAME, day );
+				List<ParseObject> parseObjectList = imageDay.find();
+				if ( null != parseObjectList && !parseObjectList.isEmpty() )
+				{
+					byte[] imageByteArray = parseObjectList.get( 0 ).getParseFile( Constants.CLASS_IMAGES_COLUMN_IMAGE_NAME ).getData();
+					int a = 0;
+				}
+			}
+			catch ( Exception ignored )
+			{
+
+			}
+		}
 	}
 
 }

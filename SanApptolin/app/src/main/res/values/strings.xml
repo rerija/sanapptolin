@@ -15,4 +15,5 @@
     <string name="tutorial_text4">¡Felices fiestas!</string>
     <string name="app_inactive">Sentimos las molestias pero la App de San Antolín no esta disponible de momento. Intenta volver a entrar en fechas próximas a San Antolín y de seguro tendrás más suerte. Disculpa.</string>
     <string name="day_of_week">Día de la semana</string>
+    <string name="loading_programation">¡Cargando programacion!</string>
 </resources>
