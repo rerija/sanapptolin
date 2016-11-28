@@ -15,7 +15,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rerijaapps.sanapptolin.R;
 import com.rerijaapps.sanapptolin.Adapter.MainEventsAdapter;
-import com.rerijaapps.sanapptolin.Serializable.Event;
+import com.rerijaapps.sanapptolin.Serializable.DayInfo;
 import com.rerijaapps.sanapptolin.Storage.Constants;
 import com.ufreedom.uikit.FloatingText;
 import com.ufreedom.uikit.effect.CurveFloatingPathEffect;
@@ -143,10 +143,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 				if ( null != parseObjectList && !parseObjectList.isEmpty() )
 				{
 					byte[] imageByteArray = parseObjectList.get( 0 ).getParseFile( Constants.CLASS_IMAGES_COLUMN_IMAGE_NAME ).getData();
-					Event event = new Event();
-					event.setImageDay( imageByteArray );
-					event.setColorDay( day.getString( Constants.CLASS_APP_DAYS_COLUMN_COLORDAY_NAME ) );
-					postLoadingProgramation( event );
+					DayInfo dayInfo = new DayInfo();
+					dayInfo.setImageDay( imageByteArray );
+					dayInfo.setColorDay( day.getString( Constants.CLASS_APP_DAYS_COLUMN_COLORDAY_NAME ) );
+					postLoadingProgramation(dayInfo);
 				}
 			}
 			catch ( Exception ignored )
@@ -159,16 +159,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 	/**
 	 * Realiza las operaciones necesarias tras cargar el evento.
 	 *
-	 * @param event - Evento.
+	 * @param dayInfo - Evento.
 	 */
 	@UiThread
-	public void postLoadingProgramation( Event event )
+	public void postLoadingProgramation( DayInfo dayInfo)
 	{
 		isLoadingProgramation = false;
 		mLoader.setVisibility( View.GONE );
-		if ( null != event )
+		if ( null != dayInfo)
 		{
-			EventActivity_.intent( MainActivity.this ).mEvent( event ).start();
+			EventActivity_.intent( MainActivity.this ).mDayInfo(dayInfo).start();
 		}
 	}
 }

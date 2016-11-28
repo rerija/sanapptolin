@@ -40,7 +40,7 @@ public class Constants
 	public static final String CLASS_IMAGES_NAME = "Images";
 	public static final String CLASS_IMAGES_COLUMN_IMAGEDAY_NAME = "ImageDay";
 	public static final String CLASS_IMAGES_COLUMN_IMAGE_NAME = "Image";
-	public static final String CLASS_EVENT_NAME = "Event";
+	public static final String CLASS_EVENT_NAME = "DayInfo";
 
 	/**
 	 * Constantes para definir los valores que se mantienen en la app obtenido

@@ -1,42 +1,32 @@
 package com.rerijaapps.sanapptolin.Serializable;
 
-import java.io.Serializable;
+import java.util.Date;
 
 /**
- * Created by user on 21/11/2016.
+ * Created by jreci on 28/11/2016.
  */
-public class Event implements Serializable
+public class Event
 {
-	private static final long serialVersionUID = -1950718680359355593L;
-
 	/**
-	 * Contiene la imagen del evento.
+	 * Hora del evento.
 	 */
-	private byte[] mImageDay;
+	private Date mHour;
 
 	/**
-	 * Contiene el color del evento,
+	 * Descripcion del evento.
 	 */
-	private String mColorDay;
+	private String mDescription;
 
 	/**
-	 * {@inheritDoc}
+	 * Constructor.
 	 *
-	 * @return
+	 * @param mHour - Hora.
+	 * @param mDescription - Descripcion.
 	 */
-	public byte[] getImageDay()
+	public Event( Date mHour, String mDescription )
 	{
-		return mImageDay;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @param mImageDay
-	 */
-	public void setImageDay( byte[] mImageDay )
-	{
-		this.mImageDay = mImageDay;
+		this.mHour = mHour;
+		this.mDescription = mDescription;
 	}
 
 	/**
@@ -44,18 +34,38 @@ public class Event implements Serializable
 	 *
 	 * @return
 	 */
-	public String getColorDay()
+	public Date getHour()
 	{
-		return mColorDay;
+		return mHour;
 	}
 
 	/**
 	 * {@inheritDoc}
 	 *
-	 * @param mColorDay
+	 * @param mHour
 	 */
-	public void setColorDay( String mColorDay )
+	public void setHour( Date mHour )
 	{
-		this.mColorDay = mColorDay;
+		this.mHour = mHour;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @return
+	 */
+	public String getDescription()
+	{
+		return mDescription;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @param mDescription
+	 */
+	public void setDescription( String mDescription )
+	{
+		this.mDescription = mDescription;
 	}
 }

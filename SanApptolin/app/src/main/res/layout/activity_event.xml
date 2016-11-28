@@ -6,6 +6,7 @@
     android:layout_height="match_parent">
 
     <com.github.florent37.arclayout.ArcLayout
+        android:id="@+id/event_arc"
         android:layout_width="match_parent"
         android:layout_height="250dp"
         app:arc_cropDirection="cropOutside"
@@ -18,7 +19,16 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop" />
 
-
     </com.github.florent37.arclayout.ArcLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/event_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/event_arc">
+
+
+
+    </android.support.v7.widget.RecyclerView>
 
 </RelativeLayout>
