@@ -8,6 +8,8 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.cleveroad.fanlayoutmanager.FanLayoutManager;
 import com.cleveroad.fanlayoutmanager.FanLayoutManagerSettings;
 import com.john.waveview.WaveView;
@@ -17,12 +19,14 @@ import com.rerijaapps.sanapptolin.R;
 import com.rerijaapps.sanapptolin.Adapter.MainEventsAdapter;
 import com.rerijaapps.sanapptolin.Serializable.DayInfo;
 import com.rerijaapps.sanapptolin.Storage.Constants;
+import com.rerijaapps.sanapptolin.Utils.InternetHelper;
 import com.ufreedom.uikit.FloatingText;
 import com.ufreedom.uikit.effect.CurveFloatingPathEffect;
 import com.ufreedom.uikit.effect.CurvePathFloatingAnimator;
 
 import android.graphics.Color;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -108,20 +112,44 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 	public void onItemClick( AdapterView<?> adapterView, final View view, int position, long l )
 	{
 		mFanLayoutManager.scrollToPosition( position );
-		if ( !isLoadingProgramation && null != view.getTag() )
+		if ( InternetHelper.chekInternetAndConnection( this ) )
 		{
-			mLoader.setVisibility( View.VISIBLE );
-			mFloatingLoadingText.startFloating( view );
-			final Runnable postRunnable = new Runnable()
+			if ( !isLoadingProgramation && null != view.getTag() )
 			{
-				@Override
-				public void run()
+				mLoader.setVisibility( View.VISIBLE );
+				mFloatingLoadingText.startFloating( view );
+				final Runnable postRunnable = new Runnable()
 				{
-					loadingProgramation( ( ParseObject ) view.getTag() );
-				}
-			};
-			new Handler().postDelayed( postRunnable, 1000 );
+					@Override
+					public void run()
+					{
+						loadingProgramation( ( ParseObject ) view.getTag() );
+					}
+				};
+				new Handler().postDelayed( postRunnable, 1000 );
+			}
 		}
+		else
+		{
+			showInternetErrorAndCloseApp();
+		}
+	}
+
+	/**
+	 * Muestra un error referente a la conexion y cierra la aplicacion.
+	 */
+	@UiThread
+	public void showInternetErrorAndCloseApp()
+	{
+		new MaterialDialog.Builder( this ).title( R.string.internet_error_title ).content( R.string.error_internet ).positiveText( R.string.accept )
+				.onPositive( new MaterialDialog.SingleButtonCallback()
+				{
+					@Override
+					public void onClick( @NonNull MaterialDialog dialog, @NonNull DialogAction which )
+					{
+						finish();
+					}
+				} ).show();
 	}
 
 	/**
@@ -146,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 					DayInfo dayInfo = new DayInfo();
 					dayInfo.setImageDay( imageByteArray );
 					dayInfo.setColorDay( day.getString( Constants.CLASS_APP_DAYS_COLUMN_COLORDAY_NAME ) );
-					postLoadingProgramation(dayInfo);
+					postLoadingProgramation( dayInfo );
 				}
 			}
 			catch ( Exception ignored )
@@ -162,13 +190,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 	 * @param dayInfo - Evento.
 	 */
 	@UiThread
-	public void postLoadingProgramation( DayInfo dayInfo)
+	public void postLoadingProgramation( DayInfo dayInfo )
 	{
 		isLoadingProgramation = false;
 		mLoader.setVisibility( View.GONE );
-		if ( null != dayInfo)
+		if ( null != dayInfo )
 		{
-			EventActivity_.intent( MainActivity.this ).mDayInfo(dayInfo).start();
+			EventActivity_.intent( MainActivity.this ).mDayInfo( dayInfo ).start();
 		}
 	}
 }

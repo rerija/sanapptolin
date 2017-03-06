@@ -3,9 +3,9 @@
   <component name="EclipseCodeFormatter">
     <option name="defaultSettings" value="true" />
     <option name="formatter" value="ECLIPSE" />
-    <option name="id" value="1473700561857" />
+    <option name="id" value="1465546346116" />
     <option name="name" value="default" />
-    <option name="pathToConfigFileJava" value="$PROJECT_DIR$/../../../Archivos de desarrollo FFM/ffmCodeStyle2.xml" />
+    <option name="pathToConfigFileJava" value="$PROJECT_DIR$/../../../Google Drive/Archivos de desarrollo FFM/Code Style FFM.xml" />
     <option name="selectedJavaProfile" value="FFM Style" />
   </component>
   <component name="EntryPointsManager">

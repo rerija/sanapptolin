@@ -1,12 +1,16 @@
 package com.rerijaapps.sanapptolin.Serializable;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by jreci on 28/11/2016.
  */
-public class Event
+public class Event implements Serializable
 {
+
+	private static final long serialVersionUID = 4202353040597412666L;
+
 	/**
 	 * Hora del evento.
 	 */

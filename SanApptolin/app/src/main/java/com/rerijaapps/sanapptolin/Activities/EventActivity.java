@@ -35,7 +35,7 @@ public class EventActivity extends AppCompatActivity
 	 * Listado de eventos.
 	 */
 	@Extra ( "com.rerijaapps.sanapptolin.event_list" )
-	public List<Event> mEventList;
+	public Event[] mEventList;
 
 	/**
 	 * Image del evento.
