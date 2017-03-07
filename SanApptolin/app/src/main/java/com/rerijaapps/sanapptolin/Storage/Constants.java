@@ -44,6 +44,10 @@ public class Constants
 	public static final String CLASS_EVENT_COLUMN_DAY = "Day";
 	public static final String CLASS_EVENT_COLUMN_HOUR = "Hour";
 	public static final String CLASS_EVENT_COLUMN_DESCRIPTION = "Description";
+	public static final String CLASS_EVENT_IMAGES_NAME = "EventImages";
+	public static final String CLASS_EVENT_IMAGES_COLUMN_COMMENT = "Comment";
+	public static final String CLASS_EVENT_IMAGES_COLUMN_PHOTO = "Photo";
+	public static final String CLASS_EVENT_IMAGES_COLUMN_EVENT = "Event";
 
 	/**
 	 * Constantes para definir los valores que se mantienen en la app obtenido

@@ -12,7 +12,7 @@ public class DayInfo implements Serializable
 	/**
 	 * Contiene la imagen del dia.
 	 */
-	private byte[] mImageDay;
+	private String mImageDay;
 
 	/**
 	 * Contiene el color del dia.
@@ -39,7 +39,7 @@ public class DayInfo implements Serializable
 	 *
 	 * @return
 	 */
-	public byte[] getImageDay()
+	public String getImageDay()
 	{
 		return mImageDay;
 	}
@@ -49,7 +49,7 @@ public class DayInfo implements Serializable
 	 *
 	 * @param mImageDay
 	 */
-	public void setImageDay( byte[] mImageDay )
+	public void setImageDay( String mImageDay )
 	{
 		this.mImageDay = mImageDay;
 	}

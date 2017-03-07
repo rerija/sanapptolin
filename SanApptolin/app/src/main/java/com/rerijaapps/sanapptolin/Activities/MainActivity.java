@@ -20,6 +20,7 @@ import com.rerijaapps.sanapptolin.Serializable.DayInfo;
 import com.rerijaapps.sanapptolin.Serializable.Event;
 import com.rerijaapps.sanapptolin.Storage.Constants;
 import com.rerijaapps.sanapptolin.Utils.InternetHelper;
+import com.rerijaapps.sanapptolin.Utils.LogUtils;
 import com.ufreedom.uikit.FloatingText;
 import com.ufreedom.uikit.effect.CurveFloatingPathEffect;
 import com.ufreedom.uikit.effect.CurvePathFloatingAnimator;
@@ -163,9 +164,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 				List<ParseObject> parseImageDayList = imageDay.find();
 				if ( null != parseImageDayList && !parseImageDayList.isEmpty() )
 				{
-					byte[] imageByteArray = parseImageDayList.get( 0 ).getParseFile( Constants.CLASS_IMAGES_COLUMN_IMAGE_NAME ).getData();
+					String urlImage = parseImageDayList.get( 0 ).getParseFile( Constants.CLASS_IMAGES_COLUMN_IMAGE_NAME ).getUrl();
 					DayInfo dayInfo = new DayInfo();
-					dayInfo.setImageDay( imageByteArray );
+					dayInfo.setImageDay( urlImage );
 					dayInfo.setColorDay( day.getString( Constants.CLASS_APP_DAYS_COLUMN_COLORDAY_NAME ) );
 					dayInfo.setDayName( day.getString( Constants.CLASS_APP_DAYS_COLUMN_DAYNAME_NAME ) );
 
@@ -195,8 +196,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 					postLoadingProgramation( null, null );
 				}
 			}
-			catch ( Exception ignored )
+			catch ( Exception ex )
 			{
+				LogUtils.e( "ERROR_LOAADING_PROGRAMACION", ex.getMessage() );
 				postLoadingProgramation( null, null );
 			}
 		}

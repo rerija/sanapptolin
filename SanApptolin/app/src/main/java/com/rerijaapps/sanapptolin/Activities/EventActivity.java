@@ -6,6 +6,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
+import com.bumptech.glide.Glide;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.rerijaapps.sanapptolin.R;
 import com.rerijaapps.sanapptolin.Adapter.EventAdapter;
@@ -73,10 +74,7 @@ public class EventActivity extends AppCompatActivity
 
 		if ( null != mDayInfo )
 		{
-			if ( null != mDayInfo.getImageDay() )
-			{
-				mEventImage.setImageBitmap( BitmapFactory.decodeByteArray( mDayInfo.getImageDay(), 0, mDayInfo.getImageDay().length ) );
-			}
+			Glide.with( this ).load( mDayInfo.getImageDay() ).into( mEventImage );
 			if ( null != mDayInfo.getColorDay() )
 			{
 				mBackgroundView.setBackgroundColor( Color.parseColor( mDayInfo.getColorDay() ) );
