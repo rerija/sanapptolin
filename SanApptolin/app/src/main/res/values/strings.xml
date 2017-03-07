@@ -16,4 +16,5 @@
     <string name="app_inactive">Sentimos las molestias pero la App de San Antolín no esta disponible de momento. Intenta volver a entrar en fechas próximas a San Antolín y de seguro tendrás más suerte. Disculpa.</string>
     <string name="day_of_week">Día de la semana</string>
     <string name="loading_programation">¡Cargando programacion!</string>
+    <string name="event_share_text">¡Hola! Quiero compartir contigo el evento del dia %1$s de %2$s a las %3$s horas: %4$s</string>
 </resources>

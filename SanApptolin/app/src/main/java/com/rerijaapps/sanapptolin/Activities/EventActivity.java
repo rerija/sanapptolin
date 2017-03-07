@@ -1,22 +1,24 @@
 package com.rerijaapps.sanapptolin.Activities;
 
-import java.util.List;
-
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.rerijaapps.sanapptolin.R;
+import com.rerijaapps.sanapptolin.Adapter.EventAdapter;
 import com.rerijaapps.sanapptolin.Serializable.DayInfo;
 import com.rerijaapps.sanapptolin.Serializable.Event;
 
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.TextView;
 
 /**
  * Created by user on 21/11/2016.
@@ -36,6 +38,12 @@ public class EventActivity extends AppCompatActivity
 	 */
 	@Extra ( "com.rerijaapps.sanapptolin.event_list" )
 	public Event[] mEventList;
+
+	/**
+	 * Texto con el nombre del dia.
+	 */
+	@ViewById ( R.id.event_day )
+	public TextView mDayNameText;
 
 	/**
 	 * Image del evento.
@@ -61,7 +69,9 @@ public class EventActivity extends AppCompatActivity
 	@AfterViews
 	public void setupViews()
 	{
-		if ( null != mDayInfo && null != mDayInfo.getImageDay() )
+		mDayNameText.setText( null != mDayInfo.getDayName() ? mDayInfo.getDayName() : "" );
+
+		if ( null != mDayInfo )
 		{
 			if ( null != mDayInfo.getImageDay() )
 			{
@@ -70,8 +80,24 @@ public class EventActivity extends AppCompatActivity
 			if ( null != mDayInfo.getColorDay() )
 			{
 				mBackgroundView.setBackgroundColor( Color.parseColor( mDayInfo.getColorDay() ) );
+				( ( GradientDrawable ) mDayNameText.getBackground() ).setColor( Color.parseColor( mDayInfo.getColorDay() ) );
 			}
 		}
+		if ( null != mEventList && 0 < mEventList.length )
+		{
+			mEventRecycler.setAdapter( new EventAdapter( mDayInfo , mEventList ) );
+		}
+	}
+
+	/**
+	 * Click para el boton back.
+	 *
+	 * @param view - Boton back.
+	 */
+	@Click ( R.id.back )
+	public void clickBack( View view )
+	{
+		onBackPressed();
 	}
 
 }

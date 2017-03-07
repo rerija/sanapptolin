@@ -20,6 +20,21 @@ public class DayInfo implements Serializable
 	private String mColorDay;
 
 	/**
+	 * Contiene el nombre del dia.
+	 */
+	private String mDayName;
+
+	public String getDayName()
+	{
+		return mDayName;
+	}
+
+	public void setDayName( String mDayName )
+	{
+		this.mDayName = mDayName;
+	}
+
+	/**
 	 * {@inheritDoc}
 	 *
 	 * @return

@@ -5,30 +5,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.github.florent37.arclayout.ArcLayout
-        android:id="@+id/event_arc"
+    <com.flaviofaria.kenburnsview.KenBurnsView
+        android:id="@+id/event_image"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        app:arc_cropDirection="cropOutside"
-        app:arc_height="70dp"
-        app:arc_padding="30dp">
+        android:layout_height="200dp"
+        android:scaleType="centerCrop" />
 
-        <com.flaviofaria.kenburnsview.KenBurnsView
-            android:id="@+id/event_image"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@drawable/shadow"/>
 
-    </com.github.florent37.arclayout.ArcLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_back_white_24dp"
+            android:layout_margin="16dp"/>
+
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/event_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/event_arc">
+        android:layout_below="@+id/event_image"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_alignTop="@+id/event_recycler"
+        android:background="@drawable/shadow" />
 
-
-    </android.support.v7.widget.RecyclerView>
+    <com.rerijaapps.sanapptolin.Widgets.TextViewSanFranciscoBold
+        android:id="@+id/event_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-16dp"
+        android:background="@drawable/rounded_shape_primary_color"
+        android:layout_alignBottom="@+id/event_image"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"/>
 
 </RelativeLayout>

@@ -1,78 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:diagonal="http://schemas.android.com/apk/res-auto"
-    xmlns:wave="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
 
-    <com.john.waveview.WaveView
-        android:id="@+id/main_wave"
+    <com.flaviofaria.kenburnsview.KenBurnsView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark"
-        wave:above_wave_color="@android:color/white"
-        wave:blow_wave_color="@android:color/white"
-        wave:wave_height="little"
-        wave:wave_hz="normal"
-        wave:wave_length="middle" />
+        android:layout_alignBottom="@+id/centerScreenVertical"
+        android:scaleType="centerCrop"
+        android:src="@drawable/mdc_muchedumbre" />
 
-    <com.github.florent37.diagonallayout.DiagonalLayout
-        android:id="@+id/main_diagonal_view"
+    <View
+        android:id="@+id/centerScreenVertical"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        diagonal:diagonal_angle="10"
-        diagonal:diagonal_gravity="left">
+        android:layout_height="1dp"
+        android:layout_centerVertical="true" />
 
-        <com.flaviofaria.kenburnsview.KenBurnsView
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/main_icon"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/main_icon"
+            android:layout_margin="16dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <com.rerijaapps.sanapptolin.Widgets.TextViewSanFranciscoBold
+                android:id="@+id/main_app_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_shape_primary_color"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/main_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/mdc_muchedumbre" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:overScrollMode="never" />
 
-    </com.github.florent37.diagonallayout.DiagonalLayout>
+        <ImageView
+            android:id="@+id/main_icon"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_margin="16dp"
+            android:background="@drawable/circle_shape_gray_color"
+            android:padding="15dp"
+            android:src="@drawable/splash_icon" />
 
-    <com.rerijaapps.sanapptolin.Widgets.TextViewSanFranciscoBold
-        android:id="@+id/main_app_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/main_diagonal_view"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="-5dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/rounded_shape_primary_color"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/main_loader"
+            android:layout_width="102dp"
+            android:layout_height="102dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:indeterminate="true"
+            android:visibility="gone" />
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/main_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/main_diagonal_view"
-        android:overScrollMode="never" />
-
-    <ImageView
-        android:id="@+id/main_icon"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:layout_margin="16dp"
-        android:background="@drawable/circle_shape_white_color"
-        android:padding="15dp"
-        android:src="@drawable/splash_icon" />
-
-    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
-        android:id="@+id/main_loader"
-        android:layout_width="102dp"
-        android:layout_height="102dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="10dp"
-        android:indeterminate="true"
-        android:visibility="gone" />
+    </RelativeLayout>
 
 </RelativeLayout>

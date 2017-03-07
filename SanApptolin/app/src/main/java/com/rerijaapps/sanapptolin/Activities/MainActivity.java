@@ -12,12 +12,12 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.cleveroad.fanlayoutmanager.FanLayoutManager;
 import com.cleveroad.fanlayoutmanager.FanLayoutManagerSettings;
-import com.john.waveview.WaveView;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rerijaapps.sanapptolin.R;
 import com.rerijaapps.sanapptolin.Adapter.MainEventsAdapter;
 import com.rerijaapps.sanapptolin.Serializable.DayInfo;
+import com.rerijaapps.sanapptolin.Serializable.Event;
 import com.rerijaapps.sanapptolin.Storage.Constants;
 import com.rerijaapps.sanapptolin.Utils.InternetHelper;
 import com.ufreedom.uikit.FloatingText;
@@ -52,12 +52,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 	 */
 	@ViewById ( R.id.main_app_name )
 	public TextView mAppName;
-
-	/**
-	 * Vista del Wave.
-	 */
-	@ViewById ( R.id.main_wave )
-	public WaveView mWaveView;
 
 	/**
 	 * Vista del loader.
@@ -97,7 +91,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 		mRecyclerView.setLayoutManager( mFanLayoutManager );
 		MainEventsAdapter mainEventsAdapter = new MainEventsAdapter( Constants.PARSE_DAYS , this );
 		mRecyclerView.setAdapter( mainEventsAdapter );
-		mWaveView.setProgress( 55 );
 	}
 
 	/**
@@ -116,6 +109,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 		{
 			if ( !isLoadingProgramation && null != view.getTag() )
 			{
+				isLoadingProgramation = true;
 				mLoader.setVisibility( View.VISIBLE );
 				mFloatingLoadingText.startFloating( view );
 				final Runnable postRunnable = new Runnable()
@@ -160,43 +154,72 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 	@Background
 	public void loadingProgramation( ParseObject day )
 	{
-		isLoadingProgramation = true;
 		if ( null != day )
 		{
 			try
 			{
 				ParseQuery<ParseObject> imageDay = ParseQuery.getQuery( Constants.CLASS_IMAGES_NAME );
 				imageDay.whereEqualTo( Constants.CLASS_IMAGES_COLUMN_IMAGEDAY_NAME, day );
-				List<ParseObject> parseObjectList = imageDay.find();
-				if ( null != parseObjectList && !parseObjectList.isEmpty() )
+				List<ParseObject> parseImageDayList = imageDay.find();
+				if ( null != parseImageDayList && !parseImageDayList.isEmpty() )
 				{
-					byte[] imageByteArray = parseObjectList.get( 0 ).getParseFile( Constants.CLASS_IMAGES_COLUMN_IMAGE_NAME ).getData();
+					byte[] imageByteArray = parseImageDayList.get( 0 ).getParseFile( Constants.CLASS_IMAGES_COLUMN_IMAGE_NAME ).getData();
 					DayInfo dayInfo = new DayInfo();
 					dayInfo.setImageDay( imageByteArray );
 					dayInfo.setColorDay( day.getString( Constants.CLASS_APP_DAYS_COLUMN_COLORDAY_NAME ) );
-					postLoadingProgramation( dayInfo );
+					dayInfo.setDayName( day.getString( Constants.CLASS_APP_DAYS_COLUMN_DAYNAME_NAME ) );
+
+					ParseQuery<ParseObject> eventList = ParseQuery.getQuery( Constants.CLASS_EVENT_NAME );
+					eventList.whereEqualTo( Constants.CLASS_EVENT_COLUMN_DAY, day );
+					eventList.orderByAscending( Constants.CLASS_EVENT_COLUMN_HOUR );
+
+					List<ParseObject> parseEventList = eventList.find();
+
+					if ( null != parseEventList && !parseEventList.isEmpty() )
+					{
+						Event[] eventArray = new Event[parseEventList.size()];
+						for ( int i = 0; i < parseEventList.size(); i++ )
+						{
+							eventArray[i] = new Event( parseEventList.get( i ).getDate( Constants.CLASS_EVENT_COLUMN_HOUR ) ,
+									parseEventList.get( i ).getString( Constants.CLASS_EVENT_COLUMN_DESCRIPTION ) );
+						}
+						postLoadingProgramation( dayInfo, eventArray );
+					}
+					else
+					{
+						postLoadingProgramation( null, null );
+					}
+				}
+				else
+				{
+					postLoadingProgramation( null, null );
 				}
 			}
 			catch ( Exception ignored )
 			{
-				postLoadingProgramation( null );
+				postLoadingProgramation( null, null );
 			}
+		}
+		else
+		{
+			postLoadingProgramation( null, null );
 		}
 	}
 
 	/**
 	 * Realiza las operaciones necesarias tras cargar el evento.
 	 *
-	 * @param dayInfo - Evento.
+	 * @param dayInfo - Info del dia.
+	 * @param eventList - Lista de eventos.
 	 */
 	@UiThread
-	public void postLoadingProgramation( DayInfo dayInfo )
+	public void postLoadingProgramation( DayInfo dayInfo, Event[] eventList )
 	{
 		isLoadingProgramation = false;
 		mLoader.setVisibility( View.GONE );
 		if ( null != dayInfo )
 		{
-			EventActivity_.intent( MainActivity.this ).mDayInfo( dayInfo ).start();
+			EventActivity_.intent( MainActivity.this ).mDayInfo( dayInfo ).mEventList( eventList ).start();
 		}
 	}
 }

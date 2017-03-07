@@ -25,10 +25,10 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.MainActivity_"
-            android:theme="@style/AppThemeNoBar" />
+            android:theme="@style/AppThemeTransparentBar" />
         <activity
             android:name=".Activities.SplashActivity_"
-            android:theme="@style/AppThemeNoBar">
+            android:theme="@style/AppThemeTransparentBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,7 +38,7 @@
         <activity android:name=".Activities.TutorialActivity" />
         <activity
             android:name=".Activities.AppNotActiveActivity_"
-            android:theme="@style/AppThemeNoBar" />
+            android:theme="@style/AppThemeTransparentBar" />
 
         <activity
             android:name=".Activities.EventActivity_"

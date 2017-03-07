@@ -3,10 +3,10 @@ apply plugin: 'android-apt'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "24.0.2"
+    buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "com.rerijaapps.sanapptolin"
-        minSdkVersion 15
+        minSdkVersion 17
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -18,17 +18,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'org.androidannotations:androidannotations-api:3.3.2'
     apt "org.androidannotations:androidannotations:3.3.2"
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:support-v4:25.2.0'
     compile 'com.parse.bolts:bolts-android:1.4.0'
     compile 'com.parse:parse-android:1.13.1'
-    compile 'com.codemybrainsout.onboarding:onboarder:1.0.1'
+    compile 'com.codemybrainsout.onboarding:onboarder:1.0.3'
     compile 'com.github.bhargavms:DotLoader:1.0.1'
     compile('com.github.afollestad.material-dialogs:core:0.8.5.8@aar') {
         transitive = true
@@ -38,11 +40,8 @@ dependencies {
     }
     testCompile 'junit:junit:4.12'
     compile 'com.cleveroad:fan-layout-manager:1.0.1'
-    compile 'com.github.john990:WaveView:v0.9'
     compile 'com.ufreedom.uikit:FloatingTextLibrary:0.2.0'
     compile 'com.flaviofaria:kenburnsview:1.0.7'
-    compile 'com.github.florent37:arclayout:1.0.0'
-    compile 'com.github.florent37:diagonallayout:1.0.2'
 }
 
 apt {
