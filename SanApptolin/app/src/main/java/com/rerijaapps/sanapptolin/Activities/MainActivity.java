@@ -10,8 +10,10 @@ import org.androidannotations.annotations.ViewById;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.bumptech.glide.Glide;
 import com.cleveroad.fanlayoutmanager.FanLayoutManager;
 import com.cleveroad.fanlayoutmanager.FanLayoutManagerSettings;
+import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rerijaapps.sanapptolin.R;
@@ -61,6 +63,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 	public ProgressBar mLoader;
 
 	/**
+	 * Image de la app.
+	 */
+	@ViewById ( R.id.app_image )
+	public KenBurnsView mAppImage;
+
+	/**
 	 * Layout manager para el recycler view.
 	 */
 	private FanLayoutManager mFanLayoutManager;
@@ -86,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 				.textContent( getString( R.string.loading_programation ) ).build();
 		mFloatingLoadingText.attach2Window();
 		mAppName.setText( Constants.PARSE_APPNAME );
+		Glide.with( this ).load( Constants.PARSE_APPIMAGE ).into( mAppImage );
 		FanLayoutManagerSettings fanLayoutManagerSettings = FanLayoutManagerSettings.newBuilder( this ).withFanRadius( true ).withAngleItemBounce( 5 )
 				.withViewWidthDp( 200 ).withViewHeightDp( ( getResources().getDisplayMetrics().heightPixels / getResources().getDisplayMetrics().density ) / 2 ).build();
 		mFanLayoutManager = new FanLayoutManager( this , fanLayoutManagerSettings );

@@ -1,21 +1,25 @@
 package com.rerijaapps.sanapptolin.Activities;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import com.codemybrainsout.onboarder.AhoyOnboarderActivity;
-import com.codemybrainsout.onboarder.AhoyOnboarderCard;
 import com.rerijaapps.sanapptolin.R;
 import com.rerijaapps.sanapptolin.Storage.Constants;
 import com.rerijaapps.sanapptolin.Storage.PreferencesManager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+
+import za.co.riggaroo.materialhelptutorial.TutorialItem;
+import za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity;
 
 /**
  * Created by jreci on 09/11/2016.
  */
-public class TutorialActivity extends AhoyOnboarderActivity
+public class TutorialActivity extends AppCompatActivity
 {
+
+	private static final int REQUEST_CODE = 1234;
 
 	/**
 	 * {@inheritDoc}
@@ -26,38 +30,50 @@ public class TutorialActivity extends AhoyOnboarderActivity
 	protected void onCreate( Bundle savedInstanceState )
 	{
 		super.onCreate( savedInstanceState );
-		AhoyOnboarderCard ahoyOnboarderCard1 = new AhoyOnboarderCard( R.string.tutorial_title1 , R.string.tutorial_text1 , R.drawable.analytics_icon );
-		ahoyOnboarderCard1.setBackgroundColor( R.color.black_transparent );
-		AhoyOnboarderCard ahoyOnboarderCard2 = new AhoyOnboarderCard( R.string.tutorial_title2 , R.string.tutorial_text2 , R.drawable.checklist_icon );
-		ahoyOnboarderCard2.setBackgroundColor( R.color.black_transparent );
-		AhoyOnboarderCard ahoyOnboarderCard3 = new AhoyOnboarderCard( R.string.tutorial_title3 , R.string.tutorial_text3 , R.drawable.camera_front_icon );
-		ahoyOnboarderCard3.setBackgroundColor( R.color.black_transparent );
-		AhoyOnboarderCard ahoyOnboarderCard4 = new AhoyOnboarderCard( R.string.tutorial_title4 , R.string.tutorial_text4 , R.drawable.baby_mobile_icon );
-		ahoyOnboarderCard4.setBackgroundColor( R.color.black_transparent );
-		List<AhoyOnboarderCard> pages = new ArrayList<>();
-		pages.add( ahoyOnboarderCard1 );
-		pages.add( ahoyOnboarderCard2 );
-		pages.add( ahoyOnboarderCard3 );
-		pages.add( ahoyOnboarderCard4 );
-		for ( AhoyOnboarderCard page : pages )
-		{
-			page.setTitleColor( R.color.white );
-			page.setDescriptionColor( R.color.grey_200 );
-		}
-		setFinishButtonTitle( R.string.tutorial_finish );
-		showNavigationControls( true );
-		setGradientBackground();
-		setOnboardPages( pages );
+		loadTutorial();
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Carga el tutorial de la App.
 	 */
-	@Override
-	public void onFinishButtonPressed()
+	public void loadTutorial()
 	{
-		PreferencesManager.setBoolean( Constants.PREFERENCE_NAME_SHOW_TUTORIAL, true );
-		MainActivity_.intent( this ).start();
-		finish();
+		Intent mainAct = new Intent( this , AppTutorialActivity.class );
+		mainAct.putParcelableArrayListExtra( MaterialTutorialActivity.MATERIAL_TUTORIAL_ARG_TUTORIAL_ITEMS, getTutorialItems() );
+		startActivityForResult( mainAct, REQUEST_CODE );
+
 	}
+
+	/**
+	 * Consigue los items del tutorial.
+	 *
+	 * @return Items del tutorial.
+	 */
+	private ArrayList<TutorialItem> getTutorialItems()
+	{
+		TutorialItem tutorialItem1 = new TutorialItem( R.string.tutorial_title1 , R.string.tutorial_text1 , R.color.tutorialColor1 , R.drawable.tut_page_1_bg , 0 );
+		TutorialItem tutorialItem2 = new TutorialItem( R.string.tutorial_title2 , R.string.tutorial_text2 , R.color.tutorialColor2 , R.drawable.tut_page_2_bg ,
+				R.drawable.tut_page_2_front );
+		TutorialItem tutorialItem3 = new TutorialItem( R.string.tutorial_title3 , R.string.tutorial_text3 , R.color.tutorialColor3 , R.drawable.tut_page_3_bg , 0 );
+		TutorialItem tutorialItem4 = new TutorialItem( R.string.tutorial_title4 , R.string.tutorial_text4 , R.color.tutorialColor4 , R.drawable.tut_page_4_bg , 0 );
+
+		ArrayList<TutorialItem> tutorialItems = new ArrayList<>();
+		tutorialItems.add( tutorialItem1 );
+		tutorialItems.add( tutorialItem2 );
+		tutorialItems.add( tutorialItem3 );
+		tutorialItems.add( tutorialItem4 );
+		return tutorialItems;
+	}
+
+	@Override
+	protected void onActivityResult( int requestCode, int resultCode, Intent data )
+	{
+		if ( resultCode == RESULT_OK && requestCode == REQUEST_CODE )
+		{
+			PreferencesManager.setBoolean( Constants.PREFERENCE_NAME_SHOW_TUTORIAL, true );
+			MainActivity_.intent( this ).start();
+			finish();
+		}
+	}
+
 }

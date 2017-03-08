@@ -4,18 +4,31 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
-    <com.flaviofaria.kenburnsview.KenBurnsView
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignBottom="@+id/centerScreenVertical"
         android:scaleType="centerCrop"
-        android:src="@drawable/mdc_muchedumbre" />
+        android:src="@drawable/placeholder_image" />
+
+    <com.flaviofaria.kenburnsview.KenBurnsView
+        android:id="@+id/app_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/centerScreenVertical"
+        android:scaleType="centerCrop" />
 
     <View
         android:id="@+id/centerScreenVertical"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_centerVertical="true" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/app_image"
+        android:background="@drawable/shadow" />
 
     <RelativeLayout
         android:layout_width="match_parent"

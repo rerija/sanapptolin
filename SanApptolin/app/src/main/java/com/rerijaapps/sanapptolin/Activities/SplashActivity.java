@@ -9,6 +9,7 @@ import org.androidannotations.annotations.UiThread;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rerijaapps.sanapptolin.R;
@@ -47,6 +48,7 @@ public class SplashActivity extends AppCompatActivity
 		{
 			boolean appActive = false;
 			String appName = null;
+			String appImage = null;
 			List<ParseObject> appDays = null;
 			try
 			{
@@ -56,6 +58,11 @@ public class SplashActivity extends AppCompatActivity
 				{
 					appActive = parseObjectAppStateList.get( 0 ).getBoolean( Constants.CLASS_APP_STATE_COLUMN_ACTIVE_NAME );
 					appName = parseObjectAppStateList.get( 0 ).getString( Constants.CLASS_APP_STATE_COLUMN_APPNAME_NAME );
+					ParseFile appImageParseFile = parseObjectAppStateList.get( 0 ).getParseFile( Constants.CLASS_APP_STATE_COLUMN_APPIMAGE_NAME );
+					if ( null != appImageParseFile )
+					{
+						appImage = appImageParseFile.getUrl();
+					}
 					if ( appActive )
 					{
 						ParseQuery<ParseObject> parseQueryDays = ParseQuery.getQuery( Constants.CLASS_APP_DAYS_NAME )
@@ -69,7 +76,7 @@ public class SplashActivity extends AppCompatActivity
 				LogUtils.e( "ERROR_GET_APP_ACTIVE", ex.getMessage() );
 			}
 
-			if ( !appActive || null == appName || null == appDays )
+			if ( !appActive || null == appDays )
 			{
 				AppNotActiveActivity_.intent( this ).start();
 				finish();
@@ -77,6 +84,7 @@ public class SplashActivity extends AppCompatActivity
 			else
 			{
 				Constants.PARSE_APPNAME = appName;
+				Constants.PARSE_APPIMAGE = appImage;
 				Constants.PARSE_DAYS = appDays;
 				if ( PreferencesManager.getBoolean( Constants.PREFERENCE_NAME_SHOW_TUTORIAL, false ) )
 				{

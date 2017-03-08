@@ -8,4 +8,10 @@
         <item>#E65100</item>
         <item>#FFBB00</item>
     </array>
+    <color name="tutorialColor1">#37c1ff</color>
+    <color name="tutorialColor2">#ff8a4a</color>
+    <color name="tutorialColor3">#458c3d</color>
+    <color name="tutorialColor4">#af57ae</color>
+    <color name="white">#fff</color>
+    <color name="black">#000</color>
 </resources>

@@ -34,6 +34,7 @@ public class Constants
 	public static final String CLASS_APP_STATE_NAME = "AppState";
 	public static final String CLASS_APP_STATE_COLUMN_ACTIVE_NAME = "Active";
 	public static final String CLASS_APP_STATE_COLUMN_APPNAME_NAME = "AppName";
+	public static final String CLASS_APP_STATE_COLUMN_APPIMAGE_NAME = "AppImage";
 	public static final String CLASS_APP_DAYS_NAME = "Days";
 	public static final String CLASS_APP_DAYS_COLUMN_DAYNAME_NAME = "DayName";
 	public static final String CLASS_APP_DAYS_COLUMN_COLORDAY_NAME = "ColorDay";
@@ -54,6 +55,7 @@ public class Constants
 	 * de Parse.
 	 */
 	public static String PARSE_APPNAME = "";
+	public static String PARSE_APPIMAGE = "";
 	public static List<ParseObject> PARSE_DAYS = new ArrayList<>();
 
 }

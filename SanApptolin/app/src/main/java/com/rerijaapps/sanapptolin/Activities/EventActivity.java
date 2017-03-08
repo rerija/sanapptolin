@@ -13,7 +13,6 @@ import com.rerijaapps.sanapptolin.Adapter.EventAdapter;
 import com.rerijaapps.sanapptolin.Serializable.DayInfo;
 import com.rerijaapps.sanapptolin.Serializable.Event;
 
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.app.AppCompatActivity;
@@ -96,6 +95,17 @@ public class EventActivity extends AppCompatActivity
 	public void clickBack( View view )
 	{
 		onBackPressed();
+	}
+
+	/**
+	 * Click para el boton de galeria de fotos.
+	 *
+	 * @param view - Boton de galeria de fotos.
+	 */
+	@Click ( R.id.photos )
+	public void clickPhotos( View view )
+	{
+		GalleryActivity_.intent( this ).mDayInfo( mDayInfo ).start();
 	}
 
 }
