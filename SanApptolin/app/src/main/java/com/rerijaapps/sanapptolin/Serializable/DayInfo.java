@@ -1,5 +1,7 @@
 package com.rerijaapps.sanapptolin.Serializable;
 
+import com.parse.ParseObject;
+
 import java.io.Serializable;
 
 /**
@@ -24,6 +26,11 @@ public class DayInfo implements Serializable
 	 */
 	private String mDayName;
 
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @return
+	 */
 	public String getDayName()
 	{
 		return mDayName;

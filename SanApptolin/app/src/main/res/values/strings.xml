@@ -19,4 +19,15 @@
     <string name="event_share_text">¡Hola! Quiero compartir contigo el evento del dia %1$s de %2$s a las %3$s horas: %4$s</string>
     <string name="skip">Saltar</string>
     <string name="finalize">Finalizar</string>
+    <string name="gallery">Galería de fotos</string>
+    <string name="gallery_event_day">Mostrando galería de fotos del día \n %1$s</string>
+    <string name="published_at">Publicado el %1$s a las %2$s</string>
+    <string name="add_comment">Añade un comentario</string>
+    <string name="add_comment_description">Eres libre de añadir un comentario en tu foto:</string>
+    <string name="add_comment_hint">¿Algo que decir?</string>
+    <string name="adding_photo">Añadiendo tu foto...</string>
+    <string name="please_wait">Un segundo...</string>
+    <string name="error_upload_photo">Hubo un error al subir su foto, comprueba tu conexión a internet e inténtalo de nuevo más tarde.</string>
+    <string name="success_upload_photo">¡Foto subida correctamente!</string>
+    <string name="information">Información</string>
 </resources>

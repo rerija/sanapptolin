@@ -31,6 +31,7 @@ public class Constants
 	/**
 	 * PARSE VALUES.
 	 */
+	public static final String CLASS_PARSE_COLUMN_CREATED_AT = "createdAt";
 	public static final String CLASS_APP_STATE_NAME = "AppState";
 	public static final String CLASS_APP_STATE_COLUMN_ACTIVE_NAME = "Active";
 	public static final String CLASS_APP_STATE_COLUMN_APPNAME_NAME = "AppName";
@@ -45,10 +46,10 @@ public class Constants
 	public static final String CLASS_EVENT_COLUMN_DAY = "Day";
 	public static final String CLASS_EVENT_COLUMN_HOUR = "Hour";
 	public static final String CLASS_EVENT_COLUMN_DESCRIPTION = "Description";
-	public static final String CLASS_EVENT_IMAGES_NAME = "EventImages";
-	public static final String CLASS_EVENT_IMAGES_COLUMN_COMMENT = "Comment";
-	public static final String CLASS_EVENT_IMAGES_COLUMN_PHOTO = "Photo";
-	public static final String CLASS_EVENT_IMAGES_COLUMN_EVENT = "Event";
+	public static final String CLASS_DAY_IMAGES_NAME = "DayImages";
+	public static final String CLASS_DAY_IMAGES_COLUMN_COMMENT = "Comment";
+	public static final String CLASS_DAY_IMAGES_COLUMN_PHOTO = "Photo";
+	public static final String CLASS_DAY_IMAGES_COLUMN_DAY = "Day";
 
 	/**
 	 * Constantes para definir los valores que se mantienen en la app obtenido

@@ -8,7 +8,6 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
-import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.bumptech.glide.Glide;
 import com.cleveroad.fanlayoutmanager.FanLayoutManager;
@@ -29,7 +28,6 @@ import com.ufreedom.uikit.effect.CurvePathFloatingAnimator;
 
 import android.graphics.Color;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -135,25 +133,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 		}
 		else
 		{
-			showInternetErrorAndCloseApp();
+			showInternetError();
 		}
 	}
 
 	/**
-	 * Muestra un error referente a la conexion y cierra la aplicacion.
+	 * Muestra un error referente a la conexion.
 	 */
 	@UiThread
-	public void showInternetErrorAndCloseApp()
+	public void showInternetError()
 	{
-		new MaterialDialog.Builder( this ).title( R.string.internet_error_title ).content( R.string.error_internet ).positiveText( R.string.accept )
-				.onPositive( new MaterialDialog.SingleButtonCallback()
-				{
-					@Override
-					public void onClick( @NonNull MaterialDialog dialog, @NonNull DialogAction which )
-					{
-						finish();
-					}
-				} ).show();
+		new MaterialDialog.Builder( this ).title( R.string.internet_error_title ).content( R.string.error_internet ).positiveText( R.string.accept ).show();
 	}
 
 	/**
@@ -193,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 							eventArray[i] = new Event( parseEventList.get( i ).getDate( Constants.CLASS_EVENT_COLUMN_HOUR ) ,
 									parseEventList.get( i ).getString( Constants.CLASS_EVENT_COLUMN_DESCRIPTION ) );
 						}
+						GalleryActivity.mParseDayObj = day;
 						postLoadingProgramation( dayInfo, eventArray );
 					}
 					else

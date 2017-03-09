@@ -13,7 +13,6 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="AppThemeTransparentBar" parent="AppThemeNoBar">
+    <style name="AppThemeNoBarTransparentBar" parent="AppThemeNoBar" />
 
-    </style>
 </resources>
