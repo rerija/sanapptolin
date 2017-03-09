@@ -282,24 +282,25 @@ public class GalleryActivity extends AppCompatActivity implements SwipeRefreshLa
 			if ( resultCode == RESULT_OK && REQUEST_IMAGE_CAPTURE == requestCode && null != mLastCameraPhotoPath )
 			{
 				mLastCameraBitmap = BitmapFactory.decodeFile( mLastCameraPhotoPath, bmOptions );
+				mLastCameraBitmap = ExifImageHelper.getCorrectImageWithExifParams( mLastCameraPhotoPath, mLastCameraBitmap );
+				new MaterialDialog.Builder( this ).title( R.string.add_comment ).content( R.string.add_comment_description )
+						.inputType( InputType.TYPE_TEXT_FLAG_CAP_SENTENCES ).inputRange( 0, 50, Color.RED )
+						.input( R.string.add_comment_hint, 0, true, new MaterialDialog.InputCallback()
+						{
+							@Override
+							public void onInput( MaterialDialog dialog, CharSequence input )
+							{
+								uploadPhoto( null != input && !input.toString().isEmpty() ? input.toString() : null );
+							}
+						} ).cancelable( false ).negativeText( R.string.cancel ).onNegative( new MaterialDialog.SingleButtonCallback()
+						{
+							@Override
+							public void onClick( @NonNull MaterialDialog dialog, @NonNull DialogAction which )
+							{
+								uploadPhoto( null );
+							}
+						} ).show();
 			}
-			mLastCameraBitmap = ExifImageHelper.getCorrectImageWithExifParams( mLastCameraPhotoPath, mLastCameraBitmap );
-			new MaterialDialog.Builder( this ).title( R.string.add_comment ).content( R.string.add_comment_description )
-					.inputType( InputType.TYPE_TEXT_FLAG_CAP_SENTENCES ).inputRange( 0, 50, Color.RED ).input( R.string.add_comment_hint, 0, true, new MaterialDialog.InputCallback()
-					{
-						@Override
-						public void onInput( MaterialDialog dialog, CharSequence input )
-						{
-							uploadPhoto( null != input && !input.toString().isEmpty() ? input.toString() : null );
-						}
-					} ).cancelable( false ).negativeText( R.string.cancel ).onNegative( new MaterialDialog.SingleButtonCallback()
-					{
-						@Override
-						public void onClick( @NonNull MaterialDialog dialog, @NonNull DialogAction which )
-						{
-							uploadPhoto( null );
-						}
-					} ).show();
 		}
 		catch ( Exception ignored )
 		{
