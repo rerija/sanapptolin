@@ -14,6 +14,8 @@ import za.co.riggaroo.materialhelptutorial.TutorialItem;
 import za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity;
 
 /**
+ * Pantalla con el tutorial inicial.
+ *
  * Created by jreci on 09/11/2016.
  */
 public class TutorialActivity extends AppCompatActivity
@@ -65,6 +67,13 @@ public class TutorialActivity extends AppCompatActivity
 		return tutorialItems;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @param requestCode
+	 * @param resultCode
+	 * @param data
+	 */
 	@Override
 	protected void onActivityResult( int requestCode, int resultCode, Intent data )
 	{

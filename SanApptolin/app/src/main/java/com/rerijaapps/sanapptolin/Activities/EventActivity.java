@@ -21,6 +21,8 @@ import android.view.View;
 import android.widget.TextView;
 
 /**
+ * Pantalla con los eventos.
+ *
  * Created by user on 21/11/2016.
  */
 @EActivity ( R.layout.activity_event )

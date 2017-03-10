@@ -21,7 +21,7 @@ public class TextViewSanFranciscoBold extends TextView
 	 *
 	 * @param context
 	 */
-	public TextViewSanFranciscoBold(Context context )
+	public TextViewSanFranciscoBold( Context context )
 	{
 		super( context );
 		init( context );
@@ -33,7 +33,7 @@ public class TextViewSanFranciscoBold extends TextView
 	 * @param context
 	 * @param attrs
 	 */
-	public TextViewSanFranciscoBold(Context context, AttributeSet attrs )
+	public TextViewSanFranciscoBold( Context context, AttributeSet attrs )
 	{
 		super( context, attrs );
 		init( context );

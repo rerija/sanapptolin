@@ -23,6 +23,8 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 
 /**
+ * Pantalla Splash.
+ *
  * Created by jreci on 09/11/2016.
  */
 @EActivity ( R.layout.activity_splash )

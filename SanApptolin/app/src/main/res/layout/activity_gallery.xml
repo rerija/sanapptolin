@@ -9,7 +9,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/gallery_appbar"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -37,17 +37,38 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/blur_bg" />
 
-                <com.rerijaapps.sanapptolin.Widgets.TextViewSanFranciscoBold
-                    android:id="@+id/gallery_event_day"
+
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:layout_marginBottom="60dp"
-                    android:layout_marginTop="16dp"
-                    android:gravity="center"
-                    android:textColor="#9b9b9b"
-                    android:textSize="16sp" />
+                    android:layout_marginTop="20dp">
+
+                    <com.rerijaapps.sanapptolin.Widgets.TextViewSanFranciscoBold
+                        android:id="@+id/gallery_event_day"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:textColor="#9b9b9b"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="16sp" />
+
+                    <com.rerijaapps.sanapptolin.Widgets.TextViewSanFranciscoRegular
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/gallery_pd"
+                        android:gravity="center"
+                        android:textColor="#9b9b9b"
+                        android:layout_marginLeft="60dp"
+                        android:layout_marginRight="60dp"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
 
             </RelativeLayout>
 
@@ -89,7 +110,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <android.support.v4.widget.SwipeRefreshLayout
@@ -100,7 +121,7 @@
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/gallery_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:paddingBottom="8dp"
                 android:clipToPadding="false"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager" />

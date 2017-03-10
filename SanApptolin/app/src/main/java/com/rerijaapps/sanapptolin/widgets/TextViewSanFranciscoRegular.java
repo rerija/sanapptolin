@@ -21,7 +21,7 @@ public class TextViewSanFranciscoRegular extends TextView
 	 *
 	 * @param context
 	 */
-	public TextViewSanFranciscoRegular(Context context )
+	public TextViewSanFranciscoRegular( Context context )
 	{
 		super( context );
 		init( context );
@@ -33,7 +33,7 @@ public class TextViewSanFranciscoRegular extends TextView
 	 * @param context
 	 * @param attrs
 	 */
-	public TextViewSanFranciscoRegular(Context context, AttributeSet attrs )
+	public TextViewSanFranciscoRegular( Context context, AttributeSet attrs )
 	{
 		super( context, attrs );
 		init( context );

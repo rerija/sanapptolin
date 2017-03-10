@@ -1,10 +1,10 @@
 package com.rerijaapps.sanapptolin.Serializable;
 
-import com.parse.ParseObject;
-
 import java.io.Serializable;
 
 /**
+ * Info del dia.
+ *
  * Created by user on 21/11/2016.
  */
 public class DayInfo implements Serializable

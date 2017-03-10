@@ -7,6 +7,8 @@ import com.rerijaapps.sanapptolin.R;
 import android.support.v7.app.AppCompatActivity;
 
 /**
+ * Pantalla para indicar que la app no esta activa.
+ *
  * Created by user on 09/11/2016.
  */
 @EActivity ( R.layout.activity_app_not_active )

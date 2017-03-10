@@ -6,6 +6,8 @@ import java.util.List;
 import com.parse.ParseObject;
 
 /**
+ * Constantes.
+ *
  * Created by jreci on 09/11/2016.
  */
 public class Constants

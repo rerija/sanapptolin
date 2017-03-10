@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "772210693189",
+    "firebase_url": "https://sanapptolin-mdc.firebaseio.com",
+    "project_id": "sanapptolin-mdc",
+    "storage_bucket": "sanapptolin-mdc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772210693189:android:66673fbcd3e45771",
+        "android_client_info": {
+          "package_name": "com.rerijaapps.sanapptolin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "772210693189-1l5fml1s35sp53l0ddpgl644lmvltfut.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDc_7_uQwdBTlJyFhM_bH798CbkOM8y4xw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

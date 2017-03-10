@@ -107,6 +107,11 @@ public class GalleryActivity extends AppCompatActivity implements SwipeRefreshLa
 	private MaterialDialog mUploadPhotoProgress;
 
 	/**
+	 * Indica si realizar las funciones del onResume.
+	 */
+	public static boolean DO_ONRESUME;
+
+	/**
 	 * Inicializa las vistas de la pantalla.
 	 */
 	@AfterViews
@@ -117,6 +122,7 @@ public class GalleryActivity extends AppCompatActivity implements SwipeRefreshLa
 		mGalleryEventDay.setText( null != mDayInfo && null != mDayInfo.getDayName() ? getString( R.string.gallery_event_day, mDayInfo.getDayName() ) : "" );
 		mSwipe.setOnRefreshListener( this );
 		mSwipe.setColorSchemeResources( R.color.colorPrimary );
+		refreshPhotoGallery();
 	}
 
 	/**
@@ -225,11 +231,22 @@ public class GalleryActivity extends AppCompatActivity implements SwipeRefreshLa
 	@Override
 	protected void onResume()
 	{
-		if ( null != mGalleryRecycler && null != mSwipe )
+		if ( null != mGalleryRecycler && null != mSwipe && DO_ONRESUME )
 		{
 			refreshPhotoGallery();
 		}
+		DO_ONRESUME = true;
 		super.onResume();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected void onDestroy()
+	{
+		DO_ONRESUME = false;
+		super.onDestroy();
 	}
 
 	/**

@@ -30,4 +30,5 @@
     <string name="error_upload_photo">Hubo un error al subir su foto, comprueba tu conexión a internet e inténtalo de nuevo más tarde.</string>
     <string name="success_upload_photo">¡Foto subida correctamente!</string>
     <string name="information">Información</string>
+    <string name="gallery_pd">(Ni el creador de la aplicación, ni la propia aplicación se hacen responsable del contenido mostrado a continuación, úsala con responsabilidad)</string>
 </resources>

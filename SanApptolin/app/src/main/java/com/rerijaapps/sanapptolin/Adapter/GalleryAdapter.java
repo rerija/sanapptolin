@@ -5,6 +5,8 @@ import java.util.List;
 import com.bumptech.glide.Glide;
 import com.github.library.bubbleview.BubbleTextView;
 import com.rerijaapps.sanapptolin.R;
+import com.rerijaapps.sanapptolin.Activities.GalleryActivity;
+import com.rerijaapps.sanapptolin.Activities.GalleryImageActivity_;
 import com.rerijaapps.sanapptolin.Serializable.GalleryImage;
 
 import android.content.Context;
@@ -16,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 /**
+ * Adaptador de la galeria de fotos.
+ *
  * Created by jreci on 08/03/2017.
  */
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.EventHolder>
@@ -72,6 +76,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.EventHol
 				? mContext.getString( R.string.published_at, mPhotos.get( position ).getPubDate(), mPhotos.get( position ).getPubDateHour() ) : "" );
 		holder.comment.setVisibility( null == mPhotos.get( position ).getComment() || mPhotos.get( position ).getComment().isEmpty() ? View.GONE : View.VISIBLE );
 		holder.comment.setText( null != mPhotos.get( position ).getComment() ? mPhotos.get( position ).getComment() : "" );
+		holder.itemView.setTag( mPhotos.get( position ).getUrl() );
 	}
 
 	/**
@@ -128,6 +133,18 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.EventHol
 			galleryPhotoImage = ( ImageView ) itemView.findViewById( R.id.gallery_image );
 			pubDate = ( TextView ) itemView.findViewById( R.id.gallery_pubdate );
 			comment = ( BubbleTextView ) itemView.findViewById( R.id.gallery_comment );
+			itemView.setOnClickListener( new View.OnClickListener()
+			{
+				@Override
+				public void onClick( View view )
+				{
+					if ( null != view.getTag() )
+					{
+						GalleryActivity.DO_ONRESUME = false;
+						GalleryImageActivity_.intent( mContext ).mUrlImage( view.getTag().toString() ).start();
+					}
+				}
+			} );
 		}
 	}
 

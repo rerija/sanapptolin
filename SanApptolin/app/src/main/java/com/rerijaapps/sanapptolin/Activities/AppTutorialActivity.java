@@ -15,6 +15,11 @@ import za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity;
 public class AppTutorialActivity extends MaterialTutorialActivity
 {
 
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @param savedInstanceState
+	 */
 	@Override
 	protected void onCreate( Bundle savedInstanceState )
 	{

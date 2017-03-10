@@ -16,6 +16,8 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 
 /**
+ * Adaptador con las tarjetas de los dias.
+ *
  * Created by jreci on 10/11/2016.
  */
 public class MainEventsAdapter extends RecyclerView.Adapter<MainEventsAdapter.EventViewHolder>

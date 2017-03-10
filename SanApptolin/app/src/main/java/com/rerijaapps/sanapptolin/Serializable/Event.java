@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
+ * Evento.
+ *
  * Created by jreci on 28/11/2016.
  */
 public class Event implements Serializable

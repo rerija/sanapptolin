@@ -16,9 +16,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 /**
+ * Adaptador de los eventos.
+ *
  * Created by jreci on 28/11/2016.
  */
-
 public class EventAdapter extends RecyclerView.Adapter<EventAdapter.EventHolder>
 {
 

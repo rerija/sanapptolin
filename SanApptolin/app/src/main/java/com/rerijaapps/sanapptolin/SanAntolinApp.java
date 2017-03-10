@@ -6,14 +6,29 @@ import com.rerijaapps.sanapptolin.Storage.Constants;
 import com.rerijaapps.sanapptolin.Storage.PreferencesManager;
 
 import android.app.Application;
-
-import org.androidannotations.annotations.sharedpreferences.Pref;
+import android.content.Context;
+import android.support.multidex.MultiDex;
+import android.support.multidex.MultiDexApplication;
 
 /**
+ * App.
+ *
  * Created by jreci on 09/11/2016.
  */
-public class SanAntolinApp extends Application
+public class SanAntolinApp extends MultiDexApplication
 {
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @param base
+	 */
+	@Override
+	protected void attachBaseContext( Context base )
+	{
+		super.attachBaseContext( base );
+		MultiDex.install( this );
+	}
 
 	/**
 	 * {@inheritDoc}

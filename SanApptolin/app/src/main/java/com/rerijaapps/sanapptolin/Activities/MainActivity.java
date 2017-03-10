@@ -36,6 +36,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 /**
+ * Pantalla principal.
+ *
  * Created by jreci on 09/11/2016.
  */
 @EActivity ( R.layout.activity_main )
