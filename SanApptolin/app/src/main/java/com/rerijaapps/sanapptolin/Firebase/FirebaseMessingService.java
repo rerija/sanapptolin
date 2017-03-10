@@ -44,10 +44,8 @@ public class FirebaseMessingService extends FirebaseMessagingService
 		if ( null != messageBody && !messageBody.isEmpty() )
 		{
 			Intent notificationIntent = new Intent( this , SplashActivity_.class );
-			notificationIntent.setAction( Intent.ACTION_MAIN );
-			notificationIntent.addCategory( Intent.CATEGORY_LAUNCHER );
-			notificationIntent.addFlags( Intent.FLAG_ACTIVITY_NEW_TASK );
-			PendingIntent pendingIntent = PendingIntent.getActivity( this, 0, notificationIntent, 0 );
+			notificationIntent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP );
+			PendingIntent pendingIntent = PendingIntent.getActivity( this, 0, notificationIntent, PendingIntent.FLAG_ONE_SHOT );
 			NotificationCompat.Builder builder = new NotificationCompat.Builder( this ).setSmallIcon( R.drawable.ic_stat_notification_icon )
 					.setContentTitle( getString( R.string.app_name ) ).setContentText( messageBody ).setAutoCancel( true )
 					.setSound( RingtoneManager.getDefaultUri( RingtoneManager.TYPE_NOTIFICATION ) ).setContentIntent( pendingIntent );
