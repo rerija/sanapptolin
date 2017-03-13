@@ -28,6 +28,7 @@ import com.rerijaapps.sanapptolin.Serializable.GalleryImage;
 import com.rerijaapps.sanapptolin.Storage.Constants;
 import com.rerijaapps.sanapptolin.Utils.ExifImageHelper;
 import com.rerijaapps.sanapptolin.Utils.InternetHelper;
+import com.rerijaapps.sanapptolin.Utils.LogUtils;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -155,11 +156,8 @@ public class GalleryActivity extends AppCompatActivity implements SwipeRefreshLa
 			}
 			catch ( Exception ex )
 			{
+				LogUtils.e( "ERROR_REFREH_PHOTO_GALLERY", ex.getMessage() );
 			}
-		}
-		else
-		{
-			setGallery( null );
 		}
 		setSwipeRefreshing( false );
 	}
