@@ -37,20 +37,21 @@ public class SplashActivity extends AppCompatActivity
 	@AfterViews
 	public void setupViews()
 	{
-		doThreadDelay();
+		doSync();
 	}
 
 	/**
-	 * Realiza la operacion del delay y comprobacion del estado de la app.
+	 * Realiza la operacion d la sincro de la app.
 	 */
 	@Background
-	public void doThreadDelay()
+	public void doSync()
 	{
 		if ( InternetHelper.chekInternetAndConnection( this ) )
 		{
 			boolean appActive = false;
 			String appName = null;
 			String appImage = null;
+			String appSongUrl = null;
 			List<ParseObject> appDays = null;
 			try
 			{
@@ -60,6 +61,11 @@ public class SplashActivity extends AppCompatActivity
 				{
 					appActive = parseObjectAppStateList.get( 0 ).getBoolean( Constants.CLASS_APP_STATE_COLUMN_ACTIVE_NAME );
 					appName = parseObjectAppStateList.get( 0 ).getString( Constants.CLASS_APP_STATE_COLUMN_APPNAME_NAME );
+					ParseFile fileAppSongUrl = parseObjectAppStateList.get( 0 ).getParseFile( Constants.CLASS_APP_STATE_COLUMN_SONG );
+					if ( null != fileAppSongUrl )
+					{
+						appSongUrl = fileAppSongUrl.getUrl();
+					}
 					ParseFile appImageParseFile = parseObjectAppStateList.get( 0 ).getParseFile( Constants.CLASS_APP_STATE_COLUMN_APPIMAGE_NAME );
 					if ( null != appImageParseFile )
 					{
@@ -67,8 +73,7 @@ public class SplashActivity extends AppCompatActivity
 					}
 					if ( appActive )
 					{
-						ParseQuery<ParseObject> parseQueryDays = ParseQuery.getQuery( Constants.CLASS_APP_DAYS_NAME )
-								.orderByAscending( Constants.CLASS_APP_DAYS_COLUMN_DAYNAME_NAME );
+						ParseQuery<ParseObject> parseQueryDays = ParseQuery.getQuery( Constants.CLASS_APP_DAYS_NAME );
 						appDays = parseQueryDays.find();
 					}
 				}
@@ -87,6 +92,7 @@ public class SplashActivity extends AppCompatActivity
 			{
 				Constants.PARSE_APPNAME = appName;
 				Constants.PARSE_APPIMAGE = appImage;
+				Constants.PARSE_APPSONG_URL = appSongUrl;
 				Constants.PARSE_DAYS = appDays;
 				if ( PreferencesManager.getBoolean( Constants.PREFERENCE_NAME_SHOW_TUTORIAL, false ) )
 				{

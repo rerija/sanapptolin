@@ -19,7 +19,7 @@ import uk.co.senab.photoview.PhotoViewAttacher;
  * Created by user on 09/11/2016.
  */
 @EActivity ( R.layout.activity_gallery_image )
-public class GalleryImageActivity extends AppCompatActivity
+public class GalleryImageActivity extends AudioActivity
 {
 
 	/**

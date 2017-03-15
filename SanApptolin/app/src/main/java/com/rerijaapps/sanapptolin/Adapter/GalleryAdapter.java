@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.bumptech.glide.Glide;
 import com.github.library.bubbleview.BubbleTextView;
+import com.rerijaapps.sanapptolin.Activities.AudioActivity;
 import com.rerijaapps.sanapptolin.R;
 import com.rerijaapps.sanapptolin.Activities.GalleryActivity;
 import com.rerijaapps.sanapptolin.Activities.GalleryImageActivity_;
@@ -140,7 +141,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.EventHol
 				{
 					if ( null != view.getTag() )
 					{
-						GalleryActivity.DO_ONRESUME = false;
+						AudioActivity.DO_ON_PAUSE = false;
+						AudioActivity.DO_ON_RESUME = false;
 						GalleryImageActivity_.intent( mContext ).mUrlImage( view.getTag().toString() ).start();
 					}
 				}

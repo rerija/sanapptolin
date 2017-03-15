@@ -20,6 +20,7 @@ import com.rerijaapps.sanapptolin.Adapter.MainEventsAdapter;
 import com.rerijaapps.sanapptolin.Serializable.DayInfo;
 import com.rerijaapps.sanapptolin.Serializable.Event;
 import com.rerijaapps.sanapptolin.Storage.Constants;
+import com.rerijaapps.sanapptolin.Storage.PreferencesManager;
 import com.rerijaapps.sanapptolin.Utils.InternetHelper;
 import com.rerijaapps.sanapptolin.Utils.LogUtils;
 import com.ufreedom.uikit.FloatingText;
@@ -28,11 +29,12 @@ import com.ufreedom.uikit.effect.CurvePathFloatingAnimator;
 
 import android.graphics.Color;
 import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CompoundButton;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 /**
@@ -41,7 +43,7 @@ import android.widget.TextView;
  * Created by jreci on 09/11/2016.
  */
 @EActivity ( R.layout.activity_main )
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener
+public class MainActivity extends AudioActivity implements AdapterView.OnItemClickListener, Switch.OnCheckedChangeListener
 {
 
 	/**
@@ -69,6 +71,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 	public KenBurnsView mAppImage;
 
 	/**
+	 * Switch de la musica.
+	 */
+	@ViewById ( R.id.main_switch_music )
+	public Switch mSwitchMusic;
+
+	/**
 	 * Layout manager para el recycler view.
 	 */
 	private FanLayoutManager mFanLayoutManager;
@@ -82,6 +90,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 	 * Floating Text para la carga de los elementos del listado.
 	 */
 	private FloatingText mFloatingLoadingText;
+
+	/**
+	 * Indica si se debe de realizar las operaciones del evento del Switch de la
+	 * musica.
+	 */
+	private boolean doMusicSwitchEvent = false;
 
 	/**
 	 * Inicializa las vistas de la pantalla.
@@ -101,6 +115,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 		mRecyclerView.setLayoutManager( mFanLayoutManager );
 		MainEventsAdapter mainEventsAdapter = new MainEventsAdapter( Constants.PARSE_DAYS , this );
 		mRecyclerView.setAdapter( mainEventsAdapter );
+
+		// Switch de la musica.
+		mSwitchMusic.setOnCheckedChangeListener( this );
+		mSwitchMusic.setChecked( PreferencesManager.getBoolean( Constants.PREFERENCE_NAME_PLAY_MUSIC, true ) );
+		doMusicSwitchEvent = true;
+		if ( mSwitchMusic.isChecked() )
+		{
+			PreferencesManager.setBoolean( Constants.PREFERENCE_NAME_PLAY_MUSIC, true );
+			startMediaPlayer();
+		}
 	}
 
 	/**
@@ -223,7 +247,32 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 		mLoader.setVisibility( View.GONE );
 		if ( null != dayInfo )
 		{
+			AudioActivity.DO_ON_PAUSE = false;
+			AudioActivity.DO_ON_RESUME = false;
 			EventActivity_.intent( MainActivity.this ).mDayInfo( dayInfo ).mEventList( eventList ).start();
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 *
+	 * @param compoundButton
+	 * @param checked
+	 */
+	@Override
+	public void onCheckedChanged( CompoundButton compoundButton, boolean checked )
+	{
+		if ( doMusicSwitchEvent )
+		{
+			PreferencesManager.setBoolean( Constants.PREFERENCE_NAME_PLAY_MUSIC, checked );
+			if ( checked )
+			{
+				startMediaPlayer();
+			}
+			else
+			{
+				stopMediaPlayer();
+			}
 		}
 	}
 }

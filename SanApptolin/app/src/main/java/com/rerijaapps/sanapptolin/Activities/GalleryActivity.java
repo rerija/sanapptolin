@@ -54,7 +54,7 @@ import android.widget.TextView;
  * Created by user on 09/11/2016.
  */
 @EActivity ( R.layout.activity_gallery )
-public class GalleryActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener
+public class GalleryActivity extends AudioActivity implements SwipeRefreshLayout.OnRefreshListener
 {
 
 	/**
@@ -106,11 +106,6 @@ public class GalleryActivity extends AppCompatActivity implements SwipeRefreshLa
 	 * Dialogo de progreso.
 	 */
 	private MaterialDialog mUploadPhotoProgress;
-
-	/**
-	 * Indica si realizar las funciones del onResume.
-	 */
-	public static boolean DO_ONRESUME;
 
 	/**
 	 * Inicializa las vistas de la pantalla.
@@ -224,30 +219,6 @@ public class GalleryActivity extends AppCompatActivity implements SwipeRefreshLa
 	}
 
 	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected void onResume()
-	{
-		if ( null != mGalleryRecycler && null != mSwipe && DO_ONRESUME )
-		{
-			refreshPhotoGallery();
-		}
-		DO_ONRESUME = true;
-		super.onResume();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	protected void onDestroy()
-	{
-		DO_ONRESUME = false;
-		super.onDestroy();
-	}
-
-	/**
 	 * pone a disposicion la pantalla de captura de una foto con la camara.
 	 */
 	private void dispatchTakePictureIntent()
@@ -277,6 +248,8 @@ public class GalleryActivity extends AppCompatActivity implements SwipeRefreshLa
 						}
 						takePictureIntent.setFlags( Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION );
 						takePictureIntent.putExtra( MediaStore.EXTRA_OUTPUT, photoUri );
+						AudioActivity.DO_ON_PAUSE = false;
+						AudioActivity.DO_ON_RESUME = false;
 						startActivityForResult( takePictureIntent, REQUEST_IMAGE_CAPTURE );
 					}
 				}
@@ -294,6 +267,7 @@ public class GalleryActivity extends AppCompatActivity implements SwipeRefreshLa
 		try
 		{
 			BitmapFactory.Options bmOptions = new BitmapFactory.Options();
+			bmOptions.inScaled = false;
 			if ( resultCode == RESULT_OK && REQUEST_IMAGE_CAPTURE == requestCode && null != mLastCameraPhotoPath )
 			{
 				mLastCameraBitmap = BitmapFactory.decodeFile( mLastCameraPhotoPath, bmOptions );

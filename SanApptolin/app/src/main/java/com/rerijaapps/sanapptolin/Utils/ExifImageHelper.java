@@ -42,11 +42,11 @@ public class ExifImageHelper
 				break;
 			}
 
-			bitmap = Bitmap.createBitmap( bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true );
+			bitmap = Bitmap.createBitmap( bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, false );
 
 			if ( bitmap.getHeight() > MAX_HEIGHT_IMAGE )
 			{
-				bitmap = scaleDown( bitmap, MAX_HEIGHT_IMAGE, true );
+				bitmap = scaleDown( bitmap, MAX_HEIGHT_IMAGE, false );
 			}
 		}
 		catch ( Exception ignored )

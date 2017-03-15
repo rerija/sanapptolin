@@ -26,7 +26,7 @@ import android.widget.TextView;
  * Created by user on 21/11/2016.
  */
 @EActivity ( R.layout.activity_event )
-public class EventActivity extends AppCompatActivity
+public class EventActivity extends AudioActivity
 {
 
 	/**
@@ -107,7 +107,11 @@ public class EventActivity extends AppCompatActivity
 	@Click ( R.id.photos )
 	public void clickPhotos( View view )
 	{
+		AudioActivity.DO_ON_PAUSE = false;
+		AudioActivity.DO_ON_RESUME = false;
 		GalleryActivity_.intent( this ).mDayInfo( mDayInfo ).start();
 	}
+
+
 
 }
