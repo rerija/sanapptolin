@@ -63,7 +63,7 @@
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
-            <Switch
+            <com.rerijaapps.sanapptolin.Widgets.SwitchSanFranciscoRegular
                 android:id="@+id/main_switch_music"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
