@@ -103,7 +103,7 @@ public class AudioActivity extends AppCompatActivity
 					mPlayer.seekTo( mPlayer.getCurrentPosition() );
 					mPlayer.start();
 				}
-				else
+				else if ( null != Constants.PARSE_APPSONG_URL )
 				{
 					startMediaPlayer();
 				}
@@ -121,6 +121,10 @@ public class AudioActivity extends AppCompatActivity
 	{
 		DO_ON_PAUSE = false;
 		DO_ON_RESUME = false;
+        if ( this instanceof MainActivity )
+        {
+			System.exit( 0 );
+        }
 		super.onBackPressed();
 	}
 }

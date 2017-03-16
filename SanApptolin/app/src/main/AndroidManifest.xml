@@ -71,10 +71,12 @@
         <activity
             android:name=".Activities.MainActivity_"
             android:theme="@style/AppThemeNoBarTransparentBar"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".Activities.SplashActivity_"
             android:theme="@style/AppThemeNoBarTransparentBar"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

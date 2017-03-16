@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/ecu_black_00" android:duration="100" />
+    <item android:drawable="@drawable/ecu_black_01" android:duration="100" />
+    <item android:drawable="@drawable/ecu_black_01" android:duration="100" />
+    <item android:drawable="@drawable/ecu_black_03" android:duration="100" />
+    <item android:drawable="@drawable/ecu_black_04" android:duration="100" />
+    <item android:drawable="@drawable/ecu_black_05" android:duration="100" />
+    <item android:drawable="@drawable/ecu_black_06" android:duration="100" />
+    <item android:drawable="@drawable/ecu_black_07" android:duration="100" />
+    <item android:drawable="@drawable/ecu_black_08" android:duration="100" />
+    <item android:drawable="@drawable/ecu_black_09" android:duration="100" />
+    <item android:drawable="@drawable/ecu_black_10" android:duration="100" />
+    <item android:drawable="@drawable/ecu_black_11" android:duration="100" />
+    <item android:drawable="@drawable/ecu_black_12" android:duration="100" />
+    <item android:drawable="@drawable/ecu_black_13" android:duration="100" />
+    <item android:drawable="@drawable/ecu_black_14" android:duration="100" />
+    <item android:drawable="@drawable/ecu_black_15" android:duration="100" />
+    <item android:drawable="@drawable/ecu_black_16" android:duration="100" />
+    <item android:drawable="@drawable/ecu_black_17" android:duration="100" />
+    <item android:drawable="@drawable/ecu_black_18" android:duration="100" />
+</animation-list>

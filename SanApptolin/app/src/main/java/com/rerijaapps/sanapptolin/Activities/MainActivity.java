@@ -28,11 +28,13 @@ import com.ufreedom.uikit.effect.CurveFloatingPathEffect;
 import com.ufreedom.uikit.effect.CurvePathFloatingAnimator;
 
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Handler;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -75,6 +77,12 @@ public class MainActivity extends AudioActivity implements AdapterView.OnItemCli
 	 */
 	@ViewById ( R.id.main_switch_music )
 	public Switch mSwitchMusic;
+
+	/**
+	 * Audio Image.
+	 */
+	@ViewById ( R.id.main_audio_img )
+	public ImageView mAudioImg;
 
 	/**
 	 * Layout manager para el recycler view.
@@ -120,10 +128,28 @@ public class MainActivity extends AudioActivity implements AdapterView.OnItemCli
 		mSwitchMusic.setOnCheckedChangeListener( this );
 		mSwitchMusic.setChecked( PreferencesManager.getBoolean( Constants.PREFERENCE_NAME_PLAY_MUSIC, true ) );
 		doMusicSwitchEvent = true;
-		if ( mSwitchMusic.isChecked() )
+		if ( mSwitchMusic.isChecked() && null != Constants.PARSE_APPSONG_URL )
 		{
 			PreferencesManager.setBoolean( Constants.PREFERENCE_NAME_PLAY_MUSIC, true );
 			startMediaPlayer();
+			startAudioAnimation( true );
+		}
+	}
+
+	/**
+	 * Comienza la animacion del audio.
+	 *
+	 * @param start - Comenzar o parar.
+	 */
+	private void startAudioAnimation( boolean start )
+	{
+		if ( start )
+		{
+			( ( AnimationDrawable ) mAudioImg.getBackground() ).start();
+		}
+		else
+		{
+			( ( AnimationDrawable ) mAudioImg.getBackground() ).stop();
 		}
 	}
 
@@ -262,8 +288,9 @@ public class MainActivity extends AudioActivity implements AdapterView.OnItemCli
 	@Override
 	public void onCheckedChanged( CompoundButton compoundButton, boolean checked )
 	{
-		if ( doMusicSwitchEvent )
+		if ( doMusicSwitchEvent && null != Constants.PARSE_APPSONG_URL )
 		{
+			startAudioAnimation( checked );
 			PreferencesManager.setBoolean( Constants.PREFERENCE_NAME_PLAY_MUSIC, checked );
 			if ( checked )
 			{

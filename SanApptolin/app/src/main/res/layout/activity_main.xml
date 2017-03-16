@@ -26,7 +26,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="50dp"
         android:layout_below="@+id/app_image"
         android:background="@drawable/shadow" />
 
@@ -72,6 +72,12 @@
                 android:text="Musica"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/main_audio_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/audio_animation" />
 
         </LinearLayout>
 
