@@ -9,6 +9,7 @@ import org.androidannotations.annotations.UiThread;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.google.firebase.crash.FirebaseCrash;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -37,6 +38,7 @@ public class SplashActivity extends AppCompatActivity
 	@AfterViews
 	public void setupViews()
 	{
+		setGlobalExceptionHandler();
 		doSync();
 	}
 
@@ -108,6 +110,21 @@ public class SplashActivity extends AppCompatActivity
 		{
 			showInternetErrorAndCloseApp();
 		}
+	}
+
+	/**
+	 * Establece un manejador de excepciones global.
+	 */
+	public void setGlobalExceptionHandler()
+	{
+		Thread.setDefaultUncaughtExceptionHandler( new Thread.UncaughtExceptionHandler()
+		{
+			@Override
+			public void uncaughtException( Thread paramThread, Throwable paramThrowable )
+			{
+				FirebaseCrash.report( paramThrowable );
+			}
+		} );
 	}
 
 	/**
