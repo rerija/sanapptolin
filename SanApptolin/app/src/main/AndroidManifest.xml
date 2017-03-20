@@ -37,6 +37,18 @@
             android:screenDensity="xhdpi"
             android:screenSize="small" />
         <screen
+            android:screenDensity="420"
+            android:screenSize="small" />
+        <screen
+            android:screenDensity="480"
+            android:screenSize="small" />
+        <screen
+            android:screenDensity="560"
+            android:screenSize="small" />
+        <screen
+            android:screenDensity="640"
+            android:screenSize="small" />
+        <screen
             android:screenDensity="ldpi"
             android:screenSize="normal" />
         <screen
@@ -48,6 +60,42 @@
         <screen
             android:screenDensity="xhdpi"
             android:screenSize="normal" />
+        <screen
+            android:screenDensity="420"
+            android:screenSize="normal" />
+        <screen
+            android:screenDensity="480"
+            android:screenSize="normal" />
+        <screen
+            android:screenDensity="560"
+            android:screenSize="normal" />
+        <screen
+            android:screenDensity="640"
+            android:screenSize="normal" />
+        <screen
+            android:screenDensity="ldpi"
+            android:screenSize="large" />
+        <screen
+            android:screenDensity="mdpi"
+            android:screenSize="large" />
+        <screen
+            android:screenDensity="hdpi"
+            android:screenSize="large" />
+        <screen
+            android:screenDensity="xhdpi"
+            android:screenSize="large" />
+        <screen
+            android:screenDensity="420"
+            android:screenSize="large" />
+        <screen
+            android:screenDensity="480"
+            android:screenSize="large" />
+        <screen
+            android:screenDensity="560"
+            android:screenSize="large" />
+        <screen
+            android:screenDensity="640"
+            android:screenSize="large" />
     </compatible-screens>
 
     <application
@@ -70,14 +118,14 @@
 
         <activity
             android:name=".Activities.MainActivity_"
-            android:theme="@style/AppThemeNoBarTransparentBar"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoBarTransparentBar" />
         <activity
             android:name=".Activities.SplashActivity_"
-            android:theme="@style/AppThemeNoBarTransparentBar"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoBarTransparentBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -91,25 +139,25 @@
             android:theme="@style/AppThemeNoBarTransparentBar" />
         <activity
             android:name=".Activities.EventActivity_"
-            android:theme="@style/AppThemeNoBarTransparentBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoBarTransparentBar" />
         <activity
             android:name="za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Activities.AppTutorialActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Activities.GalleryActivity_"
-            android:theme="@style/AppThemeNoBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoBar" />
 
         <activity
             android:name=".Activities.GalleryImageActivity_"
-            android:theme="@style/AppThemeNoBarTransparentBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoBarTransparentBar" />
 
         <service
             android:name=".Firebase.FirebaseIIDService"
