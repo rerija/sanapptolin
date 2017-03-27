@@ -76,6 +76,7 @@ public class SplashActivity extends AppCompatActivity
 					if ( appActive )
 					{
 						ParseQuery<ParseObject> parseQueryDays = ParseQuery.getQuery( Constants.CLASS_APP_DAYS_NAME );
+						parseQueryDays.orderByAscending( Constants.CLASS_APP_DAYS_COLUMN_DAYNAME_NAME );
 						appDays = parseQueryDays.find();
 					}
 				}
