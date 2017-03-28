@@ -13,6 +13,9 @@ import com.bumptech.glide.Glide;
 import com.cleveroad.fanlayoutmanager.FanLayoutManager;
 import com.cleveroad.fanlayoutmanager.FanLayoutManagerSettings;
 import com.flaviofaria.kenburnsview.KenBurnsView;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rerijaapps.sanapptolin.R;
@@ -106,6 +109,11 @@ public class MainActivity extends AudioActivity implements AdapterView.OnItemCli
 	private boolean doMusicSwitchEvent = false;
 
 	/**
+	 * Interstitial Ad.
+	 */
+	private InterstitialAd mInterstitialAd;
+
+	/**
 	 * Inicializa las vistas de la pantalla.
 	 */
 	@AfterViews
@@ -134,6 +142,11 @@ public class MainActivity extends AudioActivity implements AdapterView.OnItemCli
 			startMediaPlayer();
 			startAudioAnimation( true );
 		}
+
+		// Configuramos el SDK.
+		MobileAds.initialize( this, getString( R.string.banner_ad_app_id ) );
+		mInterstitialAd = new InterstitialAd( this );
+		mInterstitialAd.setAdUnitId( getString( R.string.banner_ad_unit_id ) );
 	}
 
 	/**
@@ -167,6 +180,14 @@ public class MainActivity extends AudioActivity implements AdapterView.OnItemCli
 		mFanLayoutManager.scrollToPosition( position );
 		if ( InternetHelper.chekInternetAndConnection( this ) )
 		{
+			// Cargamos el AD.
+			if ( !mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded() )
+			{
+				AdRequest adRequest = new AdRequest.Builder().build(); // PRO
+				//adRequest = new AdRequest.Builder().addTestDevice("D5B7A57155E5DEA14BF92CFDD01C3ED0").build(); // PRE
+				mInterstitialAd.loadAd( adRequest );
+			}
+			// Resto de operaciones.
 			if ( !isLoadingProgramation && null != view.getTag() )
 			{
 				isLoadingProgramation = true;
@@ -186,6 +207,17 @@ public class MainActivity extends AudioActivity implements AdapterView.OnItemCli
 		else
 		{
 			showInternetError();
+		}
+	}
+
+	/**
+	 * Muestra un anuncio interstitial.
+	 */
+	private void showInterstitial()
+	{
+		if ( mInterstitialAd != null && mInterstitialAd.isLoaded() )
+		{
+			mInterstitialAd.show();
 		}
 	}
 
@@ -276,6 +308,7 @@ public class MainActivity extends AudioActivity implements AdapterView.OnItemCli
 			AudioActivity.DO_ON_PAUSE = false;
 			AudioActivity.DO_ON_RESUME = false;
 			EventActivity_.intent( MainActivity.this ).mDayInfo( dayInfo ).mEventList( eventList ).start();
+			showInterstitial();
 		}
 	}
 

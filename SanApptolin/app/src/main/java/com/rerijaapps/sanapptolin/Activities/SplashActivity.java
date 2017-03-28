@@ -123,6 +123,7 @@ public class SplashActivity extends AppCompatActivity
 			@Override
 			public void uncaughtException( Thread paramThread, Throwable paramThrowable )
 			{
+				LogUtils.e( "UNCAUGHT_EXCEPTION", paramThrowable.getMessage() );
 				FirebaseCrash.report( paramThrowable );
 			}
 		} );
