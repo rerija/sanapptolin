@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
-def googlePlayServices = "25.3.1"
+def supportLibsVersion = "25.3.1"
+def googlePlayServicesVersion = "10.2.0"
 
 android {
     compileSdkVersion 25
@@ -28,11 +29,15 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'org.androidannotations:androidannotations-api:3.3.2'
     apt "org.androidannotations:androidannotations:3.3.2"
-    compile "com.android.support:cardview-v7:$googlePlayServices"
-    compile "com.android.support:appcompat-v7:$googlePlayServices"
-    compile "com.android.support:design:$googlePlayServices"
-    compile "com.android.support:support-v4:$googlePlayServices"
-    compile "com.android.support:recyclerview-v7:$googlePlayServices"
+    compile "com.android.support:cardview-v7:$supportLibsVersion"
+    compile "com.android.support:appcompat-v7:$supportLibsVersion"
+    compile "com.android.support:design:$supportLibsVersion"
+    compile "com.android.support:support-v4:$supportLibsVersion"
+    compile "com.android.support:recyclerview-v7:$supportLibsVersion"
+    compile "com.google.firebase:firebase-core:$googlePlayServicesVersion"
+    compile "com.google.firebase:firebase-messaging:$googlePlayServicesVersion"
+    compile "com.google.firebase:firebase-crash:$googlePlayServicesVersion"
+    compile "com.google.firebase:firebase-ads:$googlePlayServicesVersion"
     compile 'com.parse.bolts:bolts-android:1.4.0'
     compile 'com.parse:parse-android:1.13.1'
     compile 'com.github.bhargavms:DotLoader:1.0.1'
@@ -51,11 +56,7 @@ dependencies {
     compile 'com.felipecsl.asymmetricgridview:library:2.0.1'
     compile 'com.github.lguipeng:BubbleView:1.0.1'
     compile 'com.github.chrisbanes:PhotoView:1.3.1'
-    compile 'com.google.firebase:firebase-core:10.2.0'
-    compile 'com.google.firebase:firebase-messaging:10.2.0'
     compile 'com.android.support:multidex:1.0.1'
-    compile 'com.google.firebase:firebase-crash:10.2.0'
-    compile 'com.google.firebase:firebase-ads:10.2.0'
 }
 
 apt {
