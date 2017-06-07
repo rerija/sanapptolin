@@ -4,9 +4,8 @@ import java.util.List;
 
 import com.bumptech.glide.Glide;
 import com.github.library.bubbleview.BubbleTextView;
-import com.rerijaapps.sanapptolin.Activities.AudioActivity;
 import com.rerijaapps.sanapptolin.R;
-import com.rerijaapps.sanapptolin.Activities.GalleryActivity;
+import com.rerijaapps.sanapptolin.Activities.AudioActivity;
 import com.rerijaapps.sanapptolin.Activities.GalleryImageActivity_;
 import com.rerijaapps.sanapptolin.Serializable.GalleryImage;
 
@@ -77,7 +76,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.EventHol
 				? mContext.getString( R.string.published_at, mPhotos.get( position ).getPubDate(), mPhotos.get( position ).getPubDateHour() ) : "" );
 		holder.comment.setVisibility( null == mPhotos.get( position ).getComment() || mPhotos.get( position ).getComment().isEmpty() ? View.GONE : View.VISIBLE );
 		holder.comment.setText( null != mPhotos.get( position ).getComment() ? mPhotos.get( position ).getComment() : "" );
-		holder.itemView.setTag( mPhotos.get( position ).getUrl() );
+		holder.comment.setTag( position );
 	}
 
 	/**
@@ -139,11 +138,18 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.EventHol
 				@Override
 				public void onClick( View view )
 				{
-					if ( null != view.getTag() )
+					if ( null != mPhotos && !mPhotos.isEmpty() && null != comment && null != comment.getTag() )
 					{
+						String[] photosArray = new String[mPhotos.size()];
+
+						for ( int i = 0; i < mPhotos.size(); i++ )
+						{
+							photosArray[i] = mPhotos.get( i ).getUrl();
+						}
+
 						AudioActivity.DO_ON_PAUSE = false;
 						AudioActivity.DO_ON_RESUME = false;
-						GalleryImageActivity_.intent( mContext ).mUrlImage( view.getTag().toString() ).start();
+						GalleryImageActivity_.intent( mContext ).mUrlImages( photosArray ).mPhotoSelected( Integer.parseInt( comment.getTag().toString() ) ).start();
 					}
 				}
 			} );
