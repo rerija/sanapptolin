@@ -15,7 +15,6 @@ import com.rerijaapps.sanapptolin.Serializable.Event;
 
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
@@ -111,7 +110,5 @@ public class EventActivity extends AudioActivity
 		AudioActivity.DO_ON_RESUME = false;
 		GalleryActivity_.intent( this ).mDayInfo( mDayInfo ).start();
 	}
-
-
 
 }

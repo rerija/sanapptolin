@@ -73,7 +73,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.EventHol
 	{
 		Glide.with( mContext ).load( mPhotos.get( position ).getUrl() ).into( holder.galleryPhotoImage );
 		holder.pubDate.setText( null != mPhotos.get( position ).getPubDate() && null != mPhotos
-				? mContext.getString( R.string.published_at, mPhotos.get( position ).getPubDate(), mPhotos.get( position ).getPubDateHour() ) : "" );
+				? mContext.getString( R.string.published_at, mPhotos.get( position ).getPubDate(), mPhotos.get( position ).getPubDateHour() )
+				: "" );
 		holder.comment.setVisibility( null == mPhotos.get( position ).getComment() || mPhotos.get( position ).getComment().isEmpty() ? View.GONE : View.VISIBLE );
 		holder.comment.setText( null != mPhotos.get( position ).getComment() ? mPhotos.get( position ).getComment() : "" );
 		holder.comment.setTag( position );

@@ -28,7 +28,7 @@ import com.rerijaapps.sanapptolin.Serializable.GalleryImage;
 import com.rerijaapps.sanapptolin.Storage.Constants;
 import com.rerijaapps.sanapptolin.Utils.ExifImageHelper;
 import com.rerijaapps.sanapptolin.Utils.InternetHelper;
-import com.rerijaapps.sanapptolin.Utils.LogUtils;
+import com.rerijaapps.sanapptolin.Utils.LogHelper;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -42,7 +42,6 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.View;
@@ -151,7 +150,7 @@ public class GalleryActivity extends AudioActivity implements SwipeRefreshLayout
 			}
 			catch ( Exception ex )
 			{
-				LogUtils.e( "ERROR_REFREH_PHOTO_GALLERY", ex.getMessage() );
+				LogHelper.e( "ERROR_REFREH_PHOTO_GALLERY", ex.getMessage() );
 			}
 		}
 		setSwipeRefreshing( false );

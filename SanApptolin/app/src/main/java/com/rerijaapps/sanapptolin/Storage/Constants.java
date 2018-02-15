@@ -25,8 +25,6 @@ public class Constants
 	 */
 	public static final String PREFERENCE_NAME_SHOW_TUTORIAL = "com.rerijaapps.sanapptolin.preference_name_show_tutorial";
 
-	public static final String PREFERENCE_NAME_PLAY_MUSIC = "com.rerijaapps.sanapptolin.preference_name_play_music";
-
 	/**
 	 * Indican que la app esta en modo programancion.
 	 */
@@ -40,7 +38,7 @@ public class Constants
 	public static final String CLASS_APP_STATE_COLUMN_ACTIVE_NAME = "Active";
 	public static final String CLASS_APP_STATE_COLUMN_APPNAME_NAME = "AppName";
 	public static final String CLASS_APP_STATE_COLUMN_APPIMAGE_NAME = "AppImage";
-	public static final String CLASS_APP_STATE_COLUMN_SONG = "Song";
+	public static final String CLASS_APP_STATE_COLUMN_RADIO_STREAMING_URL = "RadioStreamingUrl";
 	public static final String CLASS_APP_DAYS_NAME = "Days";
 	public static final String CLASS_APP_DAYS_COLUMN_DAYNAME_NAME = "DayName";
 	public static final String CLASS_APP_DAYS_COLUMN_COLORDAY_NAME = "ColorDay";

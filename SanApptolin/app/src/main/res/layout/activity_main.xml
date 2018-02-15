@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
@@ -18,6 +19,23 @@
         android:layout_alignBottom="@+id/centerScreenVertical"
         android:scaleType="centerCrop" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/centerScreenVertical"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <com.github.ybq.android.spinkit.SpinKitView
+            android:id="@+id/loader"
+            style="@style/SpinKitView.Large.DoubleBounce"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:SpinKit_Color="@color/colorPrimary" />
+
+    </LinearLayout>
+
     <View
         android:id="@+id/centerScreenVertical"
         android:layout_width="match_parent"
@@ -35,7 +53,6 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/main_recycler_view"
             android:layout_width="match_parent"
@@ -47,57 +64,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/main_icon"
-            android:layout_alignBottom="@+id/main_icon"
+            android:layout_margin="8dp"
             android:background="@drawable/rounded_shape_primary_color"
-            android:layout_marginRight="16dp"
             android:gravity="center"
             android:orientation="vertical">
-
-            <com.rerijaapps.sanapptolin.Widgets.TextViewSanFranciscoBold
-                android:id="@+id/main_app_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="3dp"
-                android:paddingTop="3dp"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
 
             <com.rerijaapps.sanapptolin.Widgets.SwitchSanFranciscoRegular
                 android:id="@+id/main_switch_music"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:switchPadding="10dp"
-                android:text="Musica"
+                android:text="Radio Onda Medina"
+                android:switchPadding="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginStart="4dp"
                 android:textColor="@android:color/white"
                 android:textSize="14sp" />
 
-            <ImageView
+            <com.github.ybq.android.spinkit.SpinKitView
                 android:id="@+id/main_audio_img"
+                style="@style/SpinKitView.Small.Wave"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/audio_animation" />
+                android:visibility="gone"
+                app:SpinKit_Color="@android:color/white" />
 
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/main_icon"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_margin="16dp"
-            android:background="@drawable/circle_shape_gray_color"
-            android:padding="15dp"
-            android:src="@drawable/splash_icon" />
-
-        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
-            android:id="@+id/main_loader"
-            android:layout_width="102dp"
-            android:layout_height="102dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="10dp"
-            android:indeterminate="true"
-            android:visibility="gone" />
 
     </RelativeLayout>
 

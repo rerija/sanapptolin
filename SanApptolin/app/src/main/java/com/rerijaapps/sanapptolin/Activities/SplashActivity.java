@@ -14,10 +14,11 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rerijaapps.sanapptolin.R;
+import com.rerijaapps.sanapptolin.Services.OnClearFromRecentService;
 import com.rerijaapps.sanapptolin.Storage.Constants;
 import com.rerijaapps.sanapptolin.Storage.PreferencesManager;
 import com.rerijaapps.sanapptolin.Utils.InternetHelper;
-import com.rerijaapps.sanapptolin.Utils.LogUtils;
+import com.rerijaapps.sanapptolin.Utils.LogHelper;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -38,6 +39,9 @@ public class SplashActivity extends AppCompatActivity
 	@AfterViews
 	public void setupViews()
 	{
+		// Servicio para eliminar el audio/notificacion de audio cuando la app se
+		// elimina de recientes en el sistema.
+		startService( new Intent( getBaseContext() , OnClearFromRecentService.class ) );
 		setGlobalExceptionHandler();
 		doSync();
 	}
@@ -63,11 +67,7 @@ public class SplashActivity extends AppCompatActivity
 				{
 					appActive = parseObjectAppStateList.get( 0 ).getBoolean( Constants.CLASS_APP_STATE_COLUMN_ACTIVE_NAME );
 					appName = parseObjectAppStateList.get( 0 ).getString( Constants.CLASS_APP_STATE_COLUMN_APPNAME_NAME );
-					ParseFile fileAppSongUrl = parseObjectAppStateList.get( 0 ).getParseFile( Constants.CLASS_APP_STATE_COLUMN_SONG );
-					if ( null != fileAppSongUrl )
-					{
-						appSongUrl = fileAppSongUrl.getUrl();
-					}
+					appSongUrl = parseObjectAppStateList.get( 0 ).getString( Constants.CLASS_APP_STATE_COLUMN_RADIO_STREAMING_URL );
 					ParseFile appImageParseFile = parseObjectAppStateList.get( 0 ).getParseFile( Constants.CLASS_APP_STATE_COLUMN_APPIMAGE_NAME );
 					if ( null != appImageParseFile )
 					{
@@ -83,7 +83,7 @@ public class SplashActivity extends AppCompatActivity
 			}
 			catch ( Exception ex )
 			{
-				LogUtils.e( "ERROR_GET_APP_ACTIVE", ex.getMessage() );
+				LogHelper.e( "ERROR_GET_APP_ACTIVE", ex.getMessage() );
 			}
 
 			if ( !appActive || null == appDays )
@@ -123,7 +123,7 @@ public class SplashActivity extends AppCompatActivity
 			@Override
 			public void uncaughtException( Thread paramThread, Throwable paramThrowable )
 			{
-				LogUtils.e( "UNCAUGHT_EXCEPTION", paramThrowable.getMessage() );
+				LogHelper.e( "UNCAUGHT_EXCEPTION", paramThrowable.getMessage() );
 				FirebaseCrash.report( paramThrowable );
 			}
 		} );

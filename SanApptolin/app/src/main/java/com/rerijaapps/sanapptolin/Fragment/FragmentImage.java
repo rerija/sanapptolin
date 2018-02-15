@@ -5,12 +5,11 @@ import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
 import com.bumptech.glide.Glide;
+import com.github.chrisbanes.photoview.PhotoViewAttacher;
 import com.rerijaapps.sanapptolin.R;
 
 import android.support.v4.app.Fragment;
 import android.widget.ImageView;
-
-import uk.co.senab.photoview.PhotoViewAttacher;
 
 /**
  * Fragment para las imagenes.

@@ -2,7 +2,7 @@ package com.rerijaapps.sanapptolin.Firebase;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.rerijaapps.sanapptolin.Utils.LogUtils;
+import com.rerijaapps.sanapptolin.Utils.LogHelper;
 
 /**
  * Servicio que se llama al obtener el token de firebase.
@@ -20,7 +20,7 @@ public class FirebaseIIDService extends FirebaseInstanceIdService
 	@Override
 	public void onTokenRefresh()
 	{
-		LogUtils.i( TAG, "TOKEN: " + FirebaseInstanceId.getInstance().getToken() );
+		LogHelper.i( TAG, "TOKEN: " + FirebaseInstanceId.getInstance().getToken() );
 		super.onTokenRefresh();
 	}
 }

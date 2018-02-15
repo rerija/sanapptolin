@@ -1,14 +1,16 @@
 package com.rerijaapps.sanapptolin.Activities;
 
-import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 
-import com.rerijaapps.sanapptolin.Storage.Constants;
-import com.rerijaapps.sanapptolin.Storage.PreferencesManager;
-import com.rerijaapps.sanapptolin.Utils.LogUtils;
+import com.rerijaapps.sanapptolin.Services.AudioPlayerFocusService;
 
-import android.media.AudioManager;
-import android.media.MediaPlayer;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.Bundle;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 /**
@@ -21,9 +23,25 @@ public class AudioActivity extends AppCompatActivity
 {
 
 	/**
-	 * Player de la musica.
+	 * Servicio del player.
 	 */
-	private static MediaPlayer mPlayer;
+	public static AudioPlayerFocusService PLAY_SERVICE;
+
+	/***
+	 * Conexion del servicio del foco del audio.
+	 */
+	public static ServiceConnection PLAY_SERVICE_CONNECTION = new ServiceConnection()
+	{
+		public void onServiceConnected( ComponentName className, IBinder service )
+		{
+			PLAY_SERVICE = ( ( AudioPlayerFocusService.LocalBinder ) service ).getService();
+		}
+
+		public void onServiceDisconnected( ComponentName className )
+		{
+			PLAY_SERVICE = null;
+		}
+	};
 
 	/**
 	 * Indica si realizar la accion del pause.
@@ -36,38 +54,20 @@ public class AudioActivity extends AppCompatActivity
 	public static boolean DO_ON_RESUME = false;
 
 	/**
-	 * Empieza el media player.
+	 * {@inheritDoc}
+	 *
+	 * @param savedInstanceState
 	 */
-	@Background
-	public void startMediaPlayer()
+	@Override
+	protected void onCreate( @Nullable Bundle savedInstanceState )
 	{
-		if ( null == mPlayer )
-		{
-			mPlayer = new MediaPlayer();
-		}
-		try
-		{
-			mPlayer.setAudioStreamType( AudioManager.STREAM_MUSIC );
-			mPlayer.setLooping( true );
-			mPlayer.setDataSource( Constants.PARSE_APPSONG_URL );
-			mPlayer.prepare();
-			mPlayer.start();
-		}
-		catch ( Exception ex )
-		{
-			LogUtils.e( "ERR_START_MEDIA_PLAYER", ex.getMessage() );
-		}
-	}
+		super.onCreate( savedInstanceState );
 
-	/**
-	 * Para el player.
-	 */
-	public void stopMediaPlayer()
-	{
-		if  ( null != mPlayer && mPlayer.isPlaying() )
+		// Creamos el service del foco del audio solo si es nulo.
+		if ( null == PLAY_SERVICE )
 		{
-			mPlayer.stop();
-			mPlayer = null;
+			this.startService( new Intent( this , AudioPlayerFocusService.class ) );
+			this.bindService( new Intent( this , AudioPlayerFocusService.class ), PLAY_SERVICE_CONNECTION, Context.BIND_AUTO_CREATE );
 		}
 	}
 
@@ -79,10 +79,7 @@ public class AudioActivity extends AppCompatActivity
 	{
 		if ( DO_ON_PAUSE )
 		{
-			if ( null != mPlayer && mPlayer.isPlaying() )
-			{
-				mPlayer.pause();
-			}
+
 		}
 		DO_ON_PAUSE = true;
 		super.onPause();
@@ -96,18 +93,7 @@ public class AudioActivity extends AppCompatActivity
 	{
 		if ( DO_ON_RESUME )
 		{
-			if ( null != mPlayer && !mPlayer.isPlaying() && PreferencesManager.getBoolean( Constants.PREFERENCE_NAME_PLAY_MUSIC, false ) )
-			{
-				if ( mPlayer.getCurrentPosition() > 0 )
-				{
-					mPlayer.seekTo( mPlayer.getCurrentPosition() );
-					mPlayer.start();
-				}
-				else if ( null != Constants.PARSE_APPSONG_URL )
-				{
-					startMediaPlayer();
-				}
-			}
+
 		}
 		DO_ON_RESUME = true;
 		super.onResume();
@@ -121,10 +107,13 @@ public class AudioActivity extends AppCompatActivity
 	{
 		DO_ON_PAUSE = false;
 		DO_ON_RESUME = false;
-        if ( this instanceof MainActivity )
-        {
-			System.exit( 0 );
-        }
-		super.onBackPressed();
+		if ( this instanceof MainActivity )
+		{
+			moveTaskToBack( true );
+		}
+		else
+		{
+			super.onBackPressed();
+		}
 	}
 }
