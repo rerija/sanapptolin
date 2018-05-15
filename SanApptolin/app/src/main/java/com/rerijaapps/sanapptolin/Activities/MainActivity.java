@@ -98,12 +98,6 @@ public class MainActivity extends AudioActivity implements AdapterView.OnItemCli
 	private FloatingText mFloatingLoadingText;
 
 	/**
-	 * Indica si se debe de realizar las operaciones del evento del Switch de la
-	 * musica.
-	 */
-	private boolean doMusicSwitchEvent = false;
-
-	/**
 	 * Interstitial Ad.
 	 */
 	private InterstitialAd mInterstitialAd;
@@ -128,7 +122,6 @@ public class MainActivity extends AudioActivity implements AdapterView.OnItemCli
 
 		// Switch de la musica.
 		mSwitchMusic.setOnCheckedChangeListener( this );
-		doMusicSwitchEvent = true;
 
 		// Configuramos el SDK.
 		MobileAds.initialize( this, getString( R.string.banner_ad_app_id ) );
@@ -299,8 +292,6 @@ public class MainActivity extends AudioActivity implements AdapterView.OnItemCli
 		}
 	}
 
-
-
 	/**
 	 * {@inheritDoc}
 	 *
@@ -346,8 +337,7 @@ public class MainActivity extends AudioActivity implements AdapterView.OnItemCli
 	public void listenerPlay()
 	{
 		AudioNotificationUtils.updateAudioNotificationPlayStatus( true );
-		doMusicSwitchEvent = false;
-		mSwitchMusic.setChecked( true );
+		setSwitchMusicChecked( true );
 		startAudioAnimation( true );
 	}
 
@@ -358,9 +348,19 @@ public class MainActivity extends AudioActivity implements AdapterView.OnItemCli
 	public void listenerPause()
 	{
 		AudioNotificationUtils.updateAudioNotificationPlayStatus( false );
-		doMusicSwitchEvent = false;
-		mSwitchMusic.setChecked( false );
+		setSwitchMusicChecked( false );
 		startAudioAnimation( false );
+	}
+
+	/**
+	 * Establece el marcado del switch de la musica.
+	 *
+	 * @param checked - Indica si esta marcado o no.
+	 */
+	@UiThread
+	public void setSwitchMusicChecked( boolean checked )
+	{
+		mSwitchMusic.setChecked( checked );
 	}
 
 	/**

@@ -7,9 +7,9 @@ import com.rerijaapps.sanapptolin.Activities.AudioActivity;
 import com.rerijaapps.sanapptolin.Interfaces.IOnAudioPlayerStatusListener;
 import com.rerijaapps.sanapptolin.Utils.AudioNotificationUtils;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
+import android.app.IntentService;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 
 /**
@@ -40,6 +40,7 @@ public class SanApptolinAudioPlayer
 		if ( null == mAudioPlayer )
 		{
 			mAudioPlayer = new MediaPlayer();
+			mAudioPlayer.setAudioStreamType( AudioManager.STREAM_MUSIC );
 		}
 		return mAudioPlayer;
 	}
@@ -86,17 +87,24 @@ public class SanApptolinAudioPlayer
 	/**
 	 * Broadcast para el play/pause de la notificacion del audio.
 	 */
-	public static class PlayPauseNotificationReceiver extends BroadcastReceiver
+	public static class PlayPauseNotificationService extends IntentService
 	{
 
 		/**
 		 * {@inheritDoc}
+		 */
+		public PlayPauseNotificationService()
+		{
+			super( "PlayPauseNotificationService" );
+		}
+
+		/**
+		 * {@inheritDoc}
 		 *
-		 * @param context
 		 * @param intent
 		 */
 		@Override
-		public void onReceive( Context context, Intent intent )
+		protected void onHandleIntent( Intent intent )
 		{
 			AudioNotificationUtils.updateAudioNotificationPlayStatus( !getInstance().isPlaying() );
 			if ( null != AudioActivity.PLAY_SERVICE )

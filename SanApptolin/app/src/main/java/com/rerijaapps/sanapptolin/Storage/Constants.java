@@ -55,8 +55,14 @@ public class Constants
 	public static final String CLASS_DAY_IMAGES_COLUMN_DAY = "Day";
 
 	/**
-	 * Constantes para definir los valores que se mantienen en la app obtenido
-	 * de Parse.
+	 * Identificador y nombre del channel para las notificaciones en android O.
+	 */
+	public static final String NOTIFICATION_CHANNEL_ID = "com.rerijaapps.sanapptolin.NOTIFICATION_CHANNEL_ID";
+	public static final String NOTIFICATION_CHANNEL_NAME = "com.rerijaapps.sanapptolin.NOTIFICATION_CHANNEL_NAME";
+
+	/**
+	 * Constantes para definir los valores que se mantienen en la app obtenido de
+	 * Parse.
 	 */
 	public static String PARSE_APPNAME = "";
 	public static String PARSE_APPIMAGE = "";

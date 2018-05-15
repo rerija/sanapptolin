@@ -153,6 +153,10 @@
             android:theme="@style/AppThemeNoBarTransparentBar" />
 
         <service
+            android:name=".Singleton.SanApptolinAudioPlayer$PlayPauseNotificationService"
+            android:stopWithTask="false" />
+
+        <service
             android:name=".Firebase.FirebaseIIDService"
             android:exported="false">
             <intent-filter>
@@ -175,14 +179,6 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_stat_notification_icon" />
-
-        <receiver
-            android:name=".Singleton.SanApptolinAudioPlayer$PlayPauseNotificationReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="SAN_APPTOLIN_NOTIFICATION_PLAY_PAUSE_BTN" />
-            </intent-filter>
-        </receiver>
 
     </application>
 

@@ -5,7 +5,6 @@ import com.parse.ParseInstallation;
 import com.rerijaapps.sanapptolin.Storage.Constants;
 import com.rerijaapps.sanapptolin.Storage.PreferencesManager;
 
-import android.app.Application;
 import android.content.Context;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;

@@ -1,11 +1,11 @@
 package com.rerijaapps.sanapptolin.Services;
 
+import com.rerijaapps.sanapptolin.Singleton.SanApptolinAudioPlayer;
+import com.rerijaapps.sanapptolin.Utils.AudioNotificationUtils;
+
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-
-import com.rerijaapps.sanapptolin.Singleton.SanApptolinAudioPlayer;
-import com.rerijaapps.sanapptolin.Utils.AudioNotificationUtils;
 
 /**
  * Service para ejecutar una accion cuando la app es matada de recientes.

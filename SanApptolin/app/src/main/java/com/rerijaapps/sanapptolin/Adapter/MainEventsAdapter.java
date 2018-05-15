@@ -76,8 +76,10 @@ public class MainEventsAdapter extends RecyclerView.Adapter<MainEventsAdapter.Ev
 		catch ( Exception ignored )
 		{
 		}
-		eventViewHolder.getDayText().setText( null != mDays.get( i ).getString( Constants.CLASS_APP_DAYS_COLUMN_DAYNAME_NAME )
-				? mDays.get( i ).getString( Constants.CLASS_APP_DAYS_COLUMN_DAYNAME_NAME ) : "" );
+		eventViewHolder.getDayText()
+				.setText( null != mDays.get( i ).getString( Constants.CLASS_APP_DAYS_COLUMN_DAYNAME_NAME )
+						? mDays.get( i ).getString( Constants.CLASS_APP_DAYS_COLUMN_DAYNAME_NAME )
+						: "" );
 		eventViewHolder.getCardView().setCardBackgroundColor( colorCardView );
 		eventViewHolder.itemView.setOnClickListener( new View.OnClickListener()
 		{

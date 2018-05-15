@@ -22,7 +22,7 @@ public class AudioPlayerFocusService extends Service implements AudioManager.OnA
 	 * Acciones del Service.
 	 */
 	public static final String PLAY_ACTION = "com.rerijaapps.sanapptolin.play_service.listenerPlay";
-	public static final String PAUSE_ACTION = "rtve.tablet.android.play_service.listenerPause";
+	public static final String PAUSE_ACTION = "com.rerijaapps.sanapptolin.play_service.listenerPause";
 
 	/**
 	 * Binder.

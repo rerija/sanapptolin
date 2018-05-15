@@ -3,12 +3,16 @@ package com.rerijaapps.sanapptolin.Utils;
 import java.util.Random;
 
 import com.rerijaapps.sanapptolin.R;
+import com.rerijaapps.sanapptolin.Singleton.SanApptolinAudioPlayer;
+import com.rerijaapps.sanapptolin.Storage.Constants;
 
 import android.app.Activity;
 import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.widget.RemoteViews;
 
@@ -68,8 +72,8 @@ public class AudioNotificationUtils
 			{
 				mRemoteViews = new RemoteViews( activity.getPackageName() , R.layout.audio_notification );
 
-				Intent playPauseIntent = new Intent( "SAN_APPTOLIN_NOTIFICATION_PLAY_PAUSE_BTN" );
-				final PendingIntent pendingPlayPauseIntent = PendingIntent.getBroadcast( activity, 0, playPauseIntent, 0 );
+				Intent playPauseIntent = new Intent( activity , SanApptolinAudioPlayer.PlayPauseNotificationService.class );
+				final PendingIntent pendingPlayPauseIntent = PendingIntent.getService( activity, 0, playPauseIntent, PendingIntent.FLAG_UPDATE_CURRENT );
 				mRemoteViews.setOnClickPendingIntent( R.id.play_pause, pendingPlayPauseIntent );
 			}
 
@@ -80,8 +84,25 @@ public class AudioNotificationUtils
 
 			PendingIntent pendingIntent = PendingIntent.getActivity( activity, mNotificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT );
 
-			mAudioNotificationBuilder = new NotificationCompat.Builder( activity ).setSmallIcon( R.drawable.ic_stat_notification_icon ).setAutoCancel( false )
-					.setContent( mRemoteViews ).setOngoing( true ).setContentIntent( pendingIntent );
+			// Configuramos la notificacion para Android O.
+			if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.O )
+			{
+				NotificationChannel androidChannel = new NotificationChannel( Constants.NOTIFICATION_CHANNEL_NAME , Constants.NOTIFICATION_CHANNEL_ID ,
+						NotificationManager.IMPORTANCE_DEFAULT );
+				androidChannel.enableLights( true );
+				androidChannel.enableVibration( false );
+				androidChannel.setLockscreenVisibility( Notification.VISIBILITY_PUBLIC );
+				androidChannel.setSound( null, null );
+				mNotificationManager.createNotificationChannel( androidChannel );
+				mAudioNotificationBuilder = new NotificationCompat.Builder( activity , Constants.NOTIFICATION_CHANNEL_NAME )
+						.setSmallIcon( R.drawable.ic_stat_notification_icon ).setAutoCancel( false ).setCustomContentView( mRemoteViews ).setOngoing( true )
+						.setContentIntent( pendingIntent );
+			}
+			else
+			{
+				mAudioNotificationBuilder = new NotificationCompat.Builder( activity ).setSmallIcon( R.drawable.ic_stat_notification_icon ).setAutoCancel( false )
+						.setCustomContentView( mRemoteViews ).setOngoing( true ).setContentIntent( pendingIntent );
+			}
 
 			if ( null == mAudioNotification )
 			{

@@ -96,8 +96,7 @@ public class GalleryActivity extends AudioActivity implements SwipeRefreshLayout
 	private Bitmap mLastCameraBitmap;
 
 	/**
-	 * Identificador para identificar que queremos hacer una captura con la
-	 * camara.
+	 * Identificador para identificar que queremos hacer una captura con la camara.
 	 */
 	private final int REQUEST_IMAGE_CAPTURE = 0;
 

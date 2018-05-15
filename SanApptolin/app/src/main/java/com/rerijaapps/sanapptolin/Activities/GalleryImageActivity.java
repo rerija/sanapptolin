@@ -5,9 +5,9 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
-import com.rerijaapps.sanapptolin.Fragment.FragmentImage_;
 import com.rerijaapps.sanapptolin.R;
 import com.rerijaapps.sanapptolin.Fragment.FragmentImage;
+import com.rerijaapps.sanapptolin.Fragment.FragmentImage_;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
