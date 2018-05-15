@@ -170,7 +170,7 @@
             </intent-filter>
         </service>
 
-        <service android:name=".Services.AudioPlayerFocusService" />
+        <service android:name=".Services.SanApptolinAudioPlayerFocusService" />
 
         <service
             android:name=".Services.OnClearFromRecentService"

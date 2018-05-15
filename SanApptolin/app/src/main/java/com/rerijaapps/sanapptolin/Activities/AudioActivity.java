@@ -2,7 +2,7 @@ package com.rerijaapps.sanapptolin.Activities;
 
 import org.androidannotations.annotations.EActivity;
 
-import com.rerijaapps.sanapptolin.Services.AudioPlayerFocusService;
+import com.rerijaapps.sanapptolin.Services.SanApptolinAudioPlayerFocusService;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -25,7 +25,7 @@ public class AudioActivity extends AppCompatActivity
 	/**
 	 * Servicio del player.
 	 */
-	public static AudioPlayerFocusService PLAY_SERVICE;
+	public static SanApptolinAudioPlayerFocusService PLAY_SERVICE;
 
 	/***
 	 * Conexion del servicio del foco del audio.
@@ -34,7 +34,7 @@ public class AudioActivity extends AppCompatActivity
 	{
 		public void onServiceConnected( ComponentName className, IBinder service )
 		{
-			PLAY_SERVICE = ( ( AudioPlayerFocusService.LocalBinder ) service ).getService();
+			PLAY_SERVICE = ( ( SanApptolinAudioPlayerFocusService.LocalBinder ) service ).getService();
 		}
 
 		public void onServiceDisconnected( ComponentName className )
@@ -66,8 +66,8 @@ public class AudioActivity extends AppCompatActivity
 		// Creamos el service del foco del audio solo si es nulo.
 		if ( null == PLAY_SERVICE )
 		{
-			this.startService( new Intent( this , AudioPlayerFocusService.class ) );
-			this.bindService( new Intent( this , AudioPlayerFocusService.class ), PLAY_SERVICE_CONNECTION, Context.BIND_AUTO_CREATE );
+			this.startService( new Intent( this , SanApptolinAudioPlayerFocusService.class ) );
+			this.bindService( new Intent( this , SanApptolinAudioPlayerFocusService.class ), PLAY_SERVICE_CONNECTION, Context.BIND_AUTO_CREATE );
 		}
 	}
 

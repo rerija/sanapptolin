@@ -112,7 +112,7 @@ public class MainActivity extends AudioActivity implements AdapterView.OnItemCli
 				.floatingAnimatorEffect( new CurvePathFloatingAnimator() ).floatingPathEffect( new CurveFloatingPathEffect() )
 				.textContent( getString( R.string.loading_programation ) ).build();
 		mFloatingLoadingText.attach2Window();
-		Glide.with( this ).load( Constants.PARSE_APPIMAGE ).into( mAppImage );
+        Glide.with( this ).load( Constants.PARSE_APPIMAGE ).into( mAppImage );
 		FanLayoutManagerSettings fanLayoutManagerSettings = FanLayoutManagerSettings.newBuilder( this ).withFanRadius( true ).withAngleItemBounce( 5 )
 				.withViewWidthDp( 200 ).withViewHeightDp( ( getResources().getDisplayMetrics().heightPixels / getResources().getDisplayMetrics().density ) / 2 ).build();
 		mFanLayoutManager = new FanLayoutManager( this , fanLayoutManagerSettings );
@@ -139,7 +139,8 @@ public class MainActivity extends AudioActivity implements AdapterView.OnItemCli
 	 *
 	 * @param start - Comenzar o parar.
 	 */
-	private void startAudioAnimation( boolean start )
+	@UiThread
+	public void startAudioAnimation( boolean start )
 	{
 		mAudioImg.setVisibility( start ? View.VISIBLE : View.GONE );
 	}
@@ -388,10 +389,9 @@ public class MainActivity extends AudioActivity implements AdapterView.OnItemCli
 	@Override
 	public boolean onError( MediaPlayer mediaPlayer, int i, int i1 )
 	{
-		if ( null != AudioActivity.PLAY_SERVICE )
-		{
-			AudioActivity.PLAY_SERVICE.pause();
-		}
+		AudioNotificationUtils.updateAudioNotificationPlayStatus( false );
+		setSwitchMusicChecked( false );
+		startAudioAnimation( false );
 		return true;
 	}
 }

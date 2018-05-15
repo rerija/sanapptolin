@@ -1,7 +1,7 @@
 package com.rerijaapps.sanapptolin.Services;
 
+import com.rerijaapps.sanapptolin.Activities.AudioActivity;
 import com.rerijaapps.sanapptolin.Singleton.SanApptolinAudioPlayer;
-import com.rerijaapps.sanapptolin.Utils.AudioNotificationUtils;
 
 import android.app.Service;
 import android.content.Context;
@@ -15,7 +15,7 @@ import android.os.IBinder;
  *
  * Created by jrecio on 25/8/17.
  */
-public class AudioPlayerFocusService extends Service implements AudioManager.OnAudioFocusChangeListener
+public class SanApptolinAudioPlayerFocusService extends Service implements AudioManager.OnAudioFocusChangeListener
 {
 
 	/**
@@ -34,9 +34,9 @@ public class AudioPlayerFocusService extends Service implements AudioManager.OnA
 	 */
 	public class LocalBinder extends Binder
 	{
-		public AudioPlayerFocusService getService()
+		public SanApptolinAudioPlayerFocusService getService()
 		{
-			return AudioPlayerFocusService.this;
+			return SanApptolinAudioPlayerFocusService.this;
 		}
 	}
 
@@ -61,11 +61,11 @@ public class AudioPlayerFocusService extends Service implements AudioManager.OnA
 	{
 		if ( intent != null && intent.getAction() != null )
 		{
-			if ( intent.getAction().equals( AudioPlayerFocusService.PLAY_ACTION ) )
+			if ( intent.getAction().equals( SanApptolinAudioPlayerFocusService.PLAY_ACTION ) )
 			{
 				play();
 			}
-			else if ( intent.getAction().equals( AudioPlayerFocusService.PAUSE_ACTION ) )
+			else if ( intent.getAction().equals( SanApptolinAudioPlayerFocusService.PAUSE_ACTION ) )
 			{
 				pause();
 			}
@@ -115,10 +115,11 @@ public class AudioPlayerFocusService extends Service implements AudioManager.OnA
 	 */
 	public void pause()
 	{
-		if ( null != SanApptolinAudioPlayer.getInstance() && SanApptolinAudioPlayer.getInstance().isPlaying() )
+		if ( null != SanApptolinAudioPlayer.getInstance() )
 		{
 			SanApptolinAudioPlayer.getInstance().pause();
 			SanApptolinAudioPlayer.notifyPauseListeners();
+			abandonAudioFocus();
 		}
 	}
 
@@ -152,20 +153,30 @@ public class AudioPlayerFocusService extends Service implements AudioManager.OnA
 	@Override
 	public void onAudioFocusChange( int focusChange )
 	{
-		if ( focusChange == AudioManager.AUDIOFOCUS_GAIN )
+		switch ( focusChange )
 		{
-			// No hacemos nada, ya que si el user quita el audio de otra app, pero el de
-			// esta no estaba puesta, no deberia hacerlo.
+		case AudioManager.AUDIOFOCUS_GAIN:
+			break;
+		case AudioManager.AUDIOFOCUS_GAIN_TRANSIENT:
+			break;
+		case AudioManager.AUDIOFOCUS_GAIN_TRANSIENT_MAY_DUCK:
+			break;
+		case AudioManager.AUDIOFOCUS_LOSS:
+			if ( null != AudioActivity.PLAY_SERVICE )
+			{
+				AudioActivity.PLAY_SERVICE.pause();
+			}
+			break;
+		case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT:
+			if ( null != AudioActivity.PLAY_SERVICE )
+			{
+				AudioActivity.PLAY_SERVICE.pause();
+			}
+			break;
+		case AudioManager.AUDIOFOCUS_LOSS_TRANSIENT_CAN_DUCK:
+			break;
 		}
-		else if ( focusChange == AudioManager.AUDIOFOCUS_LOSS ) // Hemos perdido el foco de audio, así que pausamos el player.
-		{
-			pause();
 
-			// Si la app esta en segundo plano, la notificacion esta creada, por lo tanto
-			// hay que actualizar la vista de la notificacion.
-			AudioNotificationUtils.updateAudioNotificationPlayStatus( false );
-
-		}
 	}
 
 }

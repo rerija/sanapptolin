@@ -16,6 +16,8 @@ import android.media.RingtoneManager;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 
+import java.util.Random;
+
 /**
  * Servicio de mensajeria de Firebase.
  *
@@ -79,7 +81,7 @@ public class FirebaseMessingService extends FirebaseMessagingService
 				}
 
 				Notification notification = builder.build();
-				notificationManager.notify( 0, notification );
+				notificationManager.notify( new Random().nextInt(), notification );
 			}
 		}
 	}
