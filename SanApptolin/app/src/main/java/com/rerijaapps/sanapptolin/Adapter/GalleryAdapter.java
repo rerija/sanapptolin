@@ -5,7 +5,7 @@ import java.util.List;
 import com.bumptech.glide.Glide;
 import com.github.library.bubbleview.BubbleTextView;
 import com.rerijaapps.sanapptolin.R;
-import com.rerijaapps.sanapptolin.Activities.AudioActivity;
+import com.rerijaapps.sanapptolin.Activities.BasicActivity;
 import com.rerijaapps.sanapptolin.Activities.GalleryImageActivity_;
 import com.rerijaapps.sanapptolin.Serializable.GalleryImage;
 
@@ -148,8 +148,8 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.EventHol
 							photosArray[i] = mPhotos.get( i ).getUrl();
 						}
 
-						AudioActivity.DO_ON_PAUSE = false;
-						AudioActivity.DO_ON_RESUME = false;
+						BasicActivity.DO_ON_PAUSE = false;
+						BasicActivity.DO_ON_RESUME = false;
 						GalleryImageActivity_.intent( mContext ).mUrlImages( photosArray ).mPhotoSelected( Integer.parseInt( comment.getTag().toString() ) ).start();
 					}
 				}

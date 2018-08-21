@@ -53,7 +53,7 @@ import android.widget.TextView;
  * Created by user on 09/11/2016.
  */
 @EActivity ( R.layout.activity_gallery )
-public class GalleryActivity extends AudioActivity implements SwipeRefreshLayout.OnRefreshListener
+public class GalleryActivity extends BasicActivity implements SwipeRefreshLayout.OnRefreshListener
 {
 
 	/**
@@ -246,8 +246,8 @@ public class GalleryActivity extends AudioActivity implements SwipeRefreshLayout
 						}
 						takePictureIntent.setFlags( Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION );
 						takePictureIntent.putExtra( MediaStore.EXTRA_OUTPUT, photoUri );
-						AudioActivity.DO_ON_PAUSE = false;
-						AudioActivity.DO_ON_RESUME = false;
+						BasicActivity.DO_ON_PAUSE = false;
+						BasicActivity.DO_ON_RESUME = false;
 						startActivityForResult( takePictureIntent, REQUEST_IMAGE_CAPTURE );
 					}
 				}

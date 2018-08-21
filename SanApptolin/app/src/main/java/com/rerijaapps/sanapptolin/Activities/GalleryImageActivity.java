@@ -22,7 +22,7 @@ import android.util.TypedValue;
  * Created by user on 09/11/2016.
  */
 @EActivity ( R.layout.activity_gallery_image )
-public class GalleryImageActivity extends AudioActivity
+public class GalleryImageActivity extends BasicActivity
 {
 
 	/**

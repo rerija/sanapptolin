@@ -2,14 +2,7 @@ package com.rerijaapps.sanapptolin.Activities;
 
 import org.androidannotations.annotations.EActivity;
 
-import com.rerijaapps.sanapptolin.Services.SanApptolinAudioPlayerFocusService;
-
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
@@ -19,29 +12,8 @@ import android.support.v7.app.AppCompatActivity;
  * Created by jreci on 15/03/2017.
  */
 @EActivity ( )
-public class AudioActivity extends AppCompatActivity
+public class BasicActivity extends AppCompatActivity
 {
-
-	/**
-	 * Servicio del player.
-	 */
-	public static SanApptolinAudioPlayerFocusService PLAY_SERVICE;
-
-	/***
-	 * Conexion del servicio del foco del audio.
-	 */
-	public static ServiceConnection PLAY_SERVICE_CONNECTION = new ServiceConnection()
-	{
-		public void onServiceConnected( ComponentName className, IBinder service )
-		{
-			PLAY_SERVICE = ( ( SanApptolinAudioPlayerFocusService.LocalBinder ) service ).getService();
-		}
-
-		public void onServiceDisconnected( ComponentName className )
-		{
-			PLAY_SERVICE = null;
-		}
-	};
 
 	/**
 	 * Indica si realizar la accion del pause.
@@ -62,13 +34,6 @@ public class AudioActivity extends AppCompatActivity
 	protected void onCreate( @Nullable Bundle savedInstanceState )
 	{
 		super.onCreate( savedInstanceState );
-
-		// Creamos el service del foco del audio solo si es nulo.
-		if ( null == PLAY_SERVICE )
-		{
-			this.startService( new Intent( this , SanApptolinAudioPlayerFocusService.class ) );
-			this.bindService( new Intent( this , SanApptolinAudioPlayerFocusService.class ), PLAY_SERVICE_CONNECTION, Context.BIND_AUTO_CREATE );
-		}
 	}
 
 	/**

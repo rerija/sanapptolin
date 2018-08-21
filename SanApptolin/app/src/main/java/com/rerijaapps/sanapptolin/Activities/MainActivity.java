@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Background;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
@@ -13,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.cleveroad.fanlayoutmanager.FanLayoutManager;
 import com.cleveroad.fanlayoutmanager.FanLayoutManagerSettings;
 import com.flaviofaria.kenburnsview.KenBurnsView;
-import com.github.ybq.android.spinkit.SpinKitView;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
@@ -21,12 +21,9 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rerijaapps.sanapptolin.R;
 import com.rerijaapps.sanapptolin.Adapter.MainEventsAdapter;
-import com.rerijaapps.sanapptolin.Interfaces.IOnAudioPlayerStatusListener;
 import com.rerijaapps.sanapptolin.Serializable.DayInfo;
 import com.rerijaapps.sanapptolin.Serializable.Event;
-import com.rerijaapps.sanapptolin.Singleton.SanApptolinAudioPlayer;
 import com.rerijaapps.sanapptolin.Storage.Constants;
-import com.rerijaapps.sanapptolin.Utils.AudioNotificationUtils;
 import com.rerijaapps.sanapptolin.Utils.InternetHelper;
 import com.rerijaapps.sanapptolin.Utils.LogHelper;
 import com.ufreedom.uikit.FloatingText;
@@ -34,22 +31,20 @@ import com.ufreedom.uikit.effect.CurveFloatingPathEffect;
 import com.ufreedom.uikit.effect.CurvePathFloatingAnimator;
 
 import android.graphics.Color;
-import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Handler;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.CompoundButton;
-import android.widget.Switch;
 
 /**
  * Pantalla principal.
- *
+ * <p>
  * Created by jreci on 09/11/2016.
  */
 @EActivity ( R.layout.activity_main )
-public class MainActivity extends AudioActivity implements AdapterView.OnItemClickListener, Switch.OnCheckedChangeListener, IOnAudioPlayerStatusListener,
-		MediaPlayer.OnPreparedListener, MediaPlayer.OnErrorListener
+public class MainActivity extends BasicActivity implements AdapterView.OnItemClickListener
 {
 
 	/**
@@ -63,18 +58,6 @@ public class MainActivity extends AudioActivity implements AdapterView.OnItemCli
 	 */
 	@ViewById ( R.id.app_image )
 	public KenBurnsView mAppImage;
-
-	/**
-	 * Switch de la musica.
-	 */
-	@ViewById ( R.id.main_switch_music )
-	public Switch mSwitchMusic;
-
-	/**
-	 * Audio Image.
-	 */
-	@ViewById ( R.id.main_audio_img )
-	public SpinKitView mAudioImg;
 
 	/**
 	 * Loader.
@@ -112,7 +95,7 @@ public class MainActivity extends AudioActivity implements AdapterView.OnItemCli
 				.floatingAnimatorEffect( new CurvePathFloatingAnimator() ).floatingPathEffect( new CurveFloatingPathEffect() )
 				.textContent( getString( R.string.loading_programation ) ).build();
 		mFloatingLoadingText.attach2Window();
-        Glide.with( this ).load( Constants.PARSE_APPIMAGE ).into( mAppImage );
+		Glide.with( this ).load( Constants.PARSE_APPIMAGE ).into( mAppImage );
 		FanLayoutManagerSettings fanLayoutManagerSettings = FanLayoutManagerSettings.newBuilder( this ).withFanRadius( true ).withAngleItemBounce( 5 )
 				.withViewWidthDp( 200 ).withViewHeightDp( ( getResources().getDisplayMetrics().heightPixels / getResources().getDisplayMetrics().density ) / 2 ).build();
 		mFanLayoutManager = new FanLayoutManager( this , fanLayoutManagerSettings );
@@ -120,29 +103,10 @@ public class MainActivity extends AudioActivity implements AdapterView.OnItemCli
 		MainEventsAdapter mainEventsAdapter = new MainEventsAdapter( Constants.PARSE_DAYS , this );
 		mRecyclerView.setAdapter( mainEventsAdapter );
 
-		// Switch de la musica.
-		mSwitchMusic.setOnCheckedChangeListener( this );
-
 		// Configuramos el SDK.
 		MobileAds.initialize( this, getString( R.string.banner_ad_app_id ) );
 		mInterstitialAd = new InterstitialAd( this );
 		mInterstitialAd.setAdUnitId( getString( R.string.banner_ad_unit_id ) );
-		SanApptolinAudioPlayer.registerListener( this );
-		SanApptolinAudioPlayer.getInstance().setOnPreparedListener( this );
-		SanApptolinAudioPlayer.getInstance().setOnErrorListener( this );
-
-		AudioNotificationUtils.createAudioNotification( this );
-	}
-
-	/**
-	 * Comienza la animacion del audio.
-	 *
-	 * @param start - Comenzar o parar.
-	 */
-	@UiThread
-	public void startAudioAnimation( boolean start )
-	{
-		mAudioImg.setVisibility( start ? View.VISIBLE : View.GONE );
 	}
 
 	/**
@@ -286,112 +250,25 @@ public class MainActivity extends AudioActivity implements AdapterView.OnItemCli
 		if ( null != dayInfo )
 		{
 			mLoader.setVisibility( View.GONE );
-			AudioActivity.DO_ON_PAUSE = false;
-			AudioActivity.DO_ON_RESUME = false;
+			BasicActivity.DO_ON_PAUSE = false;
+			BasicActivity.DO_ON_RESUME = false;
 			EventActivity_.intent( MainActivity.this ).mDayInfo( dayInfo ).mEventList( eventList ).start();
 			showInterstitial();
 		}
 	}
 
 	/**
-	 * {@inheritDoc}
-	 *
-	 * @param compoundButton
-	 * @param checked
+	 * Evento que se genera al pulsar sobre el texto de escuchar la musica.
 	 */
-	@Override
-	public void onCheckedChanged( CompoundButton compoundButton, boolean checked )
+	@Click ( R.id.main_listen_music )
+	public void clickListenMusic()
 	{
 		if ( null != Constants.PARSE_APPSONG_URL )
 		{
-			startAudioAnimation( checked );
-			if ( checked )
-			{
-				try
-				{
-					SanApptolinAudioPlayer.getInstance().reset();
-					SanApptolinAudioPlayer.getInstance().setDataSource( Constants.PARSE_APPSONG_URL );
-					SanApptolinAudioPlayer.getInstance().prepareAsync();
-				}
-				catch ( Exception ignored )
-				{
-					if ( null != AudioActivity.PLAY_SERVICE )
-					{
-						AudioActivity.PLAY_SERVICE.pause();
-					}
-				}
-			}
-			else
-			{
-				if ( null != AudioActivity.PLAY_SERVICE )
-				{
-					AudioActivity.PLAY_SERVICE.pause();
-				}
-			}
+			CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+			builder.setToolbarColor( getResources().getColor( R.color.colorPrimary ) );
+			CustomTabsIntent customTabsIntent = builder.build();
+			customTabsIntent.launchUrl( this, Uri.parse( Constants.PARSE_APPSONG_URL ) );
 		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void listenerPlay()
-	{
-		AudioNotificationUtils.updateAudioNotificationPlayStatus( true );
-		setSwitchMusicChecked( true );
-		startAudioAnimation( true );
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void listenerPause()
-	{
-		AudioNotificationUtils.updateAudioNotificationPlayStatus( false );
-		setSwitchMusicChecked( false );
-		startAudioAnimation( false );
-	}
-
-	/**
-	 * Establece el marcado del switch de la musica.
-	 *
-	 * @param checked - Indica si esta marcado o no.
-	 */
-	@UiThread
-	public void setSwitchMusicChecked( boolean checked )
-	{
-		mSwitchMusic.setChecked( checked );
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @param mediaPlayer
-	 */
-	@Override
-	public void onPrepared( MediaPlayer mediaPlayer )
-	{
-		if ( null != AudioActivity.PLAY_SERVICE )
-		{
-			AudioActivity.PLAY_SERVICE.play();
-		}
-	}
-
-	/**
-	 * {@inheritDoc}
-	 *
-	 * @param mediaPlayer
-	 * @param i
-	 * @param i1
-	 * @return
-	 */
-	@Override
-	public boolean onError( MediaPlayer mediaPlayer, int i, int i1 )
-	{
-		AudioNotificationUtils.updateAudioNotificationPlayStatus( false );
-		setSwitchMusicChecked( false );
-		startAudioAnimation( false );
-		return true;
 	}
 }

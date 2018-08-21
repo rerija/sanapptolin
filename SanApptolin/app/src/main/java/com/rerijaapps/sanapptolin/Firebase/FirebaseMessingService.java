@@ -1,5 +1,7 @@
 package com.rerijaapps.sanapptolin.Firebase;
 
+import java.util.Random;
+
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.rerijaapps.sanapptolin.R;
@@ -15,8 +17,6 @@ import android.content.Intent;
 import android.media.RingtoneManager;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
-
-import java.util.Random;
 
 /**
  * Servicio de mensajeria de Firebase.

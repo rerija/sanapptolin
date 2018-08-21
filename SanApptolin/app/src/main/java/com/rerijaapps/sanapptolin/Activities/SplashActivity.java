@@ -14,7 +14,6 @@ import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rerijaapps.sanapptolin.R;
-import com.rerijaapps.sanapptolin.Services.OnClearFromRecentService;
 import com.rerijaapps.sanapptolin.Storage.Constants;
 import com.rerijaapps.sanapptolin.Storage.PreferencesManager;
 import com.rerijaapps.sanapptolin.Utils.InternetHelper;
@@ -41,7 +40,6 @@ public class SplashActivity extends AppCompatActivity
 	{
 		// Servicio para eliminar el audio/notificacion de audio cuando la app se
 		// elimina de recientes en el sistema.
-		startService( new Intent( getBaseContext() , OnClearFromRecentService.class ) );
 		setGlobalExceptionHandler();
 		doSync();
 	}
