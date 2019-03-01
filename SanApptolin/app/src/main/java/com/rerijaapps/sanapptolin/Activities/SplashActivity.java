@@ -40,7 +40,6 @@ public class SplashActivity extends AppCompatActivity
 	{
 		// Servicio para eliminar el audio/notificacion de audio cuando la app se
 		// elimina de recientes en el sistema.
-		setGlobalExceptionHandler();
 		doSync();
 	}
 
@@ -95,36 +94,13 @@ public class SplashActivity extends AppCompatActivity
 				Constants.PARSE_APPIMAGE = appImage;
 				Constants.PARSE_APPSONG_URL = appSongUrl;
 				Constants.PARSE_DAYS = appDays;
-				if ( PreferencesManager.getBoolean( Constants.PREFERENCE_NAME_SHOW_TUTORIAL, false ) )
-				{
-					goToMainActivity();
-				}
-				else
-				{
-					goToTutorialActivity();
-				}
+				goToMainActivity();
 			}
 		}
 		else
 		{
 			showInternetErrorAndCloseApp();
 		}
-	}
-
-	/**
-	 * Establece un manejador de excepciones global.
-	 */
-	public void setGlobalExceptionHandler()
-	{
-		Thread.setDefaultUncaughtExceptionHandler( new Thread.UncaughtExceptionHandler()
-		{
-			@Override
-			public void uncaughtException( Thread paramThread, Throwable paramThrowable )
-			{
-				LogHelper.e( "UNCAUGHT_EXCEPTION", paramThrowable.getMessage() );
-				FirebaseCrash.report( paramThrowable );
-			}
-		} );
 	}
 
 	/**
@@ -151,16 +127,6 @@ public class SplashActivity extends AppCompatActivity
 	public void goToMainActivity()
 	{
 		MainActivity_.intent( this ).start();
-		finish();
-	}
-
-	/**
-	 * Navega a la activity de presentacion.
-	 */
-	@UiThread
-	public void goToTutorialActivity()
-	{
-		startActivity( new Intent( this , TutorialActivity.class ) );
 		finish();
 	}
 

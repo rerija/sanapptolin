@@ -7,6 +7,7 @@ import com.google.firebase.messaging.RemoteMessage;
 import com.rerijaapps.sanapptolin.R;
 import com.rerijaapps.sanapptolin.Activities.SplashActivity_;
 import com.rerijaapps.sanapptolin.Storage.Constants;
+import com.rerijaapps.sanapptolin.Utils.LogHelper;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -86,4 +87,15 @@ public class FirebaseMessingService extends FirebaseMessagingService
 		}
 	}
 
+	/**
+	 * {@inheritDoc}
+	 * 
+	 * @param token
+	 */
+	@Override
+	public void onNewToken( String token )
+	{
+		LogHelper.i( "FirebaseMessingService", "TOKEN: " + token );
+		super.onNewToken( token );
+	}
 }

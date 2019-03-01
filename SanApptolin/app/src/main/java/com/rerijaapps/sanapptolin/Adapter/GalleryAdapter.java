@@ -7,6 +7,7 @@ import com.github.library.bubbleview.BubbleTextView;
 import com.rerijaapps.sanapptolin.R;
 import com.rerijaapps.sanapptolin.Activities.BasicActivity;
 import com.rerijaapps.sanapptolin.Activities.GalleryImageActivity_;
+import com.rerijaapps.sanapptolin.SanApptolinGlide;
 import com.rerijaapps.sanapptolin.Serializable.GalleryImage;
 
 import android.content.Context;
@@ -71,7 +72,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.EventHol
 	@Override
 	public void onBindViewHolder( EventHolder holder, int position )
 	{
-		Glide.with( mContext ).load( mPhotos.get( position ).getUrl() ).into( holder.galleryPhotoImage );
+		SanApptolinGlide.with( mContext ).load( mPhotos.get( position ).getUrl() ).into( holder.galleryPhotoImage );
 		holder.pubDate.setText( null != mPhotos.get( position ).getPubDate() && null != mPhotos
 				? mContext.getString( R.string.published_at, mPhotos.get( position ).getPubDate(), mPhotos.get( position ).getPubDateHour() )
 				: "" );

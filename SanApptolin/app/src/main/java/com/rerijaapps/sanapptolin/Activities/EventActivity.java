@@ -10,6 +10,7 @@ import com.bumptech.glide.Glide;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.rerijaapps.sanapptolin.R;
 import com.rerijaapps.sanapptolin.Adapter.EventAdapter;
+import com.rerijaapps.sanapptolin.SanApptolinGlide;
 import com.rerijaapps.sanapptolin.Serializable.DayInfo;
 import com.rerijaapps.sanapptolin.Serializable.Event;
 
@@ -74,7 +75,7 @@ public class EventActivity extends BasicActivity
 
 		if ( null != mDayInfo )
 		{
-			Glide.with( this ).load( mDayInfo.getImageDay() ).into( mEventImage );
+			SanApptolinGlide.with( this ).load( mDayInfo.getImageDay() ).into( mEventImage );
 			if ( null != mDayInfo.getColorDay() )
 			{
 				mBackgroundView.setBackgroundColor( Color.parseColor( mDayInfo.getColorDay() ) );

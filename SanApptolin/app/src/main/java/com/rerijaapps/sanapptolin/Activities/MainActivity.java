@@ -21,6 +21,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rerijaapps.sanapptolin.R;
 import com.rerijaapps.sanapptolin.Adapter.MainEventsAdapter;
+import com.rerijaapps.sanapptolin.SanApptolinGlide;
 import com.rerijaapps.sanapptolin.Serializable.DayInfo;
 import com.rerijaapps.sanapptolin.Serializable.Event;
 import com.rerijaapps.sanapptolin.Storage.Constants;
@@ -95,7 +96,7 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 				.floatingAnimatorEffect( new CurvePathFloatingAnimator() ).floatingPathEffect( new CurveFloatingPathEffect() )
 				.textContent( getString( R.string.loading_programation ) ).build();
 		mFloatingLoadingText.attach2Window();
-		Glide.with( this ).load( Constants.PARSE_APPIMAGE ).into( mAppImage );
+		SanApptolinGlide.with( this ).load( Constants.PARSE_APPIMAGE ).into( mAppImage );
 		FanLayoutManagerSettings fanLayoutManagerSettings = FanLayoutManagerSettings.newBuilder( this ).withFanRadius( true ).withAngleItemBounce( 5 )
 				.withViewWidthDp( 200 ).withViewHeightDp( ( getResources().getDisplayMetrics().heightPixels / getResources().getDisplayMetrics().density ) / 2 ).build();
 		mFanLayoutManager = new FanLayoutManager( this , fanLayoutManagerSettings );

@@ -21,11 +21,6 @@ public class Constants
 	public static final String PARSE_HOST_URL = "https://parseapi.back4app.com/";
 
 	/**
-	 * Name de la preference para indicar si el user ha visto el tutorial o no.
-	 */
-	public static final String PREFERENCE_NAME_SHOW_TUTORIAL = "com.rerijaapps.sanapptolin.preference_name_show_tutorial";
-
-	/**
 	 * Indican que la app esta en modo programancion.
 	 */
 	public static final boolean DEBUG_MODE = true;

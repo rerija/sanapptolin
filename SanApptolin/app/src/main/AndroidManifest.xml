@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.rerijaapps.sanapptolin">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -97,7 +98,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -125,7 +127,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.TutorialActivity" />
         <activity
             android:name=".Activities.AppNotActiveActivity_"
             android:screenOrientation="portrait"
@@ -134,14 +135,6 @@
             android:name=".Activities.EventActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoBarTransparentBar" />
-        <activity
-            android:name="za.co.riggaroo.materialhelptutorial.tutorial.MaterialTutorialActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".Activities.AppTutorialActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Activities.GalleryActivity_"
             android:screenOrientation="portrait"
@@ -152,14 +145,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoBarTransparentBar" />
 
-        <service
-            android:name=".Firebase.FirebaseIIDService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-            </intent-filter>
-        </service>
-
         <service android:name=".Firebase.FirebaseMessingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -169,6 +154,10 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_stat_notification_icon" />
+
+        <meta-data
+            android:name="com.google.android.gms.ads.AD_MANAGER_APP"
+            android:value="true"/>
 
     </application>
 

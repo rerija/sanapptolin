@@ -7,6 +7,7 @@ import org.androidannotations.annotations.ViewById;
 import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoViewAttacher;
 import com.rerijaapps.sanapptolin.R;
+import com.rerijaapps.sanapptolin.SanApptolinGlide;
 
 import android.support.v4.app.Fragment;
 import android.widget.ImageView;
@@ -47,7 +48,7 @@ public class FragmentImage extends Fragment
 			String urlImage = getArguments().getString( URL_IMAGE_ARGUMENT );
 			if ( null != urlImage && !urlImage.isEmpty() )
 			{
-				Glide.with( this ).load( urlImage ).into( mImage );
+				SanApptolinGlide.with( this ).load( urlImage ).into( mImage );
 				mAttacher = new PhotoViewAttacher( mImage );
 				mAttacher.update();
 			}
