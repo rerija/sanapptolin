@@ -156,6 +156,10 @@
             android:resource="@drawable/ic_stat_notification_icon" />
 
         <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/banner_ad_app_id"/>
+
+        <meta-data
             android:name="com.google.android.gms.ads.AD_MANAGER_APP"
             android:value="true"/>
 

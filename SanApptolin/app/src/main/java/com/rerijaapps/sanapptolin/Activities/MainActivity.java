@@ -10,18 +10,18 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.bumptech.glide.Glide;
 import com.cleveroad.fanlayoutmanager.FanLayoutManager;
 import com.cleveroad.fanlayoutmanager.FanLayoutManagerSettings;
 import com.flaviofaria.kenburnsview.KenBurnsView;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rerijaapps.sanapptolin.R;
-import com.rerijaapps.sanapptolin.Adapter.MainEventsAdapter;
 import com.rerijaapps.sanapptolin.SanApptolinGlide;
+import com.rerijaapps.sanapptolin.Adapter.MainEventsAdapter;
 import com.rerijaapps.sanapptolin.Serializable.DayInfo;
 import com.rerijaapps.sanapptolin.Serializable.Event;
 import com.rerijaapps.sanapptolin.Storage.Constants;
@@ -107,7 +107,9 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 		// Configuramos el SDK.
 		MobileAds.initialize( this, getString( R.string.banner_ad_app_id ) );
 		mInterstitialAd = new InterstitialAd( this );
-		mInterstitialAd.setAdUnitId( getString( R.string.banner_ad_unit_id ) );
+		mInterstitialAd.setAdUnitId( getString( R.string.banner_ad_unit_id ) ); // PRO
+		// mInterstitialAd.setAdUnitId( "ca-app-pub-3940256099942544/1033173712" ); //
+		// PRE
 	}
 
 	/**
@@ -124,15 +126,6 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 		mFanLayoutManager.scrollToPosition( position );
 		if ( InternetHelper.chekInternetAndConnection( this ) )
 		{
-			// Cargamos el AD.
-			if ( !mInterstitialAd.isLoading() && !mInterstitialAd.isLoaded() )
-			{
-				AdRequest adRequest = new AdRequest.Builder().build(); // PRO
-				// adRequest = new
-				// AdRequest.Builder().addTestDevice("D5B7A57155E5DEA14BF92CFDD01C3ED0").build();
-				// // PRE
-				mInterstitialAd.loadAd( adRequest );
-			}
 			// Resto de operaciones.
 			if ( !isLoadingProgramation && null != view.getTag() )
 			{
@@ -144,7 +137,42 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 					@Override
 					public void run()
 					{
-						loadingProgramation( ( ParseObject ) view.getTag() );
+						// Cargamos el AD.
+						mInterstitialAd.setAdListener( new AdListener()
+						{
+							@Override
+							public void onAdLoaded()
+							{
+								loadingProgramation( ( ParseObject ) view.getTag(), true );
+							}
+
+							@Override
+							public void onAdFailedToLoad( int errorCode )
+							{
+								loadingProgramation( ( ParseObject ) view.getTag(), false );
+							}
+
+							@Override
+							public void onAdOpened()
+							{
+							}
+
+							@Override
+							public void onAdLeftApplication()
+							{
+							}
+
+							@Override
+							public void onAdClosed()
+							{
+
+							}
+						} );
+
+						AdRequest adRequest = new AdRequest.Builder().build(); // PRO
+						// AdRequest adRequest = new AdRequest.Builder().addTestDevice(
+						// "C0D93FB09B0B0B3B0DD11312D0F874BE" ).build(); // PRE
+						mInterstitialAd.loadAd( adRequest );
 					}
 				};
 				new Handler().postDelayed( postRunnable, 1000 );
@@ -161,7 +189,7 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 	 */
 	private void showInterstitial()
 	{
-		if ( mInterstitialAd != null && mInterstitialAd.isLoaded() )
+		if ( null != mInterstitialAd && mInterstitialAd.isLoaded() )
 		{
 			mInterstitialAd.show();
 		}
@@ -180,9 +208,10 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 	 * Carga la programacion para el dia seleccionado.
 	 *
 	 * @param day - Dia seleccionado.
+	 * @param showAd - Indica si cargar el ad.
 	 */
 	@Background
-	public void loadingProgramation( ParseObject day )
+	public void loadingProgramation( ParseObject day, boolean showAd )
 	{
 		if ( null != day )
 		{
@@ -214,27 +243,27 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 									parseEventList.get( i ).getString( Constants.CLASS_EVENT_COLUMN_DESCRIPTION ) );
 						}
 						GalleryActivity.mParseDayObj = day;
-						postLoadingProgramation( dayInfo, eventArray );
+						postLoadingProgramation( dayInfo, eventArray, showAd );
 					}
 					else
 					{
-						postLoadingProgramation( null, null );
+						postLoadingProgramation( null, null, showAd );
 					}
 				}
 				else
 				{
-					postLoadingProgramation( null, null );
+					postLoadingProgramation( null, null, showAd );
 				}
 			}
 			catch ( Exception ex )
 			{
 				LogHelper.e( "ERROR_LOAADING_PROGRAMACION", ex.getMessage() );
-				postLoadingProgramation( null, null );
+				postLoadingProgramation( null, null, showAd );
 			}
 		}
 		else
 		{
-			postLoadingProgramation( null, null );
+			postLoadingProgramation( null, null, showAd );
 		}
 	}
 
@@ -243,9 +272,10 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 	 *
 	 * @param dayInfo - Info del dia.
 	 * @param eventList - Lista de eventos.
+	 * @param showAd - Indica si cargar el ad.
 	 */
 	@UiThread
-	public void postLoadingProgramation( DayInfo dayInfo, Event[] eventList )
+	public void postLoadingProgramation( DayInfo dayInfo, Event[] eventList, boolean showAd )
 	{
 		isLoadingProgramation = false;
 		if ( null != dayInfo )
@@ -254,7 +284,10 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 			BasicActivity.DO_ON_PAUSE = false;
 			BasicActivity.DO_ON_RESUME = false;
 			EventActivity_.intent( MainActivity.this ).mDayInfo( dayInfo ).mEventList( eventList ).start();
-			showInterstitial();
+			if ( showAd )
+			{
+				showInterstitial();
+			}
 		}
 	}
 
