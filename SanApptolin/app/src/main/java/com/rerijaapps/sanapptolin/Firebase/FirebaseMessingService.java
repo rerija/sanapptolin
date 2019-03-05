@@ -64,13 +64,13 @@ public class FirebaseMessingService extends FirebaseMessagingService
 				// Configuramos la notificacion para Android O.
 				if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.O )
 				{
-					NotificationChannel androidChannel = new NotificationChannel( Constants.NOTIFICATION_CHANNEL_NAME , Constants.NOTIFICATION_CHANNEL_ID ,
+					NotificationChannel androidChannel = new NotificationChannel( Constants.NOTIFICATION_CHANNEL_ID , Constants.NOTIFICATION_CHANNEL_NAME ,
 							NotificationManager.IMPORTANCE_DEFAULT );
 					androidChannel.enableLights( true );
 					androidChannel.enableVibration( true );
 					androidChannel.setLockscreenVisibility( Notification.VISIBILITY_PUBLIC );
 					notificationManager.createNotificationChannel( androidChannel );
-					builder = new NotificationCompat.Builder( this , Constants.NOTIFICATION_CHANNEL_NAME ).setSmallIcon( R.drawable.ic_stat_notification_icon )
+					builder = new NotificationCompat.Builder( this , Constants.NOTIFICATION_CHANNEL_ID ).setSmallIcon( R.drawable.ic_stat_notification_icon )
 							.setContentTitle( getString( R.string.app_name ) ).setContentText( messageBody ).setAutoCancel( true )
 							.setSound( RingtoneManager.getDefaultUri( RingtoneManager.TYPE_NOTIFICATION ) ).setContentIntent( pendingIntent );
 				}
