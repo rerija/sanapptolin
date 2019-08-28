@@ -1,5 +1,7 @@
 package com.rerijaapps.sanapptolin.Activities;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import java.util.List;
 
 import org.androidannotations.annotations.AfterViews;
@@ -7,8 +9,6 @@ import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.firebase.crash.FirebaseCrash;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -18,10 +18,6 @@ import com.rerijaapps.sanapptolin.Storage.Constants;
 import com.rerijaapps.sanapptolin.Storage.PreferencesManager;
 import com.rerijaapps.sanapptolin.Utils.InternetHelper;
 import com.rerijaapps.sanapptolin.Utils.LogHelper;
-
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 
 /**
  * Pantalla Splash.
@@ -109,15 +105,15 @@ public class SplashActivity extends AppCompatActivity
 	@UiThread
 	public void showInternetErrorAndCloseApp()
 	{
-		new MaterialDialog.Builder( this ).title( R.string.internet_error_title ).content( R.string.error_internet ).positiveText( R.string.accept )
-				.onPositive( new MaterialDialog.SingleButtonCallback()
-				{
-					@Override
-					public void onClick( @NonNull MaterialDialog dialog, @NonNull DialogAction which )
-					{
-						finish();
-					}
-				} ).show();
+//		new MaterialDialog.Builder( this ).title( R.string.internet_error_title ).content( R.string.error_internet ).positiveText( R.string.accept )
+//				.onPositive( new MaterialDialog.SingleButtonCallback()
+//				{
+//					@Override
+//					public void onClick( @NonNull MaterialDialog dialog, @NonNull DialogAction which )
+//					{
+//						finish();
+//					}
+//				} ).show();
 	}
 
 	/**

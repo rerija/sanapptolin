@@ -7,13 +7,14 @@ import com.rerijaapps.sanapptolin.R;
 import com.rerijaapps.sanapptolin.Storage.Constants;
 
 import android.graphics.Color;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
+
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Adaptador con las tarjetas de los dias.

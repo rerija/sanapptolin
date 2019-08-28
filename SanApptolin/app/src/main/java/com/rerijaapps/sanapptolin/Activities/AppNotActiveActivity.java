@@ -4,7 +4,7 @@ import org.androidannotations.annotations.EActivity;
 
 import com.rerijaapps.sanapptolin.R;
 
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 
 /**
  * Pantalla para indicar que la app no esta activa.

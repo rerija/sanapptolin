@@ -16,8 +16,6 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -39,13 +37,13 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.v4.content.FileProvider;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.core.content.FileProvider;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 /**
  * Activity de la galeria de fotos.
@@ -103,7 +101,7 @@ public class GalleryActivity extends BasicActivity implements SwipeRefreshLayout
 	/**
 	 * Dialogo de progreso.
 	 */
-	private MaterialDialog mUploadPhotoProgress;
+	// private MaterialDialog mUploadPhotoProgress;
 
 	/**
 	 * Inicializa las vistas de la pantalla.
@@ -111,8 +109,10 @@ public class GalleryActivity extends BasicActivity implements SwipeRefreshLayout
 	@AfterViews
 	public void setupViews()
 	{
-		mUploadPhotoProgress = new MaterialDialog.Builder( this ).cancelable( false ).title( R.string.adding_photo ).content( R.string.please_wait ).progress( true, 0 )
-				.progressIndeterminateStyle( true ).build();
+		// mUploadPhotoProgress = new MaterialDialog.Builder( this ).cancelable( false
+		// ).title( R.string.adding_photo ).content( R.string.please_wait ).progress(
+		// true, 0 )
+		// .progressIndeterminateStyle( true ).build();
 		mGalleryEventDay.setText( null != mDayInfo && null != mDayInfo.getDayName() ? getString( R.string.gallery_event_day, mDayInfo.getDayName() ) : "" );
 		mSwipe.setOnRefreshListener( this );
 		mSwipe.setColorSchemeResources( R.color.colorPrimary );
@@ -270,23 +270,29 @@ public class GalleryActivity extends BasicActivity implements SwipeRefreshLayout
 			{
 				mLastCameraBitmap = BitmapFactory.decodeFile( mLastCameraPhotoPath, bmOptions );
 				mLastCameraBitmap = ExifImageHelper.getCorrectImageWithExifParams( mLastCameraPhotoPath, mLastCameraBitmap );
-				new MaterialDialog.Builder( this ).title( R.string.add_comment ).content( R.string.add_comment_description )
-						.inputType( InputType.TYPE_TEXT_FLAG_CAP_SENTENCES ).inputRange( 0, 50, Color.RED )
-						.input( R.string.add_comment_hint, 0, true, new MaterialDialog.InputCallback()
-						{
-							@Override
-							public void onInput( MaterialDialog dialog, CharSequence input )
-							{
-								uploadPhoto( null != input && !input.toString().isEmpty() ? input.toString() : null );
-							}
-						} ).cancelable( false ).negativeText( R.string.cancel ).onNegative( new MaterialDialog.SingleButtonCallback()
-						{
-							@Override
-							public void onClick( @NonNull MaterialDialog dialog, @NonNull DialogAction which )
-							{
-								uploadPhoto( null );
-							}
-						} ).show();
+				// new MaterialDialog.Builder( this ).title( R.string.add_comment ).content(
+				// R.string.add_comment_description )
+				// .inputType( InputType.TYPE_TEXT_FLAG_CAP_SENTENCES ).inputRange( 0, 50,
+				// Color.RED )
+				// .input( R.string.add_comment_hint, 0, true, new
+				// MaterialDialog.InputCallback()
+				// {
+				// @Override
+				// public void onInput( MaterialDialog dialog, CharSequence input )
+				// {
+				// uploadPhoto( null != input && !input.toString().isEmpty() ? input.toString()
+				// : null );
+				// }
+				// } ).cancelable( false ).negativeText( R.string.cancel ).onNegative( new
+				// MaterialDialog.SingleButtonCallback()
+				// {
+				// @Override
+				// public void onClick( @NonNull MaterialDialog dialog, @NonNull DialogAction
+				// which )
+				// {
+				// uploadPhoto( null );
+				// }
+				// } ).show();
 			}
 		}
 		catch ( Exception ignored )
@@ -304,14 +310,14 @@ public class GalleryActivity extends BasicActivity implements SwipeRefreshLayout
 	@UiThread
 	public void showProgressUploadPhoto( boolean show )
 	{
-		if ( show )
-		{
-			mUploadPhotoProgress.show();
-		}
-		else
-		{
-			mUploadPhotoProgress.dismiss();
-		}
+		// if ( show )
+		// {
+		// mUploadPhotoProgress.show();
+		// }
+		// else
+		// {
+		// mUploadPhotoProgress.dismiss();
+		// }
 	}
 
 	/**
@@ -372,11 +378,13 @@ public class GalleryActivity extends BasicActivity implements SwipeRefreshLayout
 	{
 		if ( !correct )
 		{
-			new MaterialDialog.Builder( this ).title( R.string.information ).content( R.string.error_upload_photo ).positiveText( R.string.accept ).show();
+			// new MaterialDialog.Builder( this ).title( R.string.information ).content(
+			// R.string.error_upload_photo ).positiveText( R.string.accept ).show();
 		}
 		else
 		{
-			new MaterialDialog.Builder( this ).title( R.string.information ).content( R.string.success_upload_photo ).positiveText( R.string.accept ).show();
+			// new MaterialDialog.Builder( this ).title( R.string.information ).content(
+			// R.string.success_upload_photo ).positiveText( R.string.accept ).show();
 		}
 	}
 

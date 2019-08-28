@@ -9,7 +9,6 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.cleveroad.fanlayoutmanager.FanLayoutManager;
 import com.cleveroad.fanlayoutmanager.FanLayoutManagerSettings;
 import com.flaviofaria.kenburnsview.KenBurnsView;
@@ -34,10 +33,11 @@ import com.ufreedom.uikit.effect.CurvePathFloatingAnimator;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Handler;
-import android.support.customtabs.CustomTabsIntent;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.AdapterView;
+
+import androidx.browser.customtabs.CustomTabsIntent;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Pantalla principal.
@@ -201,7 +201,7 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 	@UiThread
 	public void showInternetError()
 	{
-		new MaterialDialog.Builder( this ).title( R.string.internet_error_title ).content( R.string.error_internet ).positiveText( R.string.accept ).show();
+//		new MaterialDialog.Builder( this ).title( R.string.internet_error_title ).content( R.string.error_internet ).positiveText( R.string.accept ).show();
 	}
 
 	/**

@@ -10,11 +10,12 @@ import com.rerijaapps.sanapptolin.Fragment.FragmentImage;
 import com.rerijaapps.sanapptolin.Fragment.FragmentImage_;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 /**
  * Detalle de la imagen de la galeria.
@@ -76,7 +77,7 @@ public class GalleryImageActivity extends BasicActivity
 		 * @param fm - FragmentManager.
 		 * @param imagesUrlList - Listado con las url de las imagenes.
 		 */
-		public ImagePageAdapter( FragmentManager fm, String[] imagesUrlList )
+		public ImagePageAdapter(FragmentManager fm, String[] imagesUrlList )
 		{
 			super( fm );
 			mImagesUrlList = imagesUrlList;
@@ -89,7 +90,7 @@ public class GalleryImageActivity extends BasicActivity
 		 * @return
 		 */
 		@Override
-		public Fragment getItem( int position )
+		public Fragment getItem(int position )
 		{
 			FragmentImage fragmentImage = new FragmentImage_();
 			Bundle bundle = new Bundle();

@@ -9,8 +9,9 @@ import com.github.chrisbanes.photoview.PhotoViewAttacher;
 import com.rerijaapps.sanapptolin.R;
 import com.rerijaapps.sanapptolin.SanApptolinGlide;
 
-import android.support.v4.app.Fragment;
 import android.widget.ImageView;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * Fragment para las imagenes.

@@ -4,12 +4,14 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 
+import androidx.viewpager.widget.ViewPager;
+
 /**
  * ViewPager que soporta correctamente el Zoom.
  *
  * Created by javierrecio on 8/6/17.
  */
-public class ViewPagerZoom extends android.support.v4.view.ViewPager
+public class ViewPagerZoom extends ViewPager
 {
 
 	/**
