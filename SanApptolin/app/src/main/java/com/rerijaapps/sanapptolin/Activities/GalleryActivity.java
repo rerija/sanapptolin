@@ -16,6 +16,7 @@ import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -28,6 +29,7 @@ import com.rerijaapps.sanapptolin.Utils.ExifImageHelper;
 import com.rerijaapps.sanapptolin.Utils.InternetHelper;
 import com.rerijaapps.sanapptolin.Utils.LogHelper;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -40,11 +42,10 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import spencerstudios.com.ezdialoglib.EZDialog;
 
 /**
  * Activity de la galeria de fotos.
@@ -84,6 +85,12 @@ public class GalleryActivity extends BasicActivity implements SwipeRefreshLayout
 	 */
 	@ViewById ( R.id.upload_photo_container )
 	public View mUploadPhotoContainer;
+
+	/**
+	 * Boton para anadir foto.
+	 */
+	@ViewById ( R.id.fab_add_photo )
+	public FloatingActionButton mAddPhotoButton;
 
 	/**
 	 * Objeto estatico con el objeto parse del dia.
@@ -203,6 +210,27 @@ public class GalleryActivity extends BasicActivity implements SwipeRefreshLayout
 		{
 			dispatchTakePictureIntent();
 		}
+		else
+		{
+			showInternetError();
+		}
+	}
+
+	/**
+	 * Muestra un error referente a la conexion.
+	 */
+	@UiThread
+	public void showInternetError()
+	{
+		new AlertDialog.Builder( this ).setTitle( getString( R.string.internet_error_title ) ).setMessage( getString( R.string.error_internet ) ).setCancelable( false )
+				.setPositiveButton( getString( R.string.accept ), new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick( DialogInterface dialogInterface, int i )
+					{
+						dialogInterface.cancel();
+					}
+				} ).show();
 	}
 
 	/**
@@ -268,7 +296,16 @@ public class GalleryActivity extends BasicActivity implements SwipeRefreshLayout
 			{
 				mLastCameraBitmap = BitmapFactory.decodeFile( mLastCameraPhotoPath, bmOptions );
 				mLastCameraBitmap = ExifImageHelper.getCorrectImageWithExifParams( mLastCameraPhotoPath, mLastCameraBitmap );
-				uploadPhoto( null );
+
+				if ( InternetHelper.chekInternetAndConnection( this ) )
+				{
+					uploadPhoto( null );
+				}
+				else
+				{
+					showInternetError();
+				}
+
 			}
 		}
 		catch ( Exception ignored )
@@ -288,11 +325,13 @@ public class GalleryActivity extends BasicActivity implements SwipeRefreshLayout
 	{
 		if ( show )
 		{
+			mAddPhotoButton.setEnabled( false );
 			mUploadPhotoContainer.setVisibility( View.VISIBLE );
 			mUploadPhotoContainer.startAnimation( AnimationUtils.loadAnimation( this, R.anim.fade_in ) );
 		}
 		else
 		{
+			mAddPhotoButton.setEnabled( true );
 			mUploadPhotoContainer.setVisibility( View.GONE );
 			mUploadPhotoContainer.startAnimation( AnimationUtils.loadAnimation( this, R.anim.fade_out ) );
 		}
@@ -338,7 +377,6 @@ public class GalleryActivity extends BasicActivity implements SwipeRefreshLayout
 			{
 				postUploadPhoto( false );
 			}
-			showProgressUploadPhoto( false );
 		}
 		else
 		{
@@ -354,15 +392,31 @@ public class GalleryActivity extends BasicActivity implements SwipeRefreshLayout
 	@UiThread
 	public void postUploadPhoto( boolean correct )
 	{
+		showProgressUploadPhoto( false );
+
 		if ( !correct )
 		{
-			new EZDialog.Builder( this ).setTitle( getString( R.string.information ) ).setMessage( getString( R.string.error_upload_photo ) )
-					.setCancelableOnTouchOutside( false ).setPositiveBtnText( getString( R.string.accept ) ).build();
+			new AlertDialog.Builder( this ).setTitle( getString( R.string.information ) ).setMessage( getString( R.string.error_upload_photo ) ).setCancelable( false )
+					.setPositiveButton( getString( R.string.accept ), new DialogInterface.OnClickListener()
+					{
+						@Override
+						public void onClick( DialogInterface dialogInterface, int i )
+						{
+							dialogInterface.cancel();
+						}
+					} ).show();
 		}
 		else
 		{
-			new EZDialog.Builder( this ).setTitle( getString( R.string.information ) ).setMessage( getString( R.string.success_upload_photo ) )
-					.setCancelableOnTouchOutside( false ).setPositiveBtnText( getString( R.string.accept ) ).build();
+			new AlertDialog.Builder( this ).setTitle( getString( R.string.information ) ).setMessage( getString( R.string.success_upload_photo ) )
+					.setPositiveButton( getString( R.string.accept ), new DialogInterface.OnClickListener()
+					{
+						@Override
+						public void onClick( DialogInterface dialogInterface, int i )
+						{
+							dialogInterface.cancel();
+						}
+					} ).setCancelable( false ).show();
 		}
 	}
 

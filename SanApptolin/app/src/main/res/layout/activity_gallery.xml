@@ -6,36 +6,8 @@
     android:background="@android:color/white"
     android:fitsSystemWindows="true">
 
-    <RelativeLayout
-        android:id="@+id/upload_photo_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#D8FFFFFF"
-        android:clickable="true"
-        android:focusable="true"
-        android:visibility="gone">
-
-        <ProgressBar
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/upload_photo_text"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:indeterminate="true" />
-
-        <com.rerijaapps.sanapptolin.Widgets.TextViewSanFranciscoRegular
-            android:id="@+id/upload_photo_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="@string/upload_photo"
-            android:textColor="#9b9b9b"
-            android:textSize="22sp" />
-
-    </RelativeLayout>
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/photos_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -178,5 +150,32 @@
             app:layout_anchorGravity="bottom|right|end"
             app:rippleColor="@android:color/white" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <RelativeLayout
+        android:id="@+id/upload_photo_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#D8FFFFFF"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/upload_photo_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:indeterminate="true" />
+
+        <com.rerijaapps.sanapptolin.Widgets.TextViewSanFranciscoRegular
+            android:id="@+id/upload_photo_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/upload_photo"
+            android:textColor="#9b9b9b"
+            android:textSize="22sp" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

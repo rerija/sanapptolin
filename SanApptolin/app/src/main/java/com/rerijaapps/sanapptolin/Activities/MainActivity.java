@@ -12,10 +12,6 @@ import org.androidannotations.annotations.ViewById;
 import com.cleveroad.fanlayoutmanager.FanLayoutManager;
 import com.cleveroad.fanlayoutmanager.FanLayoutManagerSettings;
 import com.flaviofaria.kenburnsview.KenBurnsView;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.rerijaapps.sanapptolin.R;
@@ -30,16 +26,16 @@ import com.ufreedom.uikit.FloatingText;
 import com.ufreedom.uikit.effect.CurveFloatingPathEffect;
 import com.ufreedom.uikit.effect.CurvePathFloatingAnimator;
 
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.recyclerview.widget.RecyclerView;
-
-import spencerstudios.com.ezdialoglib.EZDialog;
 
 /**
  * Pantalla principal.
@@ -84,11 +80,6 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 	private FloatingText mFloatingLoadingText;
 
 	/**
-	 * Interstitial Ad.
-	 */
-	private InterstitialAd mInterstitialAd;
-
-	/**
 	 * Inicializa las vistas de la pantalla.
 	 */
 	@AfterViews
@@ -105,13 +96,6 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 		mRecyclerView.setLayoutManager( mFanLayoutManager );
 		MainEventsAdapter mainEventsAdapter = new MainEventsAdapter( Constants.PARSE_DAYS , this );
 		mRecyclerView.setAdapter( mainEventsAdapter );
-
-		// Configuramos el SDK.
-		MobileAds.initialize( this, getString( R.string.banner_ad_app_id ) );
-		mInterstitialAd = new InterstitialAd( this );
-		mInterstitialAd.setAdUnitId( getString( R.string.banner_ad_unit_id ) ); // PRO
-		// mInterstitialAd.setAdUnitId( "ca-app-pub-3940256099942544/1033173712" ); //
-		// PRE
 	}
 
 	/**
@@ -134,50 +118,7 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 				isLoadingProgramation = true;
 				mLoader.setVisibility( View.VISIBLE );
 				mFloatingLoadingText.startFloating( view );
-				final Runnable postRunnable = new Runnable()
-				{
-					@Override
-					public void run()
-					{
-						// Cargamos el AD.
-						mInterstitialAd.setAdListener( new AdListener()
-						{
-							@Override
-							public void onAdLoaded()
-							{
-								loadingProgramation( ( ParseObject ) view.getTag(), true );
-							}
-
-							@Override
-							public void onAdFailedToLoad( int errorCode )
-							{
-								loadingProgramation( ( ParseObject ) view.getTag(), false );
-							}
-
-							@Override
-							public void onAdOpened()
-							{
-							}
-
-							@Override
-							public void onAdLeftApplication()
-							{
-							}
-
-							@Override
-							public void onAdClosed()
-							{
-
-							}
-						} );
-
-						AdRequest adRequest = new AdRequest.Builder().build(); // PRO
-						// AdRequest adRequest = new AdRequest.Builder().addTestDevice(
-						// "C0D93FB09B0B0B3B0DD11312D0F874BE" ).build(); // PRE
-						mInterstitialAd.loadAd( adRequest );
-					}
-				};
-				new Handler().postDelayed( postRunnable, 1000 );
+				loadingProgramation( ( ParseObject ) view.getTag(), true );
 			}
 		}
 		else
@@ -187,24 +128,20 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 	}
 
 	/**
-	 * Muestra un anuncio interstitial.
-	 */
-	private void showInterstitial()
-	{
-		if ( null != mInterstitialAd && mInterstitialAd.isLoaded() )
-		{
-			mInterstitialAd.show();
-		}
-	}
-
-	/**
 	 * Muestra un error referente a la conexion.
 	 */
 	@UiThread
 	public void showInternetError()
 	{
-		new EZDialog.Builder( this ).setTitle( getString( R.string.internet_error_title ) ).setMessage( getString( R.string.error_internet ) ).setCancelableOnTouchOutside( false )
-				.setPositiveBtnText( getString( R.string.accept ) ).build();
+		new AlertDialog.Builder( this ).setTitle( getString( R.string.internet_error_title ) ).setMessage( getString( R.string.error_internet ) ).setCancelable( false )
+				.setPositiveButton( getString( R.string.accept ), new DialogInterface.OnClickListener()
+				{
+					@Override
+					public void onClick( DialogInterface dialogInterface, int i )
+					{
+						dialogInterface.cancel();
+					}
+				} ).show();
 	}
 
 	/**
@@ -246,27 +183,27 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 									parseEventList.get( i ).getString( Constants.CLASS_EVENT_COLUMN_DESCRIPTION ) );
 						}
 						GalleryActivity.mParseDayObj = day;
-						postLoadingProgramation( dayInfo, eventArray, showAd );
+						postLoadingProgramation( dayInfo, eventArray );
 					}
 					else
 					{
-						postLoadingProgramation( null, null, showAd );
+						postLoadingProgramation( null, null );
 					}
 				}
 				else
 				{
-					postLoadingProgramation( null, null, showAd );
+					postLoadingProgramation( null, null );
 				}
 			}
 			catch ( Exception ex )
 			{
 				LogHelper.e( "ERROR_LOAADING_PROGRAMACION", ex.getMessage() );
-				postLoadingProgramation( null, null, showAd );
+				postLoadingProgramation( null, null );
 			}
 		}
 		else
 		{
-			postLoadingProgramation( null, null, showAd );
+			postLoadingProgramation( null, null );
 		}
 	}
 
@@ -275,10 +212,9 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 	 *
 	 * @param dayInfo - Info del dia.
 	 * @param eventList - Lista de eventos.
-	 * @param showAd - Indica si cargar el ad.
 	 */
 	@UiThread
-	public void postLoadingProgramation( DayInfo dayInfo, Event[] eventList, boolean showAd )
+	public void postLoadingProgramation( DayInfo dayInfo, Event[] eventList )
 	{
 		isLoadingProgramation = false;
 		if ( null != dayInfo )
@@ -287,10 +223,6 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 			BasicActivity.DO_ON_PAUSE = false;
 			BasicActivity.DO_ON_RESUME = false;
 			EventActivity_.intent( MainActivity.this ).mDayInfo( dayInfo ).mEventList( eventList ).start();
-			if ( showAd )
-			{
-				showInterstitial();
-			}
 		}
 	}
 

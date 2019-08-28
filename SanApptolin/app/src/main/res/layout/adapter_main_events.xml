@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     android:padding="16dp"
     card_view:cardBackgroundColor="@color/colorPrimaryDark"
-    card_view:cardElevation="5dp"
+    card_view:cardCornerRadius="16dp"
+    card_view:cardElevation="6dp"
     card_view:cardUseCompatPadding="true">
 
     <com.rerijaapps.sanapptolin.Widgets.TextViewSanFranciscoRegular
