@@ -201,7 +201,8 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 	@UiThread
 	public void showInternetError()
 	{
-//		new MaterialDialog.Builder( this ).title( R.string.internet_error_title ).content( R.string.error_internet ).positiveText( R.string.accept ).show();
+		// new MaterialDialog.Builder( this ).title( R.string.internet_error_title
+		// ).content( R.string.error_internet ).positiveText( R.string.accept ).show();
 	}
 
 	/**

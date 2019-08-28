@@ -77,7 +77,7 @@ public class GalleryImageActivity extends BasicActivity
 		 * @param fm - FragmentManager.
 		 * @param imagesUrlList - Listado con las url de las imagenes.
 		 */
-		public ImagePageAdapter(FragmentManager fm, String[] imagesUrlList )
+		public ImagePageAdapter( FragmentManager fm, String[] imagesUrlList )
 		{
 			super( fm );
 			mImagesUrlList = imagesUrlList;
@@ -90,7 +90,7 @@ public class GalleryImageActivity extends BasicActivity
 		 * @return
 		 */
 		@Override
-		public Fragment getItem(int position )
+		public Fragment getItem( int position )
 		{
 			FragmentImage fragmentImage = new FragmentImage_();
 			Bundle bundle = new Bundle();

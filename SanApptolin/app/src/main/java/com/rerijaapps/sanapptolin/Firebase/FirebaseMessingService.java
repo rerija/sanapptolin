@@ -60,7 +60,7 @@ public class FirebaseMessingService extends FirebaseMessagingService
 
 			if ( null != notificationManager )
 			{
-				NotificationCompat.Builder builder = null;
+				NotificationCompat.Builder builder;
 
 				// Configuramos la notificacion para Android O.
 				if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.O )

@@ -4,7 +4,6 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
 
-import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoViewAttacher;
 import com.rerijaapps.sanapptolin.R;
 import com.rerijaapps.sanapptolin.SanApptolinGlide;

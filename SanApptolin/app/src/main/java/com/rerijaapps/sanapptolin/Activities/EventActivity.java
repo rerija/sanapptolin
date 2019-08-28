@@ -6,11 +6,10 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
-import com.bumptech.glide.Glide;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.rerijaapps.sanapptolin.R;
-import com.rerijaapps.sanapptolin.Adapter.EventAdapter;
 import com.rerijaapps.sanapptolin.SanApptolinGlide;
+import com.rerijaapps.sanapptolin.Adapter.EventAdapter;
 import com.rerijaapps.sanapptolin.Serializable.DayInfo;
 import com.rerijaapps.sanapptolin.Serializable.Event;
 

@@ -2,12 +2,11 @@ package com.rerijaapps.sanapptolin.Adapter;
 
 import java.util.List;
 
-import com.bumptech.glide.Glide;
 import com.github.library.bubbleview.BubbleTextView;
 import com.rerijaapps.sanapptolin.R;
+import com.rerijaapps.sanapptolin.SanApptolinGlide;
 import com.rerijaapps.sanapptolin.Activities.BasicActivity;
 import com.rerijaapps.sanapptolin.Activities.GalleryImageActivity_;
-import com.rerijaapps.sanapptolin.SanApptolinGlide;
 import com.rerijaapps.sanapptolin.Serializable.GalleryImage;
 
 import android.content.Context;
