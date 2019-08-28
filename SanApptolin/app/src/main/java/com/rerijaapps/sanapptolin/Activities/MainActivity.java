@@ -91,7 +91,7 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 		mFloatingLoadingText.attach2Window();
 		SanApptolinGlide.with( this ).load( Constants.PARSE_APPIMAGE ).into( mAppImage );
 		FanLayoutManagerSettings fanLayoutManagerSettings = FanLayoutManagerSettings.newBuilder( this ).withFanRadius( true ).withAngleItemBounce( 5 )
-				.withViewWidthDp( 200 ).withViewHeightDp( ( getResources().getDisplayMetrics().heightPixels / getResources().getDisplayMetrics().density ) / 2 ).build();
+				.withViewWidthDp( 220 ).withViewHeightDp( ( getResources().getDisplayMetrics().heightPixels / getResources().getDisplayMetrics().density ) / 2 ).build();
 		mFanLayoutManager = new FanLayoutManager( this , fanLayoutManagerSettings );
 		mRecyclerView.setLayoutManager( mFanLayoutManager );
 		MainEventsAdapter mainEventsAdapter = new MainEventsAdapter( Constants.PARSE_DAYS , this );
