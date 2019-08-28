@@ -39,6 +39,8 @@ import android.widget.AdapterView;
 import androidx.browser.customtabs.CustomTabsIntent;
 import androidx.recyclerview.widget.RecyclerView;
 
+import spencerstudios.com.ezdialoglib.EZDialog;
+
 /**
  * Pantalla principal.
  * <p>
@@ -201,8 +203,8 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 	@UiThread
 	public void showInternetError()
 	{
-		// new MaterialDialog.Builder( this ).title( R.string.internet_error_title
-		// ).content( R.string.error_internet ).positiveText( R.string.accept ).show();
+		new EZDialog.Builder( this ).setTitle( getString( R.string.internet_error_title ) ).setMessage( getString( R.string.error_internet ) ).setCancelableOnTouchOutside( false )
+				.setPositiveBtnText( getString( R.string.accept ) ).build();
 	}
 
 	/**

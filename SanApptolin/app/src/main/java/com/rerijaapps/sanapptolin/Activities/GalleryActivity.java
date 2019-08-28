@@ -37,11 +37,14 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import spencerstudios.com.ezdialoglib.EZDialog;
 
 /**
  * Activity de la galeria de fotos.
@@ -77,6 +80,12 @@ public class GalleryActivity extends BasicActivity implements SwipeRefreshLayout
 	public SwipeRefreshLayout mSwipe;
 
 	/**
+	 * Contenedor para el texto de subir foto.
+	 */
+	@ViewById ( R.id.upload_photo_container )
+	public View mUploadPhotoContainer;
+
+	/**
 	 * Objeto estatico con el objeto parse del dia.
 	 */
 	public static ParseObject mParseDayObj;
@@ -97,20 +106,11 @@ public class GalleryActivity extends BasicActivity implements SwipeRefreshLayout
 	private final int REQUEST_IMAGE_CAPTURE = 0;
 
 	/**
-	 * Dialogo de progreso.
-	 */
-	// private MaterialDialog mUploadPhotoProgress;
-
-	/**
 	 * Inicializa las vistas de la pantalla.
 	 */
 	@AfterViews
 	public void setupViews()
 	{
-		// mUploadPhotoProgress = new MaterialDialog.Builder( this ).cancelable( false
-		// ).title( R.string.adding_photo ).content( R.string.please_wait ).progress(
-		// true, 0 )
-		// .progressIndeterminateStyle( true ).build();
 		mGalleryEventDay.setText( null != mDayInfo && null != mDayInfo.getDayName() ? getString( R.string.gallery_event_day, mDayInfo.getDayName() ) : "" );
 		mSwipe.setOnRefreshListener( this );
 		mSwipe.setColorSchemeResources( R.color.colorPrimary );
@@ -268,29 +268,7 @@ public class GalleryActivity extends BasicActivity implements SwipeRefreshLayout
 			{
 				mLastCameraBitmap = BitmapFactory.decodeFile( mLastCameraPhotoPath, bmOptions );
 				mLastCameraBitmap = ExifImageHelper.getCorrectImageWithExifParams( mLastCameraPhotoPath, mLastCameraBitmap );
-				// new MaterialDialog.Builder( this ).title( R.string.add_comment ).content(
-				// R.string.add_comment_description )
-				// .inputType( InputType.TYPE_TEXT_FLAG_CAP_SENTENCES ).inputRange( 0, 50,
-				// Color.RED )
-				// .input( R.string.add_comment_hint, 0, true, new
-				// MaterialDialog.InputCallback()
-				// {
-				// @Override
-				// public void onInput( MaterialDialog dialog, CharSequence input )
-				// {
-				// uploadPhoto( null != input && !input.toString().isEmpty() ? input.toString()
-				// : null );
-				// }
-				// } ).cancelable( false ).negativeText( R.string.cancel ).onNegative( new
-				// MaterialDialog.SingleButtonCallback()
-				// {
-				// @Override
-				// public void onClick( @NonNull MaterialDialog dialog, @NonNull DialogAction
-				// which )
-				// {
-				// uploadPhoto( null );
-				// }
-				// } ).show();
+				uploadPhoto( null );
 			}
 		}
 		catch ( Exception ignored )
@@ -308,14 +286,16 @@ public class GalleryActivity extends BasicActivity implements SwipeRefreshLayout
 	@UiThread
 	public void showProgressUploadPhoto( boolean show )
 	{
-		// if ( show )
-		// {
-		// mUploadPhotoProgress.show();
-		// }
-		// else
-		// {
-		// mUploadPhotoProgress.dismiss();
-		// }
+		if ( show )
+		{
+			mUploadPhotoContainer.setVisibility( View.VISIBLE );
+			mUploadPhotoContainer.startAnimation( AnimationUtils.loadAnimation( this, R.anim.fade_in ) );
+		}
+		else
+		{
+			mUploadPhotoContainer.setVisibility( View.GONE );
+			mUploadPhotoContainer.startAnimation( AnimationUtils.loadAnimation( this, R.anim.fade_out ) );
+		}
 	}
 
 	/**
@@ -376,13 +356,13 @@ public class GalleryActivity extends BasicActivity implements SwipeRefreshLayout
 	{
 		if ( !correct )
 		{
-			// new MaterialDialog.Builder( this ).title( R.string.information ).content(
-			// R.string.error_upload_photo ).positiveText( R.string.accept ).show();
+			new EZDialog.Builder( this ).setTitle( getString( R.string.information ) ).setMessage( getString( R.string.error_upload_photo ) )
+					.setCancelableOnTouchOutside( false ).setPositiveBtnText( getString( R.string.accept ) ).build();
 		}
 		else
 		{
-			// new MaterialDialog.Builder( this ).title( R.string.information ).content(
-			// R.string.success_upload_photo ).positiveText( R.string.accept ).show();
+			new EZDialog.Builder( this ).setTitle( getString( R.string.information ) ).setMessage( getString( R.string.success_upload_photo ) )
+					.setCancelableOnTouchOutside( false ).setPositiveBtnText( getString( R.string.accept ) ).build();
 		}
 	}
 

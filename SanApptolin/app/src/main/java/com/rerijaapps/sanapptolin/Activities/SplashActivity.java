@@ -17,6 +17,9 @@ import com.rerijaapps.sanapptolin.Utils.LogHelper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import spencerstudios.com.ezdialoglib.EZDialog;
+import spencerstudios.com.ezdialoglib.EZDialogListener;
+
 /**
  * Pantalla Splash.
  *
@@ -103,17 +106,15 @@ public class SplashActivity extends AppCompatActivity
 	@UiThread
 	public void showInternetErrorAndCloseApp()
 	{
-		// new MaterialDialog.Builder( this ).title( R.string.internet_error_title
-		// ).content( R.string.error_internet ).positiveText( R.string.accept )
-		// .onPositive( new MaterialDialog.SingleButtonCallback()
-		// {
-		// @Override
-		// public void onClick( @NonNull MaterialDialog dialog, @NonNull DialogAction
-		// which )
-		// {
-		// finish();
-		// }
-		// } ).show();
+		new EZDialog.Builder( this ).setTitle( getString( R.string.internet_error_title ) ).setMessage( getString( R.string.error_internet ) )
+				.setCancelableOnTouchOutside( false ).OnPositiveClicked( new EZDialogListener()
+				{
+					@Override
+					public void OnClick()
+					{
+						finish();
+					}
+				} ).setPositiveBtnText( getString( R.string.accept ) ).build();
 	}
 
 	/**

@@ -35,4 +35,5 @@
     <string name="banner_ad_unit_id">ca-app-pub-9046573826647036/4127352901</string>
     <string name="banner_ad_app_id">ca-app-pub-9046573826647036~2650619709</string>
     <string name="general_error_msg">¡Vaya! parece que ha ocurrido un error con la aplicación. Por favor, intenta a abrir la aplicación más tarde.</string>
+    <string name="upload_photo">Subiendo foto...</string>
 </resources>
