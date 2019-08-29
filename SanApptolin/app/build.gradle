@@ -8,8 +8,8 @@ android {
         applicationId "com.rerijaapps.sanapptolin"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 14
-        versionName "2.0.0"
+        versionCode 15
+        versionName "2.0.1"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
