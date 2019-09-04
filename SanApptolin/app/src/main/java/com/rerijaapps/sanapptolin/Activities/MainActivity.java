@@ -29,7 +29,6 @@ import com.ufreedom.uikit.effect.CurvePathFloatingAnimator;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 

@@ -3,15 +3,7 @@ package com.rerijaapps.sanapptolin.Adapter;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-
-import androidx.recyclerview.widget.RecyclerView;
+import org.joda.time.DateTime;
 
 import com.rerijaapps.sanapptolin.R;
 import com.rerijaapps.sanapptolin.SanApptolinGlide;
@@ -19,7 +11,14 @@ import com.rerijaapps.sanapptolin.Utils.ArrayUtils;
 import com.rerijaapps.sanapptolin.Youtube.ParseObjects.Item;
 import com.rerijaapps.sanapptolin.Youtube.Player.YoutubePlayerScreen_;
 
-import org.joda.time.DateTime;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * Adaptador para los videos de una temporada en la vista de detalle.
@@ -202,11 +201,6 @@ public class YoutubeVideosAdapter extends RecyclerView.Adapter<RecyclerView.View
 		private TextView mTitle;
 
 		/**
-		 * Descripcion del video.
-		 */
-		private TextView mDescription;
-
-		/**
 		 * Fecha del video.
 		 */
 		private TextView mDate;
@@ -222,7 +216,6 @@ public class YoutubeVideosAdapter extends RecyclerView.Adapter<RecyclerView.View
 			mRootView = itemView;
 			mImageView = itemView.findViewById( R.id.youtube_video_img );
 			mTitle = itemView.findViewById( R.id.youtube_video_title );
-			mDescription = itemView.findViewById( R.id.youtube_video_description );
 			mDate = itemView.findViewById( R.id.youtube_video_date );
 		}
 
@@ -244,9 +237,6 @@ public class YoutubeVideosAdapter extends RecyclerView.Adapter<RecyclerView.View
 
 				// Titulo.
 				mTitle.setText( null != video.getSnippet().getTitle() ? video.getSnippet().getTitle() : "" );
-
-				// Descripcion.
-				mDescription.setText( null != video.getSnippet().getDescription() ? video.getSnippet().getDescription() : "" );
 
 				// Fecha.
 				mDate.setText( null != video.getSnippet().getPublishedAt()
