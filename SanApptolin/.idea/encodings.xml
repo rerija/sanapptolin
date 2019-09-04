@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/rerijaapps/sanapptolin/Adapter/YoutubeVideosAdapter.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/rerijaapps/sanapptolin/Network/Clients/HttpClient.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/rerijaapps/sanapptolin/Network/Clients/YoutubeClient.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/rerijaapps/sanapptolin/Utils/ArrayUtils.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/rerijaapps/sanapptolin/Youtube/ParseObjects/Default.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/rerijaapps/sanapptolin/Youtube/ParseObjects/High.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/rerijaapps/sanapptolin/Youtube/ParseObjects/Id.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/rerijaapps/sanapptolin/Youtube/ParseObjects/Item.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/rerijaapps/sanapptolin/Youtube/ParseObjects/Medium.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/rerijaapps/sanapptolin/Youtube/ParseObjects/PageInfo.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/rerijaapps/sanapptolin/Youtube/ParseObjects/Snippet.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/rerijaapps/sanapptolin/Youtube/ParseObjects/Thumbnails.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/rerijaapps/sanapptolin/Youtube/ParseObjects/Youtube.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/java/com/rerijaapps/sanapptolin/Youtube/Player/YoutubePlayerScreen.java" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/adapter_youtube_videos.xml" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/youtube_player_screen.xml" charset="windows-1251" />
+    <file url="file://$PROJECT_DIR$/app/src/main/res/layout/youtube_video_loading.xml" charset="windows-1251" />
+  </component>
+</project>

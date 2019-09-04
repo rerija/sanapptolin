@@ -64,4 +64,14 @@ public class Constants
 	public static String PARSE_APPSONG_URL = "";
 	public static List<ParseObject> PARSE_DAYS = new ArrayList<>();
 
+	/**
+	 * Indica el timeout en segundos de Retrofit.
+	 */
+	public final static int TIMEOUT_SECONDS = 20;
+
+	/**
+	 * ApiKey para Youtube.
+	 */
+	public static final String YOUTUBE_API_KEY = "AIzaSyBCdf95yB32WFBz9-t1BbDBuoeW2Tq9X4U";
+
 }

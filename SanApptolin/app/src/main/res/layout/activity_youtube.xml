@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/event_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/placeholder_image"
+        android:scaleType="centerCrop"/>
+
+    <com.flaviofaria.kenburnsview.KenBurnsView
+        android:id="@+id/youtube_image"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:src="@drawable/telemedia_youtube_channel"
+        android:scaleType="centerCrop"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/shadow"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/ic_arrow_back_white_36dp"
+            android:layout_margin="16dp"/>
+
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/youtube_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/youtube_image"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
+        android:paddingTop="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignTop="@+id/youtube_recycler"
+        android:background="@drawable/shadow" />
+
+    <com.rerijaapps.sanapptolin.Widgets.TextViewSanFranciscoBold
+        android:id="@+id/youtube_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-16dp"
+        android:background="@drawable/rounded_shape_primary_color"
+        android:layout_alignBottom="@+id/youtube_image"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:text="@string/telemedina_youtube_channel"
+        android:textColor="@color/white"
+        android:textSize="16sp"/>
+
+</RelativeLayout>

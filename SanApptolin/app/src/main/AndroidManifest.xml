@@ -142,6 +142,16 @@
             android:theme="@style/AppThemeNoBar" />
 
         <activity
+            android:name=".Youtube.Player.YoutubePlayerScreen_"
+            android:screenOrientation="sensorLandscape"
+            android:theme="@style/AppThemeNoBar" />
+
+        <activity
+            android:name=".Activities.YoutubeActivity_"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeNoBarTransparentBar" />
+
+        <activity
             android:name=".Activities.GalleryImageActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/AppThemeNoBarTransparentBar" />

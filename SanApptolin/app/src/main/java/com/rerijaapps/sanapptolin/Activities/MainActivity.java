@@ -240,4 +240,14 @@ public class MainActivity extends BasicActivity implements AdapterView.OnItemCli
 			customTabsIntent.launchUrl( this, Uri.parse( Constants.PARSE_APPSONG_URL ) );
 		}
 	}
+
+	/**
+	 * Evento que se genera al pulsar sobre el texto de ver videos de telemedina en
+	 * youtube.
+	 */
+	@Click ( R.id.main_watch_youtube_videos )
+	public void clickWatchYoutubeVideos()
+	{
+		YoutubeActivity_.intent( this ).start();
+	}
 }
