@@ -143,8 +143,7 @@
 
         <activity
             android:name=".Youtube.Player.YoutubePlayerScreen_"
-            android:screenOrientation="sensorLandscape"
-            android:theme="@style/AppThemeNoBar" />
+            android:screenOrientation="sensorLandscape" />
 
         <activity
             android:name=".Activities.YoutubeActivity_"

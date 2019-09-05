@@ -22,7 +22,8 @@
     <string name="finalize">Finalizar</string>
     <string name="gallery">Galería de fotos</string>
     <string name="gallery_event_day">Mostrando galería de fotos del día \n %1$s</string>
-    <string name="published_at">Publicado el</string>
+    <string name="published_at">Publicado el %1$s a las %2$s</string>
+    <string name="published_at_youtube">Publicado el</string>
     <string name="add_comment">Añade un comentario</string>
     <string name="add_comment_description">Eres libre de añadir un comentario en tu foto:</string>
     <string name="add_comment_hint">¿Algo que decir?</string>

@@ -28,7 +28,7 @@ public class Calls
 	 *
 	 * @return Lista de videos de playZ de Youtube.
 	 */
-	public static Youtube getTelemedinaYoutubeVideos(String nextPageToken )
+	public static Youtube getTelemedinaYoutubeVideos( String nextPageToken )
 	{
 		Youtube youtube = null;
 		try

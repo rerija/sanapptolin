@@ -240,7 +240,7 @@ public class YoutubeVideosAdapter extends RecyclerView.Adapter<RecyclerView.View
 
 				// Fecha.
 				mDate.setText( null != video.getSnippet().getPublishedAt()
-						? mContext.getString( R.string.published_at ) + " " + new DateTime( video.getSnippet().getPublishedAt() ).toString( "dd/MM/yyyy HH:mm" )
+						? mContext.getString( R.string.published_at_youtube ) + " " + new DateTime( video.getSnippet().getPublishedAt() ).toString( "dd/MM/yyyy HH:mm" )
 						: "" );
 
 				mRootView.setOnClickListener( new View.OnClickListener()
