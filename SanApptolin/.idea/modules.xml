@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Documents-Proyectos RerijaApps-sanapptolin-SanApptolin.iml" filepath="$PROJECT_DIR$/.idea/modules/Documents-Proyectos RerijaApps-sanapptolin-SanApptolin.iml" group="SanApptolin" />
       <module fileurl="file://$PROJECT_DIR$/Proyectos RerijaApps-sanapptolin-SanApptolin.iml" filepath="$PROJECT_DIR$/Proyectos RerijaApps-sanapptolin-SanApptolin.iml" group="SanApptolin" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Proyectos RerijaApps-sanapptolin-SanApptolin-app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Proyectos RerijaApps-sanapptolin-SanApptolin-app.iml" group="SanApptolin/app" />
       <module fileurl="file://$PROJECT_DIR$/SanApptolin.iml" filepath="$PROJECT_DIR$/SanApptolin.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/SanApptolin-app.iml" filepath="$PROJECT_DIR$/app/SanApptolin-app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
